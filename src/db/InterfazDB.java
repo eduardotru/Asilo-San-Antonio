@@ -12,7 +12,7 @@ public class InterfazDB {
     private static Connection c = null;
     private static String username = "root";
     private static String passwd = "admin";
-    private static String url = "jdbc:mysql://localhost:3306/asilo";
+    private static String url = "jdbc:mysql://localhost:3306/Asilo";
 
     private static void crearConexion() throws Exception {
         if(c == null) {
@@ -41,7 +41,7 @@ public class InterfazDB {
         }
         try {
             PreparedStatement prepStatement = c.prepareStatement(
-                    "INSERT INTO asilo.Paciente VALUES (default, ?, ?, ?, ?, ?, ?)");
+                    "INSERT INTO Asilo.Paciente VALUES (default, ?, ?, ?, ?, ?, ?)");
             prepStatement.setString(1, nombre);
             prepStatement.setDate(2, fechaNacimiento);
             prepStatement.setString(3, Character.toString(sexo));
@@ -73,7 +73,7 @@ public class InterfazDB {
         System.out.println("Hello World");
         InterfazDB intdb = new InterfazDB();
         try {
-            intdb.addPaciente("Juan Perez", new java.sql.Date(1942, 12, 11), 'M', "Vivo", 0, 0);
+            intdb.addPaciente("Juan Perez", new java.sql.Date(1942, 12, 11), 'M', "Vivo", 1, 1);
         }
         catch (Exception e) {
             System.err.println("Prueba fallada." + e.getClass().getName() + ": " + e.getMessage());

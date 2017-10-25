@@ -1,3 +1,5 @@
+create database Asilo;
+
 create table Paciente (
     id int unsigned AUTO_INCREMENT,
     nombre varchar(200),
