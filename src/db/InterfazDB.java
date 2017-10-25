@@ -41,7 +41,7 @@ public class InterfazDB {
         }
         try {
             PreparedStatement prepStatement = c.prepareStatement(
-                    "INSERT INTO Asilo.Paciente VALUES (default, ?, ?, ?, ?, ?, ?)");
+                    "INSERT INTO asilo.Paciente VALUES (default, ?, ?, ?, ?, ?, ?)");
             prepStatement.setString(1, nombre);
             prepStatement.setDate(2, fechaNacimiento);
             prepStatement.setString(3, Character.toString(sexo));
@@ -76,7 +76,7 @@ public class InterfazDB {
             intdb.addPaciente("Juan Perez", new java.sql.Date(1942, 12, 11), 'M', "Vivo", 0, 0);
         }
         catch (Exception e) {
-            System.err.println("Prueba fallada.");
+            System.err.println("Prueba fallada." + e.getClass().getName() + ": " + e.getMessage());
         }
     }
 
