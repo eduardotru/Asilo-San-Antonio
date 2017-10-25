@@ -59,6 +59,70 @@ public class InterfazDB {
         }
     }
 
+    public void addEventualidad(String asunto, String descripcion,
+                            char estaHospitalito, char avisoFamiliar, char requirioConsulta,
+                            java.sql.Date fecha, int idPaciente, int idEnfermero)
+            throws Exception
+    {
+        try {
+            InterfazDB.crearConexion();
+        } catch (Exception e){
+            System.err.println("Error al agregar un evento: "
+                    + e.getClass().getName() + ": " + e.getMessage());
+        }
+        try {
+            PreparedStatement prepStatement = c.prepareStatement(
+                    "INSERT INTO Asilo.Evento VALUES (default, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+            prepStatement.setString(1, asunto);
+            prepStatement.setString(2, descripcion);
+            prepStatement.setString(4, Character.toString(estaHospitalito));
+            prepStatement.setString(5, Character.toString(avisoFamiliar));
+            prepStatement.setString(6, Character.toString(requirioConsulta));
+            prepStatement.setDate(7, fecha);
+            prepStatement.setInt(8, idPaciente);
+            prepStatement.setInt(9, idEnfermero);
+
+            prepStatement.executeUpdate();
+        }
+        catch (Exception e) {
+            throw e;
+        }
+        finally {
+            cerrarConexion();
+        }
+    }
+
+    public void selectPaciente(String nombre, java.sql.Date fechaNacimiento,
+                            char sexo, String estado, int idSeguro,
+                            int idServicioEmergencia)
+            throws Exception
+    {
+        try {
+            InterfazDB.crearConexion();
+        } catch (Exception e){
+            System.err.println("Error al agregar un paciente: "
+                    + e.getClass().getName() + ": " + e.getMessage());
+        }
+        try {
+            PreparedStatement prepStatement = c.prepareStatement(
+                    "INSERT INTO Asilo.Paciente VALUES (default, ?, ?, ?, ?, ?, ?)");
+            prepStatement.setString(1, nombre);
+            prepStatement.setDate(2, fechaNacimiento);
+            prepStatement.setString(3, Character.toString(sexo));
+            prepStatement.setString(4, estado);
+            prepStatement.setInt(5, idSeguro);
+            prepStatement.setInt(6, idServicioEmergencia);
+
+            prepStatement.executeUpdate();
+        }
+        catch (Exception e) {
+            throw e;
+        }
+        finally {
+            cerrarConexion();
+        }
+    }
+
     private static void cerrarConexion() {
         try {
             if (c != null) {

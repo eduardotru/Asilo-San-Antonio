@@ -17,6 +17,8 @@ public class Controller {
     private Label date;
     @FXML
     private Button btnReporte;
+    @FXML
+    private Button btnEventualidad;
 
     private int Dia;
     private int Mes;
@@ -38,6 +40,10 @@ public class Controller {
             System.out.println(event.getSource().toString());
             stage =(Stage) btnReporte.getScene().getWindow();
             root = FXMLLoader.load(getClass().getResource("reportedeldia.fxml"));
+        } else if (event.getSource() == btnEventualidad) {
+            System.out.println(event.getSource().toString());
+            stage =(Stage) btnEventualidad.getScene().getWindow();
+            root = FXMLLoader.load(getClass().getResource("registroeventualidad.fxml"));
         }
         Scene scene = new Scene(root);
         stage.setScene(scene);
