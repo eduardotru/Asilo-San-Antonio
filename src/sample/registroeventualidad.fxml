@@ -32,7 +32,7 @@
       </Label>
       <Pane layoutX="32.0" layoutY="138.0" prefHeight="469.0" prefWidth="531.0" style="-fx-background-color: #e1e2e1;">
          <children>
-            <JFXComboBox layoutX="34.0" layoutY="31.0" prefHeight="27.0" prefWidth="216.0" />
+            <JFXComboBox fx:id="nombrePaciente" layoutX="34.0" layoutY="31.0" prefHeight="27.0" prefWidth="216.0" />
             <Label layoutX="35.0" layoutY="16.0" text="Nombre Paciente:">
                <font>
                   <Font name="System Bold" size="12.0" />

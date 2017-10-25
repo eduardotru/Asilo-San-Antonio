@@ -1,16 +1,23 @@
 package sample;
 
+import db.InterfazDB;
+import javafx.beans.InvalidationListener;
+import javafx.collections.ListChangeListener;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
 import javafx.event.ActionEvent;
 import java.io.IOException;
-import java.util.Calendar;
+import java.util.*;
+
+import objetos.*;
 
 public class AddEventController {
     @FXML
@@ -21,6 +28,9 @@ public class AddEventController {
 
     @FXML
     public Label ruta;
+
+    @FXML
+    public ComboBox nombrePaciente;
 
     private int Dia;
     private int Mes;
@@ -34,6 +44,19 @@ public class AddEventController {
         Anio = cal.get(Calendar.YEAR);
         date.setText("Fecha: " + Dia + "/" + Mes + "/" + Anio);
         ruta.setText("Home > Registrar Eventualidad");
+
+        InterfazDB db = new InterfazDB();
+
+        Paciente[] pacientes;
+        try {
+            pacientes = db.selectPacientes();
+            for (int i = 0; i < pacientes.length; i++) {
+                nombrePaciente.getItems().add(pacientes[i].getNombre());
+            }
+
+        } catch (Exception e) {
+
+        }
     }
 
     public void  pressButton(ActionEvent event) throws IOException{
