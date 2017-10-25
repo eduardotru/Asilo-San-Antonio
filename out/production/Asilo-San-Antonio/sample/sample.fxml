@@ -1,20 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.shape.*?>
-<?import javafx.scene.text.*?>
-<?import com.jfoenix.validation.*?>
-<?import com.jfoenix.controls.*?>
-<?import javafx.scene.control.*?>
-<?import java.lang.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.control.Button?>
+<?import com.jfoenix.controls.JFXButton?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
    <children>
-      <JFXButton buttonType="RAISED" layoutX="112.0" layoutY="188.0" prefHeight="68.0" prefWidth="160.0" style="-fx-background-color: #303f9f;" text="Ver Reporte del Dia" textFill="WHITE">
+      <JFXButton fx:id="btnReporte" buttonType="RAISED" layoutX="112.0" layoutY="188.0" onAction="#pressButton" prefHeight="68.0" prefWidth="160.0" style="-fx-background-color: #303f9f;" text="Ver Reporte del Dia" textFill="WHITE">
          <font>
             <Font name="Roboto" size="14.0" />
          </font></JFXButton>
@@ -34,7 +28,7 @@
             <Font name="Roboto" size="12.0" />
          </font>
       </Label>
-      <Label layoutX="453.0" layoutY="76.0" prefHeight="15.0" prefWidth="133.0" text="Fecha" textAlignment="RIGHT">
+      <Label fx:id="date" layoutX="453.0" layoutY="76.0" prefHeight="15.0" prefWidth="133.0" text="Fecha" textAlignment="RIGHT">
          <font>
             <Font name="Roboto" size="12.0" />
          </font>
