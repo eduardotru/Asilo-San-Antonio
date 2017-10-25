@@ -6,7 +6,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.Date;
+import objetos.*;
 
 public class InterfazDB {
     private static Connection c = null;
@@ -92,11 +94,9 @@ public class InterfazDB {
         }
     }
 
-    public void selectPaciente(String nombre, java.sql.Date fechaNacimiento,
-                            char sexo, String estado, int idSeguro,
-                            int idServicioEmergencia)
-            throws Exception
+    public Paciente[] selectPacientes() throws Exception
     {
+        Paciente[] pacientes;
         try {
             InterfazDB.crearConexion();
         } catch (Exception e){
@@ -104,16 +104,10 @@ public class InterfazDB {
                     + e.getClass().getName() + ": " + e.getMessage());
         }
         try {
-            PreparedStatement prepStatement = c.prepareStatement(
-                    "INSERT INTO Asilo.Paciente VALUES (default, ?, ?, ?, ?, ?, ?)");
-            prepStatement.setString(1, nombre);
-            prepStatement.setDate(2, fechaNacimiento);
-            prepStatement.setString(3, Character.toString(sexo));
-            prepStatement.setString(4, estado);
-            prepStatement.setInt(5, idSeguro);
-            prepStatement.setInt(6, idServicioEmergencia);
-
-            prepStatement.executeUpdate();
+            Statement  statement = c.createStatement();
+            ResultSet result = statement.executeQuery(
+                    "SELECT * FROM Asilo.Paciente");
+            pacientes = crearListaPacientes(result);
         }
         catch (Exception e) {
             throw e;
@@ -121,9 +115,76 @@ public class InterfazDB {
         finally {
             cerrarConexion();
         }
+        return pacientes;
     }
 
-    private static void cerrarConexion() {
+    private Paciente[] crearListaPacientes(ResultSet result) throws SQLException
+    {
+        ArrayList<Paciente> listaPacientes = new ArrayList<Paciente>();
+        while(result.next())
+        {
+            int id = result.getInt("id");
+            String nombre = result.getString("nombre");
+            char sexo = result.getString("sexo").charAt(0);
+            String estado = result.getString("estado");
+            Date fechaNacimiento = result.getDate("fechaNacimiento");
+            listaPacientes.add(new Paciente(id, nombre, estado, sexo, fechaNacimiento));
+        }
+        Paciente[] arrPacientes = new Paciente[listaPacientes.size()];
+        listaPacientes.toArray(arrPacientes);
+        return arrPacientes;
+    }
+
+    public Evento[] selectEventos(Date desde, Date hasta) throws SQLException
+    {
+        Evento[] eventos;
+        try {
+            InterfazDB.crearConexion();
+        } catch (Exception e){
+            System.err.println("Error al obtener los eventos: "
+                    + e.getClass().getName() + ": " + e.getMessage());
+        }
+        try {
+            PreparedStatement  prepStatement = c.prepareStatement(
+                    "SELECT * FROM Asilo.Evento AS e WHERE e.fecha BETWEEN ? AND ?");
+            prepStatement.setDate(1, new java.sql.Date(desde.getTime()));
+            prepStatement.setDate(2, new java.sql.Date(hasta.getTime()));
+            ResultSet result = prepStatement.executeQuery();
+            eventos =  crearListaEventos(result);
+        }
+        catch (Exception e) {
+            throw e;
+        }
+        finally {
+            cerrarConexion();
+        }
+        return eventos;
+    }
+
+    private Evento[] crearListaEventos(ResultSet result) throws SQLException
+    {
+        ArrayList<Evento> listaEventos = new ArrayList<Evento>();
+        while(result.next())
+        {
+            int id = result.getInt("id");
+            String asunto = result.getString("asunto");
+            String descripcion = result.getString("descripcion");
+            boolean estaHospitalito = result.getString("estaHospitalito").equals("S");
+            boolean avisoFamiliar = result.getString("avisoFamiliar").equals("S");
+            boolean requirioConsulta = result.getString("requirioConsulta").equals("S");
+            Date fecha = result.getDate("fecha");
+            int idPaciente = result.getInt("idPaciente");
+            int idEnfermero = result.getInt("idEnfermero");
+            listaEventos.add(new Evento(id, asunto, descripcion, estaHospitalito,
+                    avisoFamiliar, requirioConsulta, fecha, idPaciente, idEnfermero));
+        }
+        Evento[] arrEvento = new Evento[listaEventos.size()];
+        listaEventos.toArray(arrEvento);
+        return arrEvento;
+    }
+
+    private static void cerrarConexion()
+    {
         try {
             if (c != null) {
                 c.close();
@@ -134,7 +195,8 @@ public class InterfazDB {
         }
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args)
+    {
         System.out.println("Hello World");
         InterfazDB intdb = new InterfazDB();
         try {
