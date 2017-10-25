@@ -39,9 +39,9 @@ public class ControllerMenuReportes {
         } else if(event.getSource()==btnReporte){
             stage =(Stage) btnReporte.getScene().getWindow();
             root = FXMLLoader.load(getClass().getResource("reportedeldia.fxml"));
-        } else if(event.getSource()==btnReporte) {
-            stage = (Stage) btnReporte.getScene().getWindow();
-            root = FXMLLoader.load(getClass().getResource("historialdereportes"));
+        } else if(event.getSource()==btnHistorialRps) {
+            stage = (Stage) btnHistorialRps.getScene().getWindow();
+            root = FXMLLoader.load(getClass().getResource("historialdereportes.fxml"));
         }
         Scene scene = new Scene(root);
         stage.setScene(scene);

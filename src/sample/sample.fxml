@@ -12,7 +12,7 @@
          <font>
             <Font name="Roboto" size="14.0" />
          </font></JFXButton>
-      <JFXButton buttonType="RAISED" layoutX="321.0" layoutY="188.0" prefHeight="68.0" prefWidth="160.0" style="-fx-background-color: #303f9f;" text="Historias del Reportes" textFill="WHITE" AnchorPane.rightAnchor="119.0">
+      <JFXButton fx:id="btnHistorialRps" buttonType="RAISED" layoutX="321.0" layoutY="188.0" onAction="#pressButton" prefHeight="68.0" prefWidth="160.0" style="-fx-background-color: #303f9f;" text="Historias del Reportes" textFill="WHITE" AnchorPane.rightAnchor="119.0">
          <font>
             <Font name="Roboto" size="14.0" />
          </font>
