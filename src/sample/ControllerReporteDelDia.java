@@ -1,5 +1,6 @@
 package sample;
 
+import db.InterfazDB;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -8,6 +9,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
+import objetos.Evento;
+import java.util.Date;
 
 import java.io.IOException;
 import java.util.Calendar;
@@ -16,6 +19,8 @@ public class ControllerReporteDelDia {
     @FXML private Button btnHome;
     @FXML private Button btnMenuReporte;
     @FXML private Label date;
+    @FXML private Label name;
+    @FXML private Label asunto;
 
     private int Dia;
     private int Mes;
@@ -28,6 +33,12 @@ public class ControllerReporteDelDia {
         Mes = cal.get(Calendar.MONTH) + 1;
         Anio = cal.get(Calendar.YEAR);
         date.setText("Fecha: " + Dia + "/" + Mes + "/" + Anio);
+
+        /*InterfazDB db = new InterfazDB();
+        Evento[] eventos = db.selectEventos(new Date());
+
+        name.setText(eventos[0].getName());
+        asunto.setText(eventos[0].getAsunto());*/
     }
 
     public void  pressButton(ActionEvent event) throws IOException {

@@ -51,11 +51,12 @@ public class AddEventController {
         try {
             pacientes = db.selectPacientes();
             for (int i = 0; i < pacientes.length; i++) {
+                System.out.println(pacientes[i].getNombre());
                 nombrePaciente.getItems().add(pacientes[i].getNombre());
             }
 
         } catch (Exception e) {
-
+            System.out.println(e.getClass()+e.getMessage());
         }
     }
 

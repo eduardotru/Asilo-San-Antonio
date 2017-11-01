@@ -257,14 +257,14 @@ public class InterfazDB {
 
     public static void main(String[] args)
     {
-        System.out.println("Hello World");
+        /*System.out.println("Hello World");
         InterfazDB intdb = new InterfazDB();
         try {
             intdb.addPaciente("Juan Perez", new java.sql.Date(1942, 12, 11), 'M', "Vivo", 1, 1);
         }
         catch (Exception e) {
             System.err.println("Prueba fallada." + e.getClass().getName() + ": " + e.getMessage());
-        }
+        }*/
     }
 
 }

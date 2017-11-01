@@ -28,12 +28,12 @@
       <Pane layoutX="82.0" layoutY="123.0" prefHeight="114.0" prefWidth="432.0" style="-fx-background-color: white;">
          <children>
             <JFXButton layoutX="340.0" layoutY="78.0" prefHeight="15.0" prefWidth="79.0" style="-fx-background-color: #303f9f;" text="DETALLES" textFill="WHITE" />
-            <Label layoutX="119.0" layoutY="14.0" text="Name:">
+            <Label fx:id="name" layoutX="119.0" layoutY="14.0" text="Name:">
                <font>
                   <Font name="Roboto Black" size="12.0" />
                </font>
             </Label>
-            <Label layoutX="119.0" layoutY="31.0" text="Asunto:">
+            <Label fx:id="asunto" layoutX="119.0" layoutY="31.0" text="Asunto:">
                <font>
                   <Font name="Roboto Black" size="12.0" />
                </font>

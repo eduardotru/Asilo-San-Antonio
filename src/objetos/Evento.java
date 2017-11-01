@@ -25,4 +25,12 @@ public class Evento {
         this.idPaciente = idPaciente;
         this.idEnfermero = idEnfermero;
     }
+
+    public String getName() {
+        return Integer.toString(this.id);
+    }
+
+    public String getAsunto() {
+        return this.asunto;
+    }
 }
