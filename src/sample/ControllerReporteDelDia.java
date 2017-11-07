@@ -34,7 +34,7 @@ public class ControllerReporteDelDia {
         Anio = cal.get(Calendar.YEAR);
         date.setText("Fecha: " + Dia + "/" + Mes + "/" + Anio);
 
-        /*InterfazDB db = new InterfazDB();
+        /*InterfazDB db = InterfazDB.getInstanciaInterfazDB();
         Evento[] eventos = db.selectEventos(new Date());
 
         name.setText(eventos[0].getName());

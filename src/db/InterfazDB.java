@@ -11,11 +11,16 @@ import java.util.Date;
 import objetos.*;
 
 public class InterfazDB {
+    private static InterfazDB instanciaInterfaz = new InterfazDB();
+    public static InterfazDB getInstanciaInterfazDB() {return instanciaInterfaz;}
     private static Connection c = null;
     private static String username = "root";
     private static String passwd = "admin";
     private static String url = "jdbc:mysql://localhost:3306/Asilo";
 
+
+    // ------------------------------------------------------------------------
+    // Crear y Cerrar conexión
     private static void crearConexion() throws Exception {
         if(c == null) {
             try {
@@ -30,36 +35,29 @@ public class InterfazDB {
         }
     }
 
-    public void addPaciente(String nombre, java.sql.Date fechaNacimiento,
-                                    char sexo, String estado, int idSeguro,
-                                    int idServicioEmergencia)
-            throws Exception
+    private static void cerrarConexion()
     {
         try {
-            InterfazDB.crearConexion();
-        } catch (Exception e){
-            System.err.println("Error al agregar un paciente: "
-                    + e.getClass().getName() + ": " + e.getMessage());
-        }
-        try {
-            PreparedStatement prepStatement = c.prepareStatement(
-                    "INSERT INTO Asilo.Paciente VALUES (default, ?, ?, ?, ?, ?, ?)");
-            prepStatement.setString(1, nombre);
-            prepStatement.setDate(2, fechaNacimiento);
-            prepStatement.setString(3, Character.toString(sexo));
-            prepStatement.setString(4, estado);
-            prepStatement.setInt(5, idSeguro);
-            prepStatement.setInt(6, idServicioEmergencia);
-
-            prepStatement.executeUpdate();
-        }
-        catch (Exception e) {
-            throw e;
-        }
-        finally {
-            cerrarConexion();
+            if (c != null) {
+                c.close();
+                System.out.println("Conexión con la Base de Datos cerrada");
+            }
+        } catch (Exception e) {
+            System.err.println("Error al cerrar la conexion.");
         }
     }
+
+    // ------------------------------------------------------------------------
+    // Cama
+
+    // ------------------------------------------------------------------------
+    // Seguro
+
+    // ------------------------------------------------------------------------
+    // Cuarto
+
+    // ------------------------------------------------------------------------
+    // Enfermero
 
     public void addEnfermero(String nombre) throws Exception
     {
@@ -83,9 +81,83 @@ public class InterfazDB {
         }
     }
 
+    public Enfermero selectEnfermero(int id) throws Exception
+    {
+        Enfermero enfermero;
+        try {
+            InterfazDB.crearConexion();
+        } catch (Exception e){
+            System.err.println("Error al obtener los enfermeros: "
+                    + e.getClass().getName() + ": " + e.getMessage());
+        }
+        try {
+            PreparedStatement  prepeparedStatement = c.prepareStatement(
+                    "SELECT * FROM Asilo.Enfermero WHERE id = ?");
+            ResultSet result = prepeparedStatement.executeQuery();
+            Enfermero[] enfermeros = crearListaEnfermeros(result);
+            if(enfermeros.length == 1) {
+                enfermero = enfermeros[0];
+            }
+            else {
+                enfermero = null;
+            }
+        }
+        catch (Exception e) {
+            throw e;
+        }
+        finally {
+            cerrarConexion();
+        }
+        return enfermero;
+    }
+
+    public Enfermero[] selectEnfermeros() throws Exception
+    {
+        Enfermero[] enfermeros;
+        try {
+            InterfazDB.crearConexion();
+        } catch (Exception e){
+            System.err.println("Error al obtener los enfermeros: "
+                    + e.getClass().getName() + ": " + e.getMessage());
+        }
+        try {
+            Statement  statement = c.createStatement();
+            ResultSet result = statement.executeQuery(
+                    "SELECT * FROM Asilo.Enfermero");
+            enfermeros = crearListaEnfermeros(result);
+        }
+        catch (Exception e) {
+            throw e;
+        }
+        finally {
+            cerrarConexion();
+        }
+        return enfermeros;
+    }
+
+    private Enfermero[] crearListaEnfermeros(ResultSet result) throws SQLException
+    {
+        ArrayList<Enfermero> listaEnfermeros = new ArrayList<Enfermero>();
+        while(result.next())
+        {
+            int id = result.getInt("id");
+            String nombre = result.getString("nombre");
+            listaEnfermeros.add(new Enfermero(id, nombre));
+        }
+        Enfermero[] arrEnfermeros = new Enfermero[listaEnfermeros.size()];
+        listaEnfermeros.toArray(arrEnfermeros);
+        return arrEnfermeros;
+    }
+
+    // ------------------------------------------------------------------------
+    // EnvaseMedicia
+
+    // ------------------------------------------------------------------------
+    // Eventualidad
+
     public void addEventualidad(String asunto, String descripcion,
-                            char estaHospitalito, char avisoFamiliar, char requirioConsulta,
-                            java.sql.Date fecha, int idPaciente, int idEnfermero)
+                                char estaHospitalito, char avisoFamiliar, char requirioConsulta,
+                                java.sql.Date fecha, int idPaciente, int idEnfermero)
             throws Exception
     {
         try {
@@ -114,85 +186,6 @@ public class InterfazDB {
         finally {
             cerrarConexion();
         }
-    }
-
-    public Enfermero[] selectEnfermeros() throws Exception
-    {
-        Enfermero[] enfermeros;
-        try {
-            InterfazDB.crearConexion();
-        } catch (Exception e){
-            System.err.println("Error al obtener los enfermeros: "
-                    + e.getClass().getName() + ": " + e.getMessage());
-        }
-        try {
-            Statement  statement = c.createStatement();
-            ResultSet result = statement.executeQuery(
-                    "SELECT * FROM Asilo.Enfermero");
-            enfermeros = crearListaEnfermeros(result);
-        }
-        catch (Exception e) {
-            throw e;
-        }
-        finally {
-            cerrarConexion();
-        }
-        return enfermeros;
-    }
-
-    public Paciente[] selectPacientes() throws Exception
-    {
-        Paciente[] pacientes;
-        try {
-            InterfazDB.crearConexion();
-        } catch (Exception e){
-            System.err.println("Error al obtener los pacientes: "
-                    + e.getClass().getName() + ": " + e.getMessage());
-        }
-        try {
-            Statement  statement = c.createStatement();
-            ResultSet result = statement.executeQuery(
-                    "SELECT * FROM Asilo.Paciente");
-            pacientes = crearListaPacientes(result);
-        }
-        catch (Exception e) {
-            throw e;
-        }
-        finally {
-            cerrarConexion();
-        }
-        return pacientes;
-    }
-
-    private Enfermero[] crearListaEnfermeros(ResultSet result) throws SQLException
-    {
-        ArrayList<Enfermero> listaEnfermeros = new ArrayList<Enfermero>();
-        while(result.next())
-        {
-            int id = result.getInt("id");
-            String nombre = result.getString("nombre");
-            listaEnfermeros.add(new Enfermero(id, nombre));
-        }
-        Enfermero[] arrEnfermeros = new Enfermero[listaEnfermeros.size()];
-        listaEnfermeros.toArray(arrEnfermeros);
-        return arrEnfermeros;
-    }
-
-    private Paciente[] crearListaPacientes(ResultSet result) throws SQLException
-    {
-        ArrayList<Paciente> listaPacientes = new ArrayList<Paciente>();
-        while(result.next())
-        {
-            int id = result.getInt("id");
-            String nombre = result.getString("nombre");
-            char sexo = result.getString("sexo").charAt(0);
-            String estado = result.getString("estado");
-            Date fechaNacimiento = result.getDate("fechaNacimiento");
-            listaPacientes.add(new Paciente(id, nombre, estado, sexo, fechaNacimiento));
-        }
-        Paciente[] arrPacientes = new Paciente[listaPacientes.size()];
-        listaPacientes.toArray(arrPacientes);
-        return arrPacientes;
     }
 
     public Evento[] selectEventos(Date desde, Date hasta) throws SQLException
@@ -243,28 +236,142 @@ public class InterfazDB {
         return arrEvento;
     }
 
-    private static void cerrarConexion()
+    // ------------------------------------------------------------------------
+    // FamiliarResponsable
+
+    // ------------------------------------------------------------------------
+    // Medicamento
+
+    // ------------------------------------------------------------------------
+    // Paciente
+
+    public void addPaciente(Paciente paciente) throws Exception
     {
         try {
-            if (c != null) {
-                c.close();
-                System.out.println("Conexión con la Base de Datos cerrada");
-            }
-        } catch (Exception e) {
-            System.err.println("Error al cerrar la conexion.");
+            java.sql.Date fechaNacimiento = new java.sql.Date(
+                    paciente.getFechaNacimiento().getTime());
+            addPaciente(paciente.getNombre(), fechaNacimiento,
+                    paciente.getSexo(), paciente.getEstado(), paciente.getIdSeguro(),
+                    paciente.getIdServicioEmergencia());
+        }
+        catch(Exception e) {
+            throw e;
         }
     }
 
-    public static void main(String[] args)
+    public void addPaciente(String nombre, java.sql.Date fechaNacimiento,
+                            char sexo, String estado, int idSeguro,
+                            int idServicioEmergencia)
+            throws Exception
     {
-        /*System.out.println("Hello World");
-        InterfazDB intdb = new InterfazDB();
         try {
-            intdb.addPaciente("Juan Perez", new java.sql.Date(1942, 12, 11), 'M', "Vivo", 1, 1);
+            InterfazDB.crearConexion();
+        } catch (Exception e){
+            System.err.println("Error al agregar un paciente: "
+                    + e.getClass().getName() + ": " + e.getMessage());
+        }
+        try {
+            PreparedStatement prepStatement = c.prepareStatement(
+                    "INSERT INTO Asilo.Paciente VALUES (default, ?, ?, ?, ?, ?, ?)");
+            prepStatement.setString(1, nombre);
+            prepStatement.setDate(2, fechaNacimiento);
+            prepStatement.setString(3, Character.toString(sexo));
+            prepStatement.setString(4, estado);
+            prepStatement.setInt(5, idSeguro);
+            prepStatement.setInt(6, idServicioEmergencia);
+
+            prepStatement.executeUpdate();
         }
         catch (Exception e) {
-            System.err.println("Prueba fallada." + e.getClass().getName() + ": " + e.getMessage());
-        }*/
+            throw e;
+        }
+        finally {
+            cerrarConexion();
+        }
     }
+
+    public Paciente selectPaciente(int id) throws Exception
+    {
+        Paciente paciente;
+        try {
+            InterfazDB.crearConexion();
+        } catch (Exception e){
+            System.err.println("Error al obtener los pacientes: "
+                    + e.getClass().getName() + ": " + e.getMessage());
+        }
+        try {
+            PreparedStatement  prepStatement = c.prepareStatement(
+                    "SELECT * FROM Asilo.Paciente WHERE id = ?");
+            ResultSet result = prepStatement.executeQuery();
+            Paciente[] pacientes = crearListaPacientes(result);
+            if(pacientes.length == 1) {
+                paciente = pacientes[0];
+            }
+            else {
+                paciente = null;
+            }
+        }
+        catch (Exception e) {
+            throw e;
+        }
+        finally {
+            cerrarConexion();
+        }
+        return paciente;
+
+    }
+
+    public Paciente[] selectPacientes() throws Exception
+    {
+        Paciente[] pacientes;
+        try {
+            InterfazDB.crearConexion();
+        } catch (Exception e){
+            System.err.println("Error al obtener los pacientes: "
+                    + e.getClass().getName() + ": " + e.getMessage());
+        }
+        try {
+            Statement  statement = c.createStatement();
+            ResultSet result = statement.executeQuery(
+                    "SELECT * FROM Asilo.Paciente");
+            pacientes = crearListaPacientes(result);
+        }
+        catch (Exception e) {
+            throw e;
+        }
+        finally {
+            cerrarConexion();
+        }
+        return pacientes;
+    }
+
+    private Paciente[] crearListaPacientes(ResultSet result) throws SQLException
+    {
+        ArrayList<Paciente> listaPacientes = new ArrayList<Paciente>();
+        while(result.next())
+        {
+            int id = result.getInt("id");
+            String nombre = result.getString("nombre");
+            char sexo = result.getString("sexo").charAt(0);
+            String estado = result.getString("estado");
+            Date fechaNacimiento = result.getDate("fechaNacimiento");
+            listaPacientes.add(new Paciente(id, nombre, estado, sexo, fechaNacimiento));
+        }
+        Paciente[] arrPacientes = new Paciente[listaPacientes.size()];
+        listaPacientes.toArray(arrPacientes);
+        return arrPacientes;
+    }
+
+    // ------------------------------------------------------------------------
+    // PacienteMedicamento
+
+    // ------------------------------------------------------------------------
+    // Padecimientos
+
+    // ------------------------------------------------------------------------
+    // Seguro
+
+    // ------------------------------------------------------------------------
+    // ServicioEmergencia
 
 }

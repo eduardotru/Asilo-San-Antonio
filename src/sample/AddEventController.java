@@ -45,7 +45,7 @@ public class AddEventController {
         date.setText("Fecha: " + Dia + "/" + Mes + "/" + Anio);
         ruta.setText("Home > Registrar Eventualidad");
 
-        InterfazDB db = new InterfazDB();
+        InterfazDB db = InterfazDB.getInstanciaInterfazDB();
 
         Paciente[] pacientes;
         try {
