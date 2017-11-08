@@ -1,5 +1,7 @@
 package sample;
 
+import db.EnfermeroModel;
+import db.InterfazDB;
 import db.PacienteModel;
 import javafx.beans.InvalidationListener;
 import javafx.collections.ListChangeListener;
@@ -32,6 +34,9 @@ public class AddEventController {
     @FXML
     public ComboBox nombrePaciente;
 
+    @FXML
+    public ComboBox nombreEnfermero;
+
     private int Dia;
     private int Mes;
     private int Anio;
@@ -55,6 +60,19 @@ public class AddEventController {
                 nombrePaciente.getItems().add(pacientes[i].getNombre());
             }
 
+        } catch (Exception e) {
+            System.out.println(e.getClass()+e.getMessage());
+        }
+
+        EnfermeroModel enfermeroModel = new EnfermeroModel();
+        Enfermero[] enfermeros;
+        try {
+            enfermeros = enfermeroModel.selectEnfermeros();
+            System.out.println(enfermeros.length);
+            for (int i = 0; i < enfermeros.length; i++) {
+                System.out.println(enfermeros[i].getNombre());
+                nombreEnfermero.getItems().add(enfermeros[i].getNombre());
+            }
         } catch (Exception e) {
             System.out.println(e.getClass()+e.getMessage());
         }
