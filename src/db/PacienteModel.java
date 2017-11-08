@@ -94,6 +94,37 @@ public class PacienteModel extends InterfazDB
         return paciente;
     }
 
+    public int selectIdPaciente(String nombre) throws Exception
+    {
+        int id = -1;
+        try {
+            InterfazDB.crearConexion();
+        } catch (Exception e){
+            System.err.println("Error al obtener los enfermeros: "
+                    + e.getClass().getName() + ": " + e.getMessage());
+        }
+        try {
+            PreparedStatement preparedStatement = c.prepareStatement(
+                    "SELECT id FROM Asilo.Paciente WHERE nombre = ?");
+            preparedStatement.setString(1, nombre);
+
+            preparedStatement.executeQuery();
+
+            ResultSet resultSet = preparedStatement.getResultSet();
+
+            if(resultSet.next()) {
+                id = resultSet.getInt(1);
+            }
+        }
+        catch (Exception e) {
+            throw e;
+        }
+        finally {
+            cerrarConexion();
+        }
+        return id;
+    }
+
     public Paciente[] selectPacientes() throws Exception
     {
         Paciente[] pacientes;
