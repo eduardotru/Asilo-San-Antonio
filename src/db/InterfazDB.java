@@ -33,6 +33,7 @@ public class InterfazDB {
         try {
             if (c != null) {
                 c.close();
+                c = null;
                 System.out.println("Conexión con la Base de Datos cerrada");
             }
         } catch (Exception e) {
