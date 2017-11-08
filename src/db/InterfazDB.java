@@ -11,7 +11,7 @@ public class InterfazDB {
 
 
     // ------------------------------------------------------------------------
-    // Crear y Cerrar conexión
+    // Crear conexión con la base de datos.
     protected static void crearConexion() throws Exception {
         if(c == null) {
             try {
@@ -26,6 +26,8 @@ public class InterfazDB {
         }
     }
 
+    // ------------------------------------------------------------------------
+    // Cierra la conexión con la base de datos
     protected static void cerrarConexion()
     {
         try {

@@ -16,6 +16,7 @@ public class Seguro {
     }
 
     public void setId(int id) {
+        // Solo se puede modificar si no tiene id
         if(this.id == -1) {
             this.id = id;
         }
