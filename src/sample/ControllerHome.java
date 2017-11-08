@@ -19,6 +19,10 @@ public class ControllerHome {
     private Button btnReporte;
     @FXML
     private Button btnEventualidad;
+    @FXML
+    private Button btnMenuPacientes;
+    @FXML
+    private Button btnMenuMedicinas;
 
     private int Dia;
     private int Mes;
@@ -44,6 +48,14 @@ public class ControllerHome {
             System.out.println(event.getSource().toString());
             stage =(Stage) btnEventualidad.getScene().getWindow();
             root = FXMLLoader.load(getClass().getResource("registroeventualidad.fxml"));
+        } else if (event.getSource()== btnMenuPacientes) {
+            System.out.println(event.getSource().toString());
+            stage =(Stage) btnEventualidad.getScene().getWindow();
+            root = FXMLLoader.load(getClass().getResource("busquedapacientes.fxml"));
+        } else if (event.getSource()== btnMenuMedicinas) {
+            System.out.println(event.getSource().toString());
+            stage =(Stage) btnEventualidad.getScene().getWindow();
+            root = FXMLLoader.load(getClass().getResource("menuMedicinas.fxml"));
         }
         Scene scene = new Scene(root);
         stage.setScene(scene);
