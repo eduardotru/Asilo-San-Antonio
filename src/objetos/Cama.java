@@ -17,6 +17,12 @@ public class Cama {
         return id;
     }
 
+    public void setId(int id) {
+        if(this.id == -1) {
+            this.id = id;
+        }
+    }
+
     public int getNumCama() {
         return numCama;
     }
@@ -27,9 +33,5 @@ public class Cama {
 
     public int getIdPaciente() {
         return idPaciente;
-    }
-
-    public void guardar() {
-        //Guardar el contenido en la base de datos
     }
 }

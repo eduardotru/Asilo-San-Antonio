@@ -19,7 +19,9 @@ public class Enfermero {
         return id;
     }
 
-    public void guardar() {
-        //Guardar el contenido en la base de datos
+    public void setId(int id) {
+        if(this.id == -1) {
+            this.id = id;
+        }
     }
 }

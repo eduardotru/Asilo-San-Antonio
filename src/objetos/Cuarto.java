@@ -15,6 +15,12 @@ public class Cuarto {
         return id;
     }
 
+    public void setId(int id) {
+        if(this.id == -1) {
+            this.id = id;
+        }
+    }
+
     public int getNumCuarto() {
         return numCuarto;
     }
@@ -26,7 +32,7 @@ public class Cuarto {
         return arrCamas[i];
     }
 
-    public void guardar() {
-        //Guardar el contenido en la base de datos
+    public int getCamasLength() {
+        return arrCamas.length;
     }
 }
