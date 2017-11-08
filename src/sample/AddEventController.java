@@ -1,6 +1,6 @@
 package sample;
 
-import db.InterfazDB;
+import db.PacienteModel;
 import javafx.beans.InvalidationListener;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
@@ -45,11 +45,11 @@ public class AddEventController {
         date.setText("Fecha: " + Dia + "/" + Mes + "/" + Anio);
         ruta.setText("Home > Registrar Eventualidad");
 
-        InterfazDB db = InterfazDB.getInstanciaInterfazDB();
+        PacienteModel pacienteModel = new PacienteModel();
 
         Paciente[] pacientes;
         try {
-            pacientes = db.selectPacientes();
+            pacientes = pacienteModel.selectPacientes();
             for (int i = 0; i < pacientes.length; i++) {
                 System.out.println(pacientes[i].getNombre());
                 nombrePaciente.getItems().add(pacientes[i].getNombre());

@@ -1,6 +1,7 @@
 package objetos;
 
-import db.InterfazDB;
+import db.SeguroModel;
+import db.ServicioEmergenciaModel;
 
 import java.util.Date;
 
@@ -84,8 +85,8 @@ public class Paciente {
     public Seguro getSeguro() {
         if(seguro == null && idSeguro != -1) {
             try {
-                InterfazDB interfazDB = InterfazDB.getInstanciaInterfazDB();
-                seguro = interfazDB.selectSeguro(idSeguro);
+                SeguroModel seguroModel = new SeguroModel();
+                seguro = seguroModel.selectSeguro(idSeguro);
             }
             catch (Exception e) {
                 System.out.println("Error al obtener el seguro: " + idSeguro);
