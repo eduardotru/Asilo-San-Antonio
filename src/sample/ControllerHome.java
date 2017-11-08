@@ -12,7 +12,7 @@ import javafx.event.ActionEvent;
 import java.io.IOException;
 import java.util.Calendar;
 
-public class Controller {
+public class ControllerHome {
     @FXML
     private Label date;
     @FXML
