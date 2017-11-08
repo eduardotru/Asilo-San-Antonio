@@ -9,7 +9,8 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class PacienteModel extends InterfazDB {
+public class PacienteModel extends InterfazDB
+{
     public void addPaciente(Paciente paciente) throws Exception
     {
         try {

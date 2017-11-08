@@ -8,7 +8,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-public class EnfermeroModel extends InterfazDB {
+public class EnfermeroModel extends InterfazDB
+{
     public void addEnfermero(Enfermero enfermero) throws Exception
     {
         try {
@@ -81,6 +82,37 @@ public class EnfermeroModel extends InterfazDB {
         return enfermero;
     }
 
+    public int selectIdEnfermero(String nombre) throws Exception
+    {
+        int id = -1;
+        try {
+            InterfazDB.crearConexion();
+        } catch (Exception e){
+            System.err.println("Error al obtener los enfermeros: "
+                    + e.getClass().getName() + ": " + e.getMessage());
+        }
+        try {
+            PreparedStatement preparedStatement = c.prepareStatement(
+                    "SELECT id FROM Asilo.Enfermero WHERE nombre = ?");
+            preparedStatement.setString(1, nombre);
+
+            preparedStatement.executeQuery();
+
+            ResultSet resultSet = preparedStatement.getResultSet();
+
+            if(resultSet.next()) {
+                id = resultSet.getInt(1);
+            }
+        }
+        catch (Exception e) {
+            throw e;
+        }
+        finally {
+            cerrarConexion();
+        }
+        return id;
+    }
+
     public Enfermero[] selectEnfermeros() throws Exception
     {
         Enfermero[] enfermeros;
@@ -124,7 +156,7 @@ public class EnfermeroModel extends InterfazDB {
         try {
             InterfazDB.crearConexion();
         } catch (Exception e){
-            System.err.println("Error al modificar un paciente: "
+            System.err.println("Error al modificar un enfermero: "
                     + e.getClass().getName() + ": " + e.getMessage());
         }
         try {

@@ -1,5 +1,6 @@
 package db;
 
-public class EnvaseMedicinaModel extends InterfazDB {
+public class EnvaseMedicinaModel extends InterfazDB
+{
 
 }

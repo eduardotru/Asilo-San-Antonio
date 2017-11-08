@@ -27,6 +27,10 @@ public class Cama {
         return numCama;
     }
 
+    public void setNumCama(int numCama) {
+        this.numCama = numCama;
+    }
+
     public int getIdCuarto() {
         return idCuarto;
     }

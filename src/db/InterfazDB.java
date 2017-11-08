@@ -3,7 +3,8 @@ package db;
 import java.sql.Connection;
 import java.sql.DriverManager;
 
-public class InterfazDB {
+public class InterfazDB
+{
     protected static Connection c = null;
     private static String username = "root";
     private static String passwd = "admin";

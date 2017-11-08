@@ -7,7 +7,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class SeguroModel extends InterfazDB {
+public class SeguroModel extends InterfazDB
+{
     public void addSeguro(Seguro seguro) throws Exception
     {
         try {
