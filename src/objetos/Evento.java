@@ -1,7 +1,9 @@
 package objetos;
 
 import java.util.Date;
-import db.InterfazDB;
+
+import db.EnfermeroModel;
+import db.PacienteModel;
 
 public class Evento {
     private int id = -1;
@@ -75,9 +77,9 @@ public class Evento {
 
     public Paciente getPaciente() {
         if(paciente == null && idPaciente != -1) {
-            InterfazDB interfazDB = InterfazDB.getInstanciaInterfazDB();
             try {
-                paciente = interfazDB.selectPaciente(idPaciente);
+                PacienteModel pacienteModel = new PacienteModel();
+                paciente = pacienteModel.selectPaciente(idPaciente);
             }
             catch(Exception e) {
                 System.out.println("Error al obtener el paciente: " + idPaciente);
@@ -88,9 +90,10 @@ public class Evento {
 
     public Enfermero getEnfermero() {
         if(enfermero == null && idEnfermero != -1) {
-            InterfazDB interfazDB = InterfazDB.getInstanciaInterfazDB();
+
             try {
-                enfermero = interfazDB.selectEnfermero(idEnfermero);
+                EnfermeroModel enfermeroModel = new EnfermeroModel();
+                enfermero = enfermeroModel.selectEnfermero(idEnfermero);
             }
             catch(Exception e) {
                 System.out.println("Error al obtener el enfermero: " + idEnfermero);
