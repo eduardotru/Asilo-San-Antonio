@@ -43,8 +43,8 @@
                   <Font name="System Bold" size="12.0" />
                </font>
             </Label>
-            <JFXTextField layoutX="35.0" layoutY="94.0" prefHeight="25.0" prefWidth="455.0" />
-            <DatePicker layoutX="34.0" layoutY="164.0" />
+            <JFXTextField fx:id="textAsunto" layoutX="35.0" layoutY="94.0" prefHeight="25.0" prefWidth="455.0" />
+            <DatePicker fx:id="fechaEventualidad" layoutX="34.0" layoutY="164.0" />
             <Label layoutX="34.0" layoutY="136.0" text="Fecha:">
                <font>
                   <Font name="System Bold" size="12.0" />
@@ -55,23 +55,23 @@
                   <Font name="System Bold" size="12.0" />
                </font>
             </Label>
-            <JFXComboBox layoutX="277.0" layoutY="31.0" prefHeight="27.0" prefWidth="216.0" />
-            <JFXCheckBox layoutX="35.0" layoutY="202.0" text="Se llevó a consulta">
+            <JFXComboBox fx:id="nombreEnfermero" layoutX="277.0" layoutY="31.0" prefHeight="27.0" prefWidth="216.0" />
+            <JFXCheckBox fx:id="bConsulta" layoutX="35.0" layoutY="202.0" text="Se llevó a consulta">
                <font>
                   <Font name="Roboto" size="12.0" />
                </font>
             </JFXCheckBox>
-            <JFXCheckBox layoutX="35.0" layoutY="230.0" text="Se llevó al Hospitalito">
+            <JFXCheckBox fx:id="bHospitalito" layoutX="35.0" layoutY="230.0" text="Se llevó al Hospitalito">
                <font>
                   <Font name="Roboto" size="12.0" />
                </font>
             </JFXCheckBox>
-            <JFXCheckBox layoutX="35.0" layoutY="260.0" text="Se notifico a familiar">
+            <JFXCheckBox fx:id="bFamiliar" layoutX="35.0" layoutY="260.0" text="Se notifico a familiar">
                <font>
                   <Font name="Roboto" size="12.0" />
                </font>
             </JFXCheckBox>
-            <JFXTextArea layoutX="32.0" layoutY="312.0" prefHeight="82.0" prefWidth="461.0" />
+            <JFXTextArea fx:id="textComentarios" layoutX="32.0" layoutY="312.0" prefHeight="82.0" prefWidth="461.0" />
             <Label layoutX="34.0" layoutY="288.0" text="Comentarios adicionales:">
                <font>
                   <Font name="System Bold" size="12.0" />
