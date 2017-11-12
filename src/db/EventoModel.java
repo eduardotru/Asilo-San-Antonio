@@ -1,5 +1,6 @@
 package db;
 
+import com.mysql.jdbc.Statement;
 import objetos.Evento;
 
 import java.sql.PreparedStatement;
@@ -41,15 +42,16 @@ public class EventoModel extends InterfazDB
         }
         try {
             PreparedStatement prepStatement = c.prepareStatement(
-                    "INSERT INTO Asilo.Evento VALUES (default, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+                    "INSERT INTO Asilo.Evento VALUES (default, ?, ?, ?, ?, ?, ?, ?, ?)",
+                    Statement.RETURN_GENERATED_KEYS);
             prepStatement.setString(1, asunto);
             prepStatement.setString(2, descripcion);
-            prepStatement.setString(4, Character.toString(estaHospitalito));
-            prepStatement.setString(5, Character.toString(avisoFamiliar));
-            prepStatement.setString(6, Character.toString(requirioConsulta));
-            prepStatement.setDate(7, fecha);
-            prepStatement.setInt(8, idPaciente);
-            prepStatement.setInt(9, idEnfermero);
+            prepStatement.setString(3, Character.toString(estaHospitalito));
+            prepStatement.setString(4, Character.toString(avisoFamiliar));
+            prepStatement.setString(5, Character.toString(requirioConsulta));
+            prepStatement.setDate(6, fecha);
+            prepStatement.setInt(7, idPaciente);
+            prepStatement.setInt(8, idEnfermero);
 
             prepStatement.executeUpdate();
 

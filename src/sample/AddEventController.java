@@ -105,8 +105,13 @@ public class AddEventController {
 
             EnfermeroModel enfermeroModel = new EnfermeroModel();
             PacienteModel pacienteModel = new PacienteModel();
-            int enfermeroId = enfermeroModel.getEnfermeroIdByName(nombrePaciente.getValue());
-            int pacienteId = pacienteModel.getPacienteIdByName(nombreEnfermero.getValue());
+            int enfermeroId = 0, pacienteId = 0;
+            try {
+                enfermeroId = enfermeroModel.selectIdEnfermero(nombreEnfermero.getValue().toString());
+                pacienteId = pacienteModel.selectIdPaciente(nombrePaciente.getValue().toString());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
 
             LocalDate dateEventualidad = fechaEventualidad.getValue();
 
@@ -126,11 +131,22 @@ public class AddEventController {
             try {
                 eventoModel.addEventualidad(eventoNuevo);
             } catch (Exception e) {
-
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Asilo San Antonio");
+                alert.setHeaderText(null);
+                alert.setContentText("Tuvimos problemas al intentar procesar tu nuevo evento. Intenta más tarde.");
+                alert.showAndWait();
+                e.printStackTrace();
             }
 
-            /*stage =(Stage) btnRegistrar.getScene().getWindow();
-            root = FXMLLoader.load(getClass().getResource("home.fxml"));*/
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Asilo San Antonio");
+            alert.setHeaderText(null);
+            alert.setContentText("La eventualidad ha sido registrada de manera exitosa.");
+            alert.showAndWait();
+
+            stage =(Stage) btnRegistrar.getScene().getWindow();
+            root = FXMLLoader.load(getClass().getResource("home.fxml"));
         }
         Scene scene = new Scene(root);
         stage.setScene(scene);
