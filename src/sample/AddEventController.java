@@ -1,6 +1,7 @@
 package sample;
 
 import db.EnfermeroModel;
+import db.EventoModel;
 import db.InterfazDB;
 import db.PacienteModel;
 import javafx.beans.InvalidationListener;
@@ -10,13 +11,13 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 
 import javafx.event.ActionEvent;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.*;
 
 import objetos.*;
@@ -36,6 +37,24 @@ public class AddEventController {
 
     @FXML
     public ComboBox nombreEnfermero;
+
+    @FXML
+    public TextField textAsunto;
+
+    @FXML
+    public CheckBox bHospitalito;
+
+    @FXML
+    public CheckBox bFamiliar;
+
+    @FXML
+    public CheckBox bConsulta;
+
+    @FXML
+    public DatePicker fechaEventualidad;
+
+    @FXML
+    public TextArea textComentarios;
 
     private int Dia;
     private int Mes;
@@ -83,8 +102,35 @@ public class AddEventController {
         Parent root = null;
         if(event.getSource() == btnRegistrar) {
             System.out.println(event.getSource().toString());
-            stage =(Stage) btnRegistrar.getScene().getWindow();
-            root = FXMLLoader.load(getClass().getResource("home.fxml"));
+
+            EnfermeroModel enfermeroModel = new EnfermeroModel();
+            PacienteModel pacienteModel = new PacienteModel();
+            int enfermeroId = enfermeroModel.getEnfermeroIdByName(nombrePaciente.getValue());
+            int pacienteId = pacienteModel.getPacienteIdByName(nombreEnfermero.getValue());
+
+            LocalDate dateEventualidad = fechaEventualidad.getValue();
+
+            String sAsunto = textAsunto.getText();
+            String sDescripcion = textComentarios.getText();
+
+            boolean estaHospitalito = bHospitalito.isSelected();
+            boolean avisoFamiliar = bFamiliar.isSelected();
+            boolean consulta = bConsulta.isSelected();
+
+            Evento eventoNuevo = new Evento(0, sAsunto, sDescripcion,
+                    estaHospitalito, avisoFamiliar, consulta,
+                    Date.from(dateEventualidad.atStartOfDay(ZoneId.systemDefault()).toInstant()),
+                    pacienteId, enfermeroId);
+
+            EventoModel eventoModel = new EventoModel();
+            try {
+                eventoModel.addEventualidad(eventoNuevo);
+            } catch (Exception e) {
+
+            }
+
+            /*stage =(Stage) btnRegistrar.getScene().getWindow();
+            root = FXMLLoader.load(getClass().getResource("home.fxml"));*/
         }
         Scene scene = new Scene(root);
         stage.setScene(scene);

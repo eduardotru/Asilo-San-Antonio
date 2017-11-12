@@ -105,5 +105,10 @@
       </Pane>
       <JFXButton layoutX="494.0" layoutY="101.0" text="Actualizar" />
       <JFXButton layoutX="494.0" layoutY="655.0" text="Actualizar" />
+      <Label layoutX="32.0" layoutY="112.0" text="Detalles del Paciente">
+         <font>
+            <Font name="Roboto Medium" size="14.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>
