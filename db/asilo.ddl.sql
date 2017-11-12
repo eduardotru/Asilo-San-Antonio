@@ -6,6 +6,8 @@ create table Paciente (
     fechaNacimiento date,
     sexo char(1),
     estado varchar(50),
+    numCuarto int unsigned,
+    numCama int unsigned,
     idSeguro int unsigned,
     idServicioEmergencia int unsigned,
     PRIMARY KEY(id)

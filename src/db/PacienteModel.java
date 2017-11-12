@@ -17,7 +17,8 @@ public class PacienteModel extends InterfazDB
             java.sql.Date fechaNacimiento = new java.sql.Date(
                     paciente.getFechaNacimiento().getTime());
             int id = addPaciente(paciente.getNombre(), fechaNacimiento,
-                    paciente.getSexo(), paciente.getEstado(), paciente.getIdSeguro(),
+                    paciente.getSexo(), paciente.getEstado(), paciente.getNumCuarto(),
+                    paciente.getNumCama(), paciente.getIdSeguro(),
                     paciente.getIdServicioEmergencia());
             paciente.setId(id);
         }
@@ -27,8 +28,8 @@ public class PacienteModel extends InterfazDB
     }
 
     public int addPaciente(String nombre, java.sql.Date fechaNacimiento,
-                           char sexo, String estado, int idSeguro,
-                           int idServicioEmergencia)
+                           char sexo, String estado, int numCuarto, int numCama,
+                           int idSeguro, int idServicioEmergencia)
             throws Exception
     {
         int id = -1;
@@ -40,13 +41,17 @@ public class PacienteModel extends InterfazDB
         }
         try {
             PreparedStatement prepStatement = c.prepareStatement(
-                    "INSERT INTO Asilo.Paciente VALUES (default, ?, ?, ?, ?, ?, ?)");
+                    "INSERT INTO Asilo.Paciente(id, nombre, fechaNacimiento, " +
+                            "sexo, estado, numCuarto, numCama, idSeguro, idServicioEmergencia)" +
+                            "VALUES (default, ?, ?, ?, ?, ?, ?, ?, ?)");
             prepStatement.setString(1, nombre);
             prepStatement.setDate(2, fechaNacimiento);
             prepStatement.setString(3, Character.toString(sexo));
             prepStatement.setString(4, estado);
-            prepStatement.setInt(5, idSeguro);
-            prepStatement.setInt(6, idServicioEmergencia);
+            prepStatement.setInt(5, numCuarto);
+            prepStatement.setInt(6, numCama);
+            prepStatement.setInt(7, idSeguro);
+            prepStatement.setInt(8, idServicioEmergencia);
 
             prepStatement.executeUpdate();
             ResultSet result = prepStatement.getGeneratedKeys();
@@ -159,7 +164,12 @@ public class PacienteModel extends InterfazDB
             char sexo = result.getString("sexo").charAt(0);
             String estado = result.getString("estado");
             Date fechaNacimiento = result.getDate("fechaNacimiento");
-            listaPacientes.add(new Paciente(id, nombre, estado, sexo, fechaNacimiento));
+            int numCuarto = result.getInt("numCuarto");
+            int numCama = result.getInt("numCama");
+            int idSeguro = result.getInt("idSeguro");
+            int idServicioEmergencia = result.getInt("idServicioEmergencia");
+            listaPacientes.add(new Paciente(id, nombre, estado, sexo,
+                    fechaNacimiento, numCuarto, numCama, idSeguro, idServicioEmergencia));
         }
         Paciente[] arrPacientes = new Paciente[listaPacientes.size()];
         listaPacientes.toArray(arrPacientes);
@@ -176,19 +186,21 @@ public class PacienteModel extends InterfazDB
         }
         try {
             PreparedStatement prepStatement = c.prepareStatement(
-                    "UPDATE nombre = ?, fechaNacimiento = ?, " +
-                            "sexo = ?, estado = ?, idSeguro = ?, " +
-                            "idServicioEmergencia = ? " +
-                            "FROM Asilo.Paciente " +
+                    "UPDATE Asilo.Paciente " +
+                            "SET nombre = ?, fechaNacimiento = ?, " +
+                            "sexo = ?, estado = ?, numCama = ?, numCuarto = ?," +
+                            "idSeguro = ?, idServicioEmergencia = ? " +
                             "WHERE id = ?");
             java.sql.Date fechaNac = new java.sql.Date(paciente.getFechaNacimiento().getTime());
             prepStatement.setString(1, paciente.getNombre());
             prepStatement.setDate(2, fechaNac);
             prepStatement.setString(3, Character.toString(paciente.getSexo()));
             prepStatement.setString(4, paciente.getEstado());
-            prepStatement.setInt(5, paciente.getIdSeguro());
-            prepStatement.setInt(6, paciente.getIdServicioEmergencia());
-            prepStatement.setInt(7, paciente.getId());
+            prepStatement.setInt(5, paciente.getNumCama());
+            prepStatement.setInt(6, paciente.getNumCuarto());
+            prepStatement.setInt(7, paciente.getIdSeguro());
+            prepStatement.setInt(8, paciente.getIdServicioEmergencia());
+            prepStatement.setInt(9, paciente.getId());
 
             prepStatement.executeUpdate();
         }

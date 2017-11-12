@@ -11,20 +11,25 @@ public class Paciente {
     private String estado;
     private char sexo;
     private Date fechaNacimiento;
-    private int idCama;
-    private Cama cama;
+    private int numCuarto;
+    private int numCama;
     private int idSeguro = -1;
     private Seguro seguro;
     private int idServicioEmergencia = -1;
     private ServicioEmergencia servicioEmergencia;
 
-    public Paciente(int id, String nombre, String estado, char sexo, Date fecha)
+    public Paciente(int id, String nombre, String estado, char sexo,
+                    Date fecha, int numCuarto, int numCama, int idSeguro, int idServicioEmergencia)
     {
         this.id = id;
         this.nombre = nombre;
         this.estado = estado;
         this.sexo = sexo;
         this.fechaNacimiento = fecha;
+        this.numCuarto = numCuarto;
+        this.numCama = numCama;
+        this.idSeguro = idSeguro;
+        this.idServicioEmergencia = idServicioEmergencia;
     }
 
     public int getId() {
@@ -70,8 +75,20 @@ public class Paciente {
         this.fechaNacimiento = fechaNacimiento;
     }
 
-    public int getIdCama() {
-        return idCama;
+    public int getNumCuarto() {
+        return numCuarto;
+    }
+
+    public void setNumCuarto(int numCuarto) {
+        this.numCuarto = numCuarto;
+    }
+
+    public int getNumCama() {
+        return numCama;
+    }
+
+    public void setNumCama(int numCama) {
+        this.numCama = numCama;
     }
 
     public int getIdSeguro() {

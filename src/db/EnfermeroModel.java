@@ -161,7 +161,8 @@ public class EnfermeroModel extends InterfazDB
         }
         try {
             PreparedStatement prepStatement = c.prepareStatement(
-                    "UPDATE nombre = ? FROM Asilo.Enfermero WHERE id = ?");
+                    "UPDATE Asilo.Enfermero " +
+                        "SET nombre = ? WHERE id = ?");
             prepStatement.setString(1, enfermero.getNombre());
             prepStatement.setInt(2, enfermero.getId());
 

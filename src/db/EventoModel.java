@@ -184,10 +184,11 @@ public class EventoModel extends InterfazDB
         }
         try {
             PreparedStatement prepStatement = c.prepareStatement(
-                    "UPDATE asunto = ?, descripcion = ?, estaHospitalito = ?, " +
-                            "avisoFamiliar = ?, requirioConsulta = ?, fecha = ?, " +
-                            "idPaciente = ?, idEnfermero = ? " +
-                            "FROM Asilo.Evento WHERE id = ?");
+                    "UPDATE Asilo.Evento " +
+                        "SET asunto = ?, descripcion = ?, estaHospitalito = ?, " +
+                        "avisoFamiliar = ?, requirioConsulta = ?, fecha = ?, " +
+                        "idPaciente = ?, idEnfermero = ? " +
+                        "WHERE id = ?");
             char estaHospitalito = (evento.isEstaHospitalito() ? 'S' : 'N');
             char avisoFamiliar = (evento.isAvisoFamiliar() ? 'S' : 'N');
             char requirioConsulta = (evento.isRequirioConsulta() ? 'S' : 'N');
