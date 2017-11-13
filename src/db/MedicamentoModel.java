@@ -33,7 +33,8 @@ public class MedicamentoModel extends InterfazDB
         }
         try {
             PreparedStatement prepStatement = c.prepareStatement(
-                    "INSERT INTO Asilo.Medicamento VALUES (default, ?, ?, ?)");
+                    "INSERT INTO Asilo.Medicamento(id, dosis, medidaDosis, nombreGenerico) " +
+                            "VALUES (default, ?, ?, ?)");
             prepStatement.setInt(1, dosis);
             prepStatement.setString(2, medidaDosis);
             prepStatement.setString(3, nombreGenerico);

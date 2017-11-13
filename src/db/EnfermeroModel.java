@@ -32,7 +32,7 @@ public class EnfermeroModel extends InterfazDB
         }
         try {
             PreparedStatement prepStatement = c.prepareStatement(
-                    "INSERT INTO Asilo.Enfermero VALUES (default, ?)");
+                    "INSERT INTO Asilo.Enfermero(id, nombre) VALUES (default, ?)");
             prepStatement.setString(1, nombre);
             prepStatement.executeUpdate();
 

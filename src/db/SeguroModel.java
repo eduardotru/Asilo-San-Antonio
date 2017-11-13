@@ -31,7 +31,7 @@ public class SeguroModel extends InterfazDB
         }
         try {
             PreparedStatement prepStatement = c.prepareStatement(
-                    "INSERT INTO Asilo.Seguro VALUES (default, ?, ?)");
+                    "INSERT INTO Asilo.Seguro(id, nombre, numPoliza) VALUES (default, ?, ?)");
             prepStatement.setString(1, nombre);
             prepStatement.setString(2, numPoliza);
             prepStatement.executeUpdate();

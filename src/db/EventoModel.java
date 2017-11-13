@@ -42,7 +42,10 @@ public class EventoModel extends InterfazDB
         }
         try {
             PreparedStatement prepStatement = c.prepareStatement(
-                    "INSERT INTO Asilo.Evento VALUES (default, ?, ?, ?, ?, ?, ?, ?, ?)",
+                    "INSERT INTO Asilo.Evento(id, asunto, descripcion, " +
+                            "estaHospitalito, avisoFamiliar, requirioConsulta, " +
+                            "fecha, idPaciente, idEnfermero) " +
+                            "VALUES (default, ?, ?, ?, ?, ?, ?, ?, ?)",
                     Statement.RETURN_GENERATED_KEYS);
             prepStatement.setString(1, asunto);
             prepStatement.setString(2, descripcion);

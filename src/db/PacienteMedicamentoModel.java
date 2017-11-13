@@ -8,21 +8,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-/*
-create table PacienteMedicamento(
-    idPaciente int unsigned,
-    idMedicamento int unsigned,
-    tomaManana varchar(1),
-    tomaMedio varchar(1),
-    tomaTarde varchar(1),
-    fechaInicio date,
-    duracion int,
-    PRIMARY KEY(idPaciente, idMedicamento),
-    FOREIGN KEY(idPaciente) references Paciente(id),
-    FOREIGN KEY(idMedicamento) references Medicamento(id)
-);
- */
-
 public class PacienteMedicamentoModel extends InterfazDB {
     public void addPacienteMedicamento(PacienteMedicamento pacienteMedicamento) throws Exception
     {
