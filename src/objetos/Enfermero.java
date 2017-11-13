@@ -1,7 +1,7 @@
 package objetos;
 
 public class Enfermero {
-    private int id;
+    private int id = -1;
     private String nombre;
 
     public Enfermero(int id, String nombre)
