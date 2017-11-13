@@ -33,7 +33,7 @@ public class FamiliarResponsableModel extends InterfazDB
         return familiarId;
     }
 
-    public FamiliarResponsable selectFamilar(int id) throws SQLException {
+  /*  public FamiliarResponsable selectFamilar(int id) throws SQLException {
         FamiliarResponsable familiar = null;
         try {
             InterfazDB.crearConexion();
@@ -62,5 +62,5 @@ public class FamiliarResponsableModel extends InterfazDB
             cerrarConexion();
         }
         return familiar;
-    }
+    }*/
 }

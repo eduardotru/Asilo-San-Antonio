@@ -84,7 +84,7 @@ public class ControllerRegistroPersona {
         cbSexo.getItems().add("Mujer");
     }
 
-    public void  pressButtonAgregarFamiliar(ActionEvent event) throws IOException {
+   /* public void  pressButtonAgregarFamiliar(ActionEvent event) throws IOException {
         Stage stage = null;
         Parent root = null;
 
@@ -121,12 +121,13 @@ public class ControllerRegistroPersona {
             }
         }
     }
+    */
 
     public void agregarFamiliarClosed() {
 
     }
 
-    public void  pressButtonAgregarServicio(ActionEvent event) throws IOException {
+   /* public void  pressButtonAgregarServicio(ActionEvent event) throws IOException {
         Stage stage = null;
         Parent root = null;
 
@@ -163,7 +164,7 @@ public class ControllerRegistroPersona {
             }
         }
     }
-
+ */
     public void  pressButtonAgregarSeguro(ActionEvent event) throws IOException {
         Stage stage = null;
         Parent root = null;

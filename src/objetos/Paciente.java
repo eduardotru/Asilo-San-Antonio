@@ -3,6 +3,8 @@ package objetos;
 import db.SeguroModel;
 import db.ServicioEmergenciaModel;
 
+
+import java.util.Calendar;
 import java.util.Date;
 
 public class Paciente {
@@ -110,6 +112,24 @@ public class Paciente {
             }
         }
         return seguro;
+    }
+
+    public int getEdad(){
+        //Convertir la fecha de nacimiento a tipo Calendar para trabajar con el calculo de la edad
+        Calendar fechaNac = Calendar.getInstance();
+        fechaNac.setTime(fechaNacimiento);
+
+        Calendar today = Calendar.getInstance();
+
+        int diff_year = today.get(Calendar.YEAR) -  fechaNac.get(Calendar.YEAR);
+        int diff_month = today.get(Calendar.MONTH) - fechaNac.get(Calendar.MONTH);
+        int diff_day = today.get(Calendar.DAY_OF_MONTH) - fechaNac.get(Calendar.DAY_OF_MONTH);
+
+        //Si está en ese año pero todavía no los ha cumplido
+        if (diff_month < 0 || (diff_month == 0 && diff_day < 0)) {
+            diff_year = diff_year - 1;
+        }
+        return diff_year;
     }
 
     public int getIdServicioEmergencia() {

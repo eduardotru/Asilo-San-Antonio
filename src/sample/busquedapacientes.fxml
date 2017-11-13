@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
-<?import com.jfoenix.controls.JFXTextArea?>
+<?import com.jfoenix.controls.JFXListView?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -22,15 +22,19 @@
             <Font name="Roboto" size="12.0" />
          </font>
       </Label>
-      <Label layoutX="24.0" layoutY="24.0" prefHeight="38.0" prefWidth="367.0" text="Asilo San Antonio " textFill="WHITE">
+      <Label layoutX="134.0" layoutY="-61.0" prefHeight="38.0" prefWidth="367.0" text="Asilo San Antonio " textFill="WHITE">
          <font>
             <Font name="Roboto Medium" size="30.0" />
          </font>
       </Label>
-      <Pane layoutX="51.0" layoutY="208.0" prefHeight="157.0" prefWidth="390.0" style="-fx-background-color: #e1e2e1;">
+      <Pane layoutX="164.0" layoutY="208.0" prefHeight="157.0" prefWidth="277.0" style="-fx-background-color: #e1e2e1;">
          <children>
-            <JFXTextArea editable="false" layoutX="121.0" layoutY="15.0" prefHeight="92.0" prefWidth="255.0" text="Nombre:&#10;Edad:&#10;Estado:&#10;Sexo:&#10;Cuarto:" />
-            <JFXButton layoutX="275.0" layoutY="121.0" style="-fx-background-color: white;" text="Ver más detalles" />
+            <Label fx:id="lblNombre" layoutX="14.0" layoutY="14.0" text="Nombre:" />
+            <Label fx:id="lblEdad" layoutX="14.0" layoutY="31.0" text="Edad:" />
+            <Label fx:id="lblEstado" layoutX="14.0" layoutY="48.0" text="Estado:" />
+            <Label fx:id="lblSexo" layoutX="14.0" layoutY="65.0" text="Sexo:" />
+            <Label fx:id="lblCuarto" layoutX="14.0" layoutY="82.0" text="Cuarto" />
+            <JFXTextField layoutX="14.0" layoutY="99.0" />
          </children>
       </Pane>
       <JFXButton fx:id="btnBuscar" layoutX="519.0" layoutY="147.0" style="-fx-background-color: #303f9f;" text="Buscar" textFill="WHITE" />
@@ -41,5 +45,7 @@
             <Font size="14.0" />
          </font>
       </Label>
+      <JFXListView fx:id="listaPacientes" layoutX="14.0" layoutY="209.0" onMouseClicked="#muestraPaciente" prefHeight="157.0" prefWidth="133.0" />
+      <JFXButton layoutX="462.0" layoutY="340.0" style="-fx-background-color: white;" text="Ver más detalles" />
    </children>
 </AnchorPane>
