@@ -72,7 +72,7 @@ public class ControllerRegistroPersona {
         Mes = cal.get(Calendar.MONTH) + 1;
         Anio = cal.get(Calendar.YEAR);
         date.setText("Fecha: " + Dia + "/" + Mes + "/" + Anio);
-        ruta.setText("Home > Registrar Eventualidad");
+        ruta.setText("Home > Registrar Persona");
 
         // TODO(erickzul): Make estados table in database and retreive these values from it.
         cbEstado.getItems().add("Estable");
@@ -84,7 +84,7 @@ public class ControllerRegistroPersona {
         cbSexo.getItems().add("Mujer");
     }
 
-   /* public void  pressButtonAgregarFamiliar(ActionEvent event) throws IOException {
+    public void  pressButtonAgregarFamiliar(ActionEvent event) throws IOException {
         Stage stage = null;
         Parent root = null;
 
@@ -114,14 +114,13 @@ public class ControllerRegistroPersona {
         if (prevLastFamiliarId != lastFamiliarId) {
             FamiliarResponsable nuevoFamiliar = null;
             try {
-                nuevoFamiliar = familiarResponsableModel.selectFamilar(lastFamiliarId);
-                txtFamiliares.setText(txtFamiliares.getText() + "\n" + nuevoFamiliar.getName());
-            } catch (SQLException e) {
+                nuevoFamiliar = familiarResponsableModel.selectFamiliarResponsable(lastFamiliarId);
+                txtFamiliares.setText(txtFamiliares.getText() + "\n" + nuevoFamiliar.getNombre());
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         }
     }
-    */
 
     public void agregarFamiliarClosed() {
 
