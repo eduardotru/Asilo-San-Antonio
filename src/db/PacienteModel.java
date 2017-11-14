@@ -154,6 +154,36 @@ public class PacienteModel extends InterfazDB
         return pacientes;
     }
 
+    public Paciente[] buscarPacientesPorNombre(String nombre) throws SQLException
+    {
+        Paciente[] arrPaciente;
+        nombre = "%"+nombre+"%";
+        try {
+            InterfazDB.crearConexion();
+        } catch (Exception e){
+            System.err.println("Error al obtener los enfermeros: "
+                    + e.getClass().getName() + ": " + e.getMessage());
+        }
+        try {
+            PreparedStatement preparedStatement = c.prepareStatement(
+                    "SELECT * FROM Asilo.Paciente WHERE nombre LIKE ?");
+            preparedStatement.setString(1, nombre);
+
+            preparedStatement.executeQuery();
+
+            ResultSet resultSet = preparedStatement.getResultSet();
+            arrPaciente = crearListaPacientes(resultSet);
+
+        }
+        catch (Exception e) {
+            throw e;
+        }
+        finally {
+            cerrarConexion();
+        }
+        return arrPaciente;
+    }
+
     private Paciente[] crearListaPacientes(ResultSet result) throws SQLException
     {
         ArrayList<Paciente> listaPacientes = new ArrayList<Paciente>();
