@@ -184,4 +184,28 @@ public class ServicioEmergenciaModel extends InterfazDB
             cerrarConexion();
         }
     }
+
+    public int getLastServicioAddedId() throws SQLException {
+        int servicioId = -1;
+        try {
+            InterfazDB.crearConexion();
+        } catch (Exception e) {
+            System.err.println("Error al obtener un evento: "
+                    + e.getClass().getName() + ": " + e.getMessage());
+        }
+        try {
+            PreparedStatement prepStatement = c.prepareStatement(
+                    "SELECT id FROM Asilo.servicioemergencia ORDER BY id DESC");
+            ResultSet result = prepStatement.executeQuery();
+            if (result.next()) {
+                servicioId = result.getInt("id");
+            }
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            cerrarConexion();
+        }
+
+        return servicioId;
+    }
 }

@@ -1,6 +1,7 @@
 package sample;
 
 import db.FamiliarResponsableModel;
+import db.SeguroModel;
 import db.ServicioEmergenciaModel;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -13,6 +14,8 @@ import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import objetos.FamiliarResponsable;
 import objetos.Paciente;
+import objetos.Seguro;
+import objetos.ServicioEmergencia;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -126,49 +129,80 @@ public class ControllerRegistroPersona {
 
     }
 
-   /* public void  pressButtonAgregarServicio(ActionEvent event) throws IOException {
+    public void  pressButtonAgregarServicio(ActionEvent event) throws IOException {
         Stage stage = null;
         Parent root = null;
 
         System.out.println(event.getSource().toString());
 
-        int prevLastEmergencyId = -1;
+        int prevLastServicioId = -1;
         ServicioEmergenciaModel servicioEmergenciaModel = new ServicioEmergenciaModel();
         try {
-            prevLastEmergencyId = servicioEmergenciaModel.getLastEmergencyServiceId();
+            prevLastServicioId = servicioEmergenciaModel.getLastServicioAddedId();
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
-        root = FXMLLoader.load(getClass().getResource("agregarFamiliar.fxml"));
+        root = FXMLLoader.load(getClass().getResource("agregarServicio.fxml"));
         stage = new Stage();
-        stage.setTitle("Asilo San Antonio - Agregar Familiar");
+        stage.setTitle("Asilo San Antonio - Agregar Servicio de Emergencia");
         stage.setScene(new Scene(root, 450, 450));
         stage.showAndWait();
 
-        int lastFamiliarId = -1;
+        int lastServicioId = -1;
         try {
-            lastFamiliarId = familiarResponsableModel.getLastFamiliarAddedId();
+            lastServicioId = servicioEmergenciaModel.getLastServicioAddedId();
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
-        if (prevLastFamiliarId != lastFamiliarId) {
-            FamiliarResponsable nuevoFamiliar = null;
+        if (prevLastServicioId != lastServicioId) {
+            ServicioEmergencia nuevoServicio = null;
             try {
-                nuevoFamiliar = familiarResponsableModel.selectFamilar(lastFamiliarId);
-                txtFamiliares.setText(txtFamiliares.getText() + "\n" + nuevoFamiliar.getName());
-            } catch (SQLException e) {
+                nuevoServicio = servicioEmergenciaModel.selectServicioEmergencia(lastServicioId);
+                txtFamiliares.setText(txtFamiliares.getText() + "\n" + nuevoServicio.getNombre());
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         }
     }
- */
+
     public void  pressButtonAgregarSeguro(ActionEvent event) throws IOException {
         Stage stage = null;
         Parent root = null;
 
         System.out.println(event.getSource().toString());
+
+        int prevLastSeguroId = -1;
+        SeguroModel seguroModel = new SeguroModel();
+        try {
+            prevLastSeguroId = seguroModel.getLastSeguroAddedId();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        root = FXMLLoader.load(getClass().getResource("agregarSeguro.fxml"));
+        stage = new Stage();
+        stage.setTitle("Asilo San Antonio - Agregar Seguro Médico");
+        stage.setScene(new Scene(root, 450, 450));
+        stage.showAndWait();
+
+        int lastSeguroId = -1;
+        try {
+            lastSeguroId = seguroModel.getLastSeguroAddedId();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        if (prevLastSeguroId != lastSeguroId) {
+            Seguro nuevoSeguro = null;
+            try {
+                nuevoSeguro = seguroModel.selectSeguro(lastSeguroId);
+                txtFamiliares.setText(txtFamiliares.getText() + "\n" + nuevoSeguro.getNombre());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     public void  pressButtonRegister(ActionEvent event) throws IOException {

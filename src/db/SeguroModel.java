@@ -96,4 +96,28 @@ public class SeguroModel extends InterfazDB
         listaSeguros.toArray(arrSeguros);
         return arrSeguros;
     }
+
+    public int getLastSeguroAddedId() throws SQLException {
+        int seguroId = -1;
+        try {
+            InterfazDB.crearConexion();
+        } catch (Exception e) {
+            System.err.println("Error al obtener un evento: "
+                    + e.getClass().getName() + ": " + e.getMessage());
+        }
+        try {
+            PreparedStatement prepStatement = c.prepareStatement(
+                    "SELECT id FROM Asilo.seguro ORDER BY id DESC");
+            ResultSet result = prepStatement.executeQuery();
+            if (result.next()) {
+                seguroId = result.getInt("id");
+            }
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            cerrarConexion();
+        }
+
+        return seguroId;
+    }
 }
