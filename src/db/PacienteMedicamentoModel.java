@@ -61,6 +61,38 @@ public class PacienteMedicamentoModel extends InterfazDB {
         }
     }
 
+    public PacienteMedicamento selectPacienteMedicamento(int idPaciente,
+                                                         int idMedicamento) throws Exception
+    {
+        PacienteMedicamento pacienteMedicamento;
+        try {
+            InterfazDB.crearConexion();
+        } catch (Exception e){
+            System.err.println("Error al obtener los medicamentos de un paciente: "
+                    + e.getClass().getName() + ": " + e.getMessage());
+        }
+        try {
+            PreparedStatement  prepeparedStatement = c.prepareStatement(
+                    "SELECT * FROM Asilo.PacienteMedicamento WHERE idPaciente = ?");
+            prepeparedStatement.setInt(1, idPaciente);
+            ResultSet result = prepeparedStatement.executeQuery();
+            PacienteMedicamento[] pacienteMedicamentos = crearListaPacienteMedicamentos(result);
+            if(pacienteMedicamentos.length == 1) {
+                pacienteMedicamento = pacienteMedicamentos[0];
+            }
+            else {
+                pacienteMedicamento = null;
+            }
+        }
+        catch (Exception e) {
+            throw e;
+        }
+        finally {
+            cerrarConexion();
+        }
+        return pacienteMedicamento;
+    }
+
     public PacienteMedicamento[] selectPacienteMedicamento(int idPaciente) throws Exception
     {
         PacienteMedicamento[] pacienteMedicamentos;

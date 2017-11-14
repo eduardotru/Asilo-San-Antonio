@@ -1,12 +1,16 @@
 package db;
 
 import objetos.EnvaseMedicina;
+import objetos.PacienteMedicamento;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.concurrent.CancellationException;
 
 public class EnvaseMedicinaModel extends InterfazDB
 {
@@ -148,6 +152,56 @@ public class EnvaseMedicinaModel extends InterfazDB
             cerrarConexion();
         }
         return envaseMedicinas;
+    }
+
+    public EnvaseMedicina[] selectEnvasesPorVencerEntre(Date fechaInicio, Date fechaFin) throws SQLException
+    {
+        EnvaseMedicina[] envaseMedicinas;
+        try {
+           envaseMedicinas = selectEnvaseMedicinas();
+        }
+        catch (Exception e) {
+            System.out.println("Error al obtener los envases de medicina por vencer");
+            return null;
+        }
+        ArrayList<EnvaseMedicina> listaEnvases = new ArrayList<EnvaseMedicina>();
+        for (EnvaseMedicina envase: envaseMedicinas) {
+            if(envaseVenceEntre(envase, fechaInicio, fechaFin)) {
+                listaEnvases.add(envase);
+            }
+        }
+        envaseMedicinas = new EnvaseMedicina[listaEnvases.size()];
+        listaEnvases.toArray(envaseMedicinas);
+        return envaseMedicinas;
+    }
+
+    private boolean envaseVenceEntre(EnvaseMedicina envase, Date fechaInicio, Date fechaFin) {
+        PacienteMedicamentoModel pacienteMedicamentoModel = new PacienteMedicamentoModel();
+        PacienteMedicamento pacienteMedicamento;
+        try {
+            pacienteMedicamento = pacienteMedicamentoModel.selectPacienteMedicamento(
+                    envase.getIdPaciente(), envase.getIdMedicamento());
+        }
+        catch (Exception e) {
+            System.out.println("Error al obtener un pacienteMedicamento");
+            return false;
+        }
+        int dosisDiarias = 0;
+        if(pacienteMedicamento.isTomaManana()) {
+            dosisDiarias++;
+        }
+        if(pacienteMedicamento.isTomaMedio()) {
+            dosisDiarias++;
+        }
+        if(pacienteMedicamento.isTomaTarde()) {
+            dosisDiarias++;
+        }
+        int diasDisponibles = envase.getCantidad()/(envase.getMedicamento().getDosis()*dosisDiarias);
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(envase.getFechaSurtimiento());
+        calendar.add(Calendar.DAY_OF_MONTH, diasDisponibles);
+        return calendar.after(fechaInicio) && calendar.before(fechaFin);
+
     }
 
     private EnvaseMedicina[] crearListaEnvaseMedicinas(ResultSet result) throws SQLException
