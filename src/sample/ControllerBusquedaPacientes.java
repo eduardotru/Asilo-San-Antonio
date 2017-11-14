@@ -99,17 +99,21 @@ public class ControllerBusquedaPacientes {
     @FXML
     //Esta fucion es llamada al
     public void pushedBuscaPaciente(){
-
+        Paciente temp;
+        temp = pacienteBuscado;
         //Si el sistema puede realizar la busqueda del paciente en la base de datos se muestra el paciente en el resumen
         //de informacion, si no, el usuario es notificado que no se encontro paciente con una ventana de notificacion
         try {
             pacienteBuscado = pacienteModel.selectPaciente(pacienteModel.selectIdPaciente(campoBusquedaPaciente.getText()));
             muestraDatosPaciente(pacienteBuscado);
         }catch (Exception e) {
-            System.out.println(e.getClass() + e.getMessage());
             new Alert(Alert.AlertType.INFORMATION,"Paciente no encontrado").showAndWait();
             //En caso de no encontrar se deshabilita el boton de "Mas detalles"
-            btnMasDetalles.setDisable(true);
+            if(temp==null) {
+                btnMasDetalles.setDisable(true);
+            }else {
+                pacienteBuscado = temp;
+            }
         }
 
     }
