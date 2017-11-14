@@ -37,15 +37,16 @@
             <JFXTextField layoutX="14.0" layoutY="99.0" />
          </children>
       </Pane>
-      <JFXButton fx:id="btnBuscar" layoutX="519.0" layoutY="147.0" style="-fx-background-color: #303f9f;" text="Buscar" textFill="WHITE" />
-      <JFXTextField fx:id="campoMedicamento" layoutX="51.0" layoutY="144.0" prefHeight="0.0" prefWidth="450.0" />
+      <JFXButton fx:id="btnBuscar" layoutX="519.0" layoutY="147.0" onAction="#pushedBuscaPaciente" style="-fx-background-color: #303f9f;" text="Buscar" textFill="WHITE" />
+      <JFXTextField fx:id="campoBusquedaPaciente" layoutX="51.0" layoutY="144.0" onKeyPressed="#enterPresionado" prefHeight="0.0" prefWidth="450.0" />
       <JFXButton fx:id="btnAgregarPaciente" layoutX="456.0" layoutY="209.0" prefHeight="32.0" prefWidth="114.0" style="-fx-background-color: #303f9f;" text="Agregar Paciente" textFill="WHITE" />
       <Label layoutX="24.0" layoutY="109.0" text="Búsqueda Pacientes">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <JFXListView fx:id="listaPacientes" layoutX="14.0" layoutY="209.0" onMouseClicked="#muestraPaciente" prefHeight="157.0" prefWidth="133.0" />
-      <JFXButton layoutX="462.0" layoutY="340.0" style="-fx-background-color: white;" text="Ver más detalles" />
+      <JFXListView fx:id="listaPacientes" layoutX="14.0" layoutY="209.0" onMouseClicked="#muestraPacienteSeleccionado" prefHeight="157.0" prefWidth="133.0" />
+      <JFXButton fx:id="btnMasDetalles" layoutX="462.0" layoutY="340.0" onAction="#pushedBtnMasDetalles" style="-fx-background-color: white;" text="Ver más detalles" />
+      <JFXButton fx:id="btnHome" layoutX="55.0" layoutY="82.0" onAction="#pushedBtnHome" style="-fx-background-color: #303f9f;" text="Home" textFill="WHITE" />
    </children>
 </AnchorPane>
