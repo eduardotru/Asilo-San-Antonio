@@ -7,3 +7,6 @@ ADD numCama int unsigned;
 DROP TABLE Asilo.Cuarto;
 
 DROP TABLE Asilo.Cama;
+
+ALTER TABLE Asilo.Paciente
+ADD numeroReferencia varchar(50);

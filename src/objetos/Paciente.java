@@ -19,9 +19,11 @@ public class Paciente {
     private Seguro seguro;
     private int idServicioEmergencia = -1;
     private ServicioEmergencia servicioEmergencia;
+    private String numeroReferencia;
 
     public Paciente(int id, String nombre, String estado, char sexo,
-                    Date fecha, int numCuarto, int numCama, int idSeguro, int idServicioEmergencia)
+                    Date fecha, int numCuarto, int numCama, int idSeguro,
+                    int idServicioEmergencia, String numeroReferencia)
     {
         this.id = id;
         this.nombre = nombre;
@@ -32,6 +34,7 @@ public class Paciente {
         this.numCama = numCama;
         this.idSeguro = idSeguro;
         this.idServicioEmergencia = idServicioEmergencia;
+        this.numeroReferencia = numeroReferencia;
     }
 
     public int getId() {
@@ -134,5 +137,13 @@ public class Paciente {
 
     public int getIdServicioEmergencia() {
         return idServicioEmergencia;
+    }
+
+    public String getNumeroReferencia() {
+        return numeroReferencia;
+    }
+
+    public void setNumeroReferencia(String numeroReferencia) {
+        this.numeroReferencia = numeroReferencia;
     }
 }
