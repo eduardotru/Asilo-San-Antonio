@@ -97,6 +97,7 @@ public class ControllerBusquedaPacientes {
     }
 
     @FXML
+    //Esta fucion es llamada al
     public void pushedBuscaPaciente(){
 
         //Si el sistema puede realizar la busqueda del paciente en la base de datos se muestra el paciente en el resumen
@@ -107,6 +108,8 @@ public class ControllerBusquedaPacientes {
         }catch (Exception e) {
             System.out.println(e.getClass() + e.getMessage());
             new Alert(Alert.AlertType.INFORMATION,"Paciente no encontrado").showAndWait();
+            //En caso de no encontrar se deshabilita el boton de "Mas detalles"
+            btnMasDetalles.setDisable(true);
         }
 
     }
@@ -118,9 +121,12 @@ public class ControllerBusquedaPacientes {
         lblEstado.setText("Estado: " + paciente.getEstado());
         lblSexo.setText("Sexo: " + paciente.getSexo());
         lblCuarto.setText("Cuarto: " + paciente.getNumCuarto());
+
+        //Se habilita el botón de más detalles
+        btnMasDetalles.setDisable(false);
     }
 
-    //Se busca el paciente indicado por el usuario dentro del TextFiel de busqueda al presionar la tecla ENTER
+    //Se busca el paciente indicado por el usuario dentro del TextField de busqueda al presionar la tecla ENTER
     @FXML
     public void enterPresionado(KeyEvent e){
         if(e.getCode().toString().equals("ENTER")){
@@ -139,6 +145,7 @@ public class ControllerBusquedaPacientes {
         stage.show();
     }
 
+    //Este metodo muestra la ventana de mas detalles sobre el paciente seleccionado, pasando como parametro la persona seleccionada
     public void pushedBtnMasDetalles(Event event) throws IOException{
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("detallespaciente.fxml"));
