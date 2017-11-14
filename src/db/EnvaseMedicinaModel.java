@@ -154,7 +154,7 @@ public class EnvaseMedicinaModel extends InterfazDB
         return envaseMedicinas;
     }
 
-    public EnvaseMedicina[] selectEnvasesPorVencerEntre(Date fechaInicio, Date fechaFin) throws SQLException
+    public EnvaseMedicina[] selectEnvasesPorTerminarEntre(Date fechaInicio, Date fechaFin) throws SQLException
     {
         EnvaseMedicina[] envaseMedicinas;
         try {
