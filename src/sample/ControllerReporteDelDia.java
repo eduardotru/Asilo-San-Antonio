@@ -15,7 +15,7 @@ import java.util.Date;
 import java.io.IOException;
 import java.util.Calendar;
 
-public class ControllerReporteDelDia {
+public class ControllerReporteDelDia extends  ControllerBase{
     @FXML private Button btnHome;
     @FXML private Button btnMenuReporte;
     @FXML private Label date;
@@ -28,17 +28,7 @@ public class ControllerReporteDelDia {
 
     @FXML
     private void initialize() {
-        Calendar cal = Calendar.getInstance();
-        Dia = cal.get(Calendar.DAY_OF_MONTH);
-        Mes = cal.get(Calendar.MONTH) + 1;
-        Anio = cal.get(Calendar.YEAR);
-        date.setText("Fecha: " + Dia + "/" + Mes + "/" + Anio);
-
-        /*InterfazDB db = InterfazDB.getInstanciaInterfazDB();
-        Evento[] eventos = db.selectEventos(new Date());
-
-        name.setText(eventos[0].getName());
-        asunto.setText(eventos[0].getAsunto());*/
+        initializeDate(date);
     }
 
     public void  pressButton(ActionEvent event) throws IOException {

@@ -12,22 +12,16 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.Calendar;
 
-public class ControllerMenuReportes {
+public class ControllerMenuReportes extends ControllerBase{
+
     @FXML private Button btnHome;
     @FXML private Button btnReporte;
     @FXML private Button btnHistorialRps;
     @FXML private Label date;
-    private int Dia;
-    private int Mes;
-    private int Anio;
 
     @FXML
     private void initialize() {
-        Calendar cal = Calendar.getInstance();
-        Dia = cal.get(Calendar.DAY_OF_MONTH);
-        Mes = cal.get(Calendar.MONTH) + 1;
-        Anio = cal.get(Calendar.YEAR);
-        date.setText("Fecha: " + Dia + "/" + Mes + "/" + Anio);
+        initializeDate(date);
     }
     public void  pressButton(ActionEvent event) throws IOException {
         Stage stage = null;

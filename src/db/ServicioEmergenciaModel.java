@@ -78,6 +78,7 @@ public class ServicioEmergenciaModel extends InterfazDB
             }
         }
         catch (Exception e) {
+            System.out.println("No se encontro elemento con id: " + id);
             throw e;
         }
         finally {
