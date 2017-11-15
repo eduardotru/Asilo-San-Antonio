@@ -1,6 +1,7 @@
 package sample;
 
 import db.FamiliarResponsableModel;
+import db.PacienteModel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -56,11 +57,13 @@ public class ControllerRegistroFamiliarResponsable {
         root = FXMLLoader.load(getClass().getResource("sample.fxml"));
 
         // Save the new Familiar Responsable in the database.
+        PacienteModel pacienteModel = new PacienteModel();
+
+
         FamiliarResponsableModel familiarResponsableModel = new FamiliarResponsableModel();
         try {
             familiarResponsableModel.addFamiliarResponsable(
-                    textNombre.getText(), textRelacion.getText(), textTelefono.getText(),
-                    -1
+                    textNombre.getText(), textRelacion.getText(), textTelefono.getText()
             );
         } catch (Exception e) {
             e.printStackTrace();

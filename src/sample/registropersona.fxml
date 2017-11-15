@@ -36,7 +36,7 @@
                   <Font name="System Bold" size="12.0" />
                </font>
             </Label>
-            <JFXButton fx:id="btnRegistrar" layoutX="404.0" layoutY="483.0" onAction="#pressButton" prefHeight="38.0" prefWidth="96.0" style="-fx-background-color: #303f9f;" text="REGISTRAR" textFill="WHITE" />
+            <JFXButton fx:id="btnRegistrar" layoutX="404.0" layoutY="483.0" onAction="#pressButtonRegister" prefHeight="38.0" prefWidth="96.0" style="-fx-background-color: #303f9f;" text="REGISTRAR" textFill="WHITE" />
             <JFXTextField fx:id="txtNombre" layoutX="35.0" layoutY="42.0" prefHeight="25.0" prefWidth="235.0" />
             <Label layoutX="35.0" layoutY="81.0" text="Fecha de Nacimiento:">
                <font>
