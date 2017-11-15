@@ -6,18 +6,14 @@ import db.PacienteMedicamentoModel;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import objetos.Medicamento;
+import objetos.Paciente;
 import objetos.PacienteMedicamento;
 
-import javax.print.DocFlavor;
-import java.time.Instant;
-import java.util.Date;
-import java.util.ResourceBundle;
-
-public class ControllerTablaMedicamentos {
+public class ControllerTablaMedicamentosDelDia {
     @FXML
     private TableView<PacienteMedicamentoTabla> tableView;
     @FXML
@@ -28,20 +24,29 @@ public class ControllerTablaMedicamentos {
     private TableColumn<PacienteMedicamentoTabla,String> tableColumn3;
     @FXML
     private TableColumn<PacienteMedicamentoTabla,String> tableColumn4;
+    @FXML
+    private TableColumn<PacienteMedicamentoTabla, String> tableColumnVia;
+    @FXML
+    private TableColumn<PacienteMedicamentoTabla, String> tableColumnDosis;
+    @FXML
+    private Label lblNombrePaciente;
 
     @FXML
     private void initialize() {
         System.out.println("GG");
-        initTable(1);
     }
 
-    public void initTable(int idPaciente) {
+    public void initTable(Paciente paciente) {
+
+        lblNombrePaciente.setText(paciente.getNombre());
+
         tableColumn.setCellValueFactory(new PropertyValueFactory<PacienteMedicamentoTabla, String>("medicamento"));
         tableColumn2.setCellValueFactory(new PropertyValueFactory<PacienteMedicamentoTabla, String>("tomaManana"));
         tableColumn3.setCellValueFactory(new PropertyValueFactory<PacienteMedicamentoTabla, String>("tomaMedio"));
         tableColumn4.setCellValueFactory(new PropertyValueFactory<PacienteMedicamentoTabla, String>("tomaTarde"));
-
-        tableView.setItems(getMedicamentos(idPaciente));
+        tableColumnDosis.setCellValueFactory(new PropertyValueFactory<PacienteMedicamentoTabla,String>("dosis"));
+        tableColumnVia.setCellValueFactory(new PropertyValueFactory<PacienteMedicamentoTabla,String>("via"));
+        tableView.setItems(getMedicamentos(paciente.getId()));
 
     }
 

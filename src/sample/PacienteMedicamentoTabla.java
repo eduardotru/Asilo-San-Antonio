@@ -11,13 +11,17 @@ public class PacienteMedicamentoTabla{
     private final SimpleStringProperty tomaManana;
     private final SimpleStringProperty tomaMedio;
     private final SimpleStringProperty tomaTarde;
+    private final SimpleStringProperty via;
+    private final SimpleStringProperty dosis;
 
-    PacienteMedicamentoTabla(String medicamento, String tomaManana, String tomaMedio, String tomaTarde) {
+    PacienteMedicamentoTabla(String medicamento, String tomaManana, String tomaMedio, String tomaTarde, String via,String dosis) {
         super();
         this.medicamento = new SimpleStringProperty(medicamento);
         this.tomaManana = new SimpleStringProperty(tomaManana);
         this.tomaMedio = new SimpleStringProperty(tomaMedio);
         this.tomaTarde = new SimpleStringProperty(tomaTarde);
+        this.via = new SimpleStringProperty(via);
+        this.dosis = new SimpleStringProperty(dosis);
     }
 
     PacienteMedicamentoTabla(PacienteMedicamento pacienteMedicamento){
@@ -34,6 +38,8 @@ public class PacienteMedicamentoTabla{
         this.tomaManana = new SimpleStringProperty(toString(pacienteMedicamento.isTomaManana()));
         this.tomaMedio = new SimpleStringProperty(toString(pacienteMedicamento.isTomaMedio()));
         this.tomaTarde = new SimpleStringProperty(toString(pacienteMedicamento.isTomaTarde()));
+        this.via = new SimpleStringProperty(medicamento.getMedidaDosis());
+        this.dosis= new SimpleStringProperty(Integer.toString(medicamento.getDosis()));
     }
 
     private String toString(boolean bool){
@@ -59,4 +65,6 @@ public class PacienteMedicamentoTabla{
     public String getTomaTarde(){
         return tomaTarde.get();
     }
+    public String getVia(){return via.get();}
+    public String getDosis(){return dosis.get();}
 }

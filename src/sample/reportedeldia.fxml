@@ -2,6 +2,8 @@
 
 <?import com.jfoenix.controls.JFXButton?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.shape.Rectangle?>
@@ -25,7 +27,7 @@
             <Font name="Roboto" size="12.0" />
          </font>
       </Label>
-      <Pane layoutX="82.0" layoutY="123.0" prefHeight="114.0" prefWidth="432.0" style="-fx-background-color: white;">
+      <Pane layoutX="84.0" layoutY="272.0" prefHeight="114.0" prefWidth="432.0" style="-fx-background-color: white;">
          <children>
             <JFXButton layoutX="340.0" layoutY="78.0" prefHeight="15.0" prefWidth="79.0" style="-fx-background-color: #303f9f;" text="DETALLES" textFill="WHITE" />
             <Label fx:id="name" layoutX="119.0" layoutY="14.0" text="Name:">
@@ -47,5 +49,12 @@
       </Label>
       <JFXButton fx:id="btnHome" layoutX="47.0" layoutY="76.0" onAction="#pressButton" prefHeight="17.0" prefWidth="53.0" style="-fx-background-color: #303f9f;" text="Home" textFill="WHITE" />
       <JFXButton fx:id="btnMenuReporte" layoutX="114.0" layoutY="76.0" onAction="#pressButton" prefHeight="17.0" prefWidth="88.0" style="-fx-background-color: #303f9f;" text="Reportes" textFill="WHITE" />
+      <TableView fx:id="tableEventoDelDia" layoutX="84.0" layoutY="129.0" onMouseClicked="#filaClickeada" prefHeight="136.0" prefWidth="432.0">
+        <columns>
+          <TableColumn fx:id="columnaPaciente" prefWidth="75.0" text="Paciente" />
+          <TableColumn fx:id="columnaEvento" prefWidth="75.0" text="Evento" />
+            <TableColumn fx:id="columnaEnfermero" prefWidth="75.0" text="Enfermero" />
+        </columns>
+      </TableView>
    </children>
 </AnchorPane>
