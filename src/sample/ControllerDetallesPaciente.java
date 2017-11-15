@@ -58,7 +58,7 @@ public class ControllerDetallesPaciente extends  ControllerBase{
             servicioEmergencia = servicioEmergenciaModel.selectServicioEmergencia(idSrvEmg);
 
             campoNombreSrvEmergencia.setText(servicioEmergencia.getNombre()); //Se rellena el nombre en el campo
-            campoNumSrvEmergencia.setText(String.valueOf(paciente.getIdServicioEmergencia())); //Se rellena el no. Servicio en el campo
+            campoNumSrvEmergencia.setText(paciente.getNumeroReferencia()); //Se rellena el no. Servicio en el campo
             campoTelSrvEmergencia.setText(servicioEmergencia.getTelefono());//Se rellena el telefono del sevicio en el campo
         }catch (Exception e) {
             System.out.println("Error al obtener el Servicio de emergecia con id: " + idSrvEmg);
