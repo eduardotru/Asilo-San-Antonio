@@ -11,6 +11,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import objetos.FamiliarResponsable;
@@ -23,7 +24,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-public class ControllerRegistroPersona {
+public class ControllerRegistroPersona  extends ControllerBase {
     @FXML
     TextField txtNombre;
 
@@ -75,6 +76,9 @@ public class ControllerRegistroPersona {
     @FXML
     public Label ruta;
 
+    @FXML
+    public ScrollPane scrollPane;
+
     private int Dia;
     private int Mes;
     private int Anio;
@@ -100,6 +104,10 @@ public class ControllerRegistroPersona {
 
         cbSexo.getItems().add("Hombre");
         cbSexo.getItems().add("Mujer");
+
+        familiares = new ArrayList<FamiliarResponsable>();
+
+        scrollPane.setVvalue(-1000);
     }
 
     public void  pressButtonAgregarFamiliar(ActionEvent event) throws IOException {
@@ -119,7 +127,7 @@ public class ControllerRegistroPersona {
         root = FXMLLoader.load(getClass().getResource("agregarFamiliar.fxml"));
         stage = new Stage();
         stage.setTitle("Asilo San Antonio - Agregar Familiar");
-        stage.setScene(new Scene(root, 450, 450));
+        stage.setScene(new Scene(root, 580, 500));
         stage.showAndWait();
 
         int lastFamiliarId = -1;
@@ -158,7 +166,7 @@ public class ControllerRegistroPersona {
         root = FXMLLoader.load(getClass().getResource("agregarServicio.fxml"));
         stage = new Stage();
         stage.setTitle("Asilo San Antonio - Agregar Servicio de Emergencia");
-        stage.setScene(new Scene(root, 450, 450));
+        stage.setScene(new Scene(root, 580, 500));
         stage.showAndWait();
 
         int lastServicioId = -1;
@@ -172,8 +180,8 @@ public class ControllerRegistroPersona {
             ServicioEmergencia nuevoServicio = null;
             try {
                 nuevoServicio = servicioEmergenciaModel.selectServicioEmergencia(lastServicioId);
-                txtServicios.setText(txtServicios.getText() + "\n" + nuevoServicio.getNombre());
-                bAgregarFamiliar.setText("Reemplazar Familiar");
+                txtServicios.setText(nuevoServicio.getNombre());
+                bAgregarServicioEmergencia.setText("Reemplazar Servicio");
                 if (servicio != null) {
                     servicioEmergenciaModel.deleteServicioEmergencia(servicio.getId());
                 }
@@ -201,7 +209,7 @@ public class ControllerRegistroPersona {
         root = FXMLLoader.load(getClass().getResource("agregarSeguro.fxml"));
         stage = new Stage();
         stage.setTitle("Asilo San Antonio - Agregar Seguro Médico");
-        stage.setScene(new Scene(root, 450, 450));
+        stage.setScene(new Scene(root, 580, 500));
         stage.showAndWait();
 
         int lastSeguroId = -1;
@@ -215,7 +223,7 @@ public class ControllerRegistroPersona {
             Seguro nuevoSeguro = null;
             try {
                 nuevoSeguro = seguroModel.selectSeguro(lastSeguroId);
-                txtSeguros.setText(txtSeguros.getText() + "\n" + nuevoSeguro.getNombre());
+                txtSeguros.setText(nuevoSeguro.getNombre());
                 bAgregarSeguro.setText("Reemplazar Seguro");
                 if (seguro != null) {
                     seguroModel.deleteSeguro(seguro.getId());
@@ -231,7 +239,7 @@ public class ControllerRegistroPersona {
         Stage stage = null;
         Parent root = null;
 
-        if (txtNombre.getText() == "") {
+        if (txtNombre.getText().length() <= 0) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Asilo San Antonio");
             alert.setHeaderText(null);
@@ -249,7 +257,7 @@ public class ControllerRegistroPersona {
             return;
         }
 
-        if (cbSexo.getValue() == "") {
+        if (cbSexo.getValue() == null) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Asilo San Antonio");
             alert.setHeaderText(null);
@@ -258,11 +266,38 @@ public class ControllerRegistroPersona {
             return;
         }
 
-        if (cbEstado.getValue() == "") {
+        if (cbEstado.getValue() == null) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Asilo San Antonio");
             alert.setHeaderText(null);
             alert.setContentText("Favor de especificar el estado.");
+            alert.showAndWait();
+            return;
+        }
+
+        if (txtNumeroReferencia.getText().length() <= 0) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Asilo San Antonio");
+            alert.setHeaderText(null);
+            alert.setContentText("Favor de especificar el número de referencia");
+            alert.showAndWait();
+            return;
+        }
+
+        if (seguro == null) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Asilo San Antonio");
+            alert.setHeaderText(null);
+            alert.setContentText("Favor de especificar el seguro");
+            alert.showAndWait();
+            return;
+        }
+
+        if (servicio == null) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Asilo San Antonio");
+            alert.setHeaderText(null);
+            alert.setContentText("Favor de especificar el servicio de emergencias.");
             alert.showAndWait();
             return;
         }
@@ -272,8 +307,14 @@ public class ControllerRegistroPersona {
         java.sql.Date fechaNacimiento = java.sql.Date.valueOf(dateFechaNacimiento.getValue());
         char sexo = ((String)cbSexo.getValue()).charAt(0);
         String estado = (String)cbEstado.getValue();
-        int numCuarto = Integer.parseInt(txtCuarto.getText());
-        int numCama = Integer.parseInt(txtCama.getText());
+        int numCuarto = 0;
+        if (txtCuarto.getText().length() > 0) {
+            numCuarto = Integer.parseInt(txtCuarto.getText());
+        }
+        int numCama = 0;
+        if (txtCama.getText().length() > 0) {
+            numCama = Integer.parseInt(txtCama.getText());
+        }
         int idSeguro = seguro.getId();
         int idServicioEmergencia = servicio.getId();
         String numeroReferencia = txtNumeroReferencia.getText();
@@ -293,7 +334,8 @@ public class ControllerRegistroPersona {
             alert.setHeaderText(null);
             alert.setContentText("Se ha guardado el nuevo paciente de forma exitosa.");
             alert.showAndWait();
-            return;
+
+            cargaPantalla(event, "busquedapacientes.fxml", btnRegistrar);
         } catch (Exception e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Asilo San Antonio");

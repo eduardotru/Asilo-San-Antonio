@@ -7,7 +7,7 @@ public class FamiliarResponsable {
     private String sNombre;
     private String sRelacion;
     private String sTelefono;
-    private int idPaciente;
+    private int idPaciente = -1;
     private Paciente paciente;
 
     public FamiliarResponsable(int id, String sNombre, String sRelacion,
@@ -71,8 +71,6 @@ public class FamiliarResponsable {
     }
 
     public void setIdPaciente(int idPaciente) {
-        if (this.idPaciente == -1) {
-            this.idPaciente = idPaciente;
-        }
+        this.idPaciente = idPaciente;
     }
 }

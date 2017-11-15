@@ -96,7 +96,7 @@ public class FamiliarResponsableModel extends InterfazDB
             PreparedStatement prepStatement = c.prepareStatement(
                     "INSERT INTO Asilo.FamiliarResponsable(id, nombre, " +
                             "relacion, telefono) " +
-                            "VALUES (default, ?, ?, ?)");
+                            "VALUES (default, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
             prepStatement.setString(1, nombre);
             prepStatement.setString(2, relacion);
             prepStatement.setString(3, telefono);
@@ -288,12 +288,13 @@ public class FamiliarResponsableModel extends InterfazDB
         try {
             PreparedStatement prepStatement = c.prepareStatement(
                     "UPDATE Asilo.FamiliarResponsable " +
-                            "SET nombre = ?, telefono = ?, relacion = ? " +
+                            "SET nombre = ?, telefono = ?, relacion = ?, idPaciente = ? " +
                             "WHERE id = ?");
             prepStatement.setString(1, familiarResponsable.getNombre());
             prepStatement.setString(2, familiarResponsable.getTelefono());
             prepStatement.setString(3, familiarResponsable.getRelacion());
-            prepStatement.setInt(4, familiarResponsable.getId());
+            prepStatement.setInt(4, familiarResponsable.getIdPaciente());
+            prepStatement.setInt(5, familiarResponsable.getId());
 
             prepStatement.executeUpdate();
         }

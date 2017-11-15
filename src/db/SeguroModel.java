@@ -5,6 +5,7 @@ import objetos.Seguro;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 
 public class SeguroModel extends InterfazDB
@@ -31,7 +32,8 @@ public class SeguroModel extends InterfazDB
         }
         try {
             PreparedStatement prepStatement = c.prepareStatement(
-                    "INSERT INTO Asilo.Seguro(id, nombre, numPoliza) VALUES (default, ?, ?)");
+                    "INSERT INTO Asilo.Seguro(id, nombre, numPoliza) VALUES (default, ?, ?)",
+                    Statement.RETURN_GENERATED_KEYS);
             prepStatement.setString(1, nombre);
             prepStatement.setString(2, numPoliza);
             prepStatement.executeUpdate();

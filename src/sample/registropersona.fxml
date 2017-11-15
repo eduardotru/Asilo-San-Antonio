@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXComboBox?>
 <?import com.jfoenix.controls.JFXTextArea?>
@@ -11,7 +17,7 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="709.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.ControllerRegistroPersona">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="507.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.ControllerRegistroPersona">
    <children>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#303f9f" height="68.0" stroke="TRANSPARENT" strokeType="INSIDE" strokeWidth="0.0" width="600.0" />
       <Label layoutX="14.0" layoutY="14.0" prefHeight="38.0" prefWidth="367.0" text="Asilo San Antonio " textFill="WHITE">
@@ -29,63 +35,73 @@
             <Font name="Roboto" size="12.0" />
          </font>
       </Label>
-      <Pane layoutX="32.0" layoutY="138.0" prefHeight="537.0" prefWidth="531.0" style="-fx-background-color: #e1e2e1;">
-         <children>
-            <Label layoutX="35.0" layoutY="16.0" text="Nombre Paciente:">
-               <font>
-                  <Font name="System Bold" size="12.0" />
-               </font>
-            </Label>
-            <JFXButton fx:id="btnRegistrar" layoutX="404.0" layoutY="483.0" onAction="#pressButtonRegister" prefHeight="38.0" prefWidth="96.0" style="-fx-background-color: #303f9f;" text="REGISTRAR" textFill="WHITE" />
-            <JFXTextField fx:id="txtNombre" layoutX="35.0" layoutY="42.0" prefHeight="25.0" prefWidth="235.0" />
-            <Label layoutX="35.0" layoutY="81.0" text="Fecha de Nacimiento:">
-               <font>
-                  <Font name="System Bold" size="12.0" />
-               </font>
-            </Label>
-            <DatePicker fx:id="dateFechaNacimiento" layoutX="35.0" layoutY="109.0" />
-            <JFXComboBox fx:id="cbSexo" layoutX="37.0" layoutY="176.0" prefHeight="25.0" prefWidth="96.0" />
-            <JFXComboBox fx:id="cbEstado" layoutX="177.0" layoutY="176.0" prefHeight="25.0" prefWidth="101.0" />
-            <Label layoutX="35.0" layoutY="152.0" text="Sexo:">
-               <font>
-                  <Font name="System Bold" size="12.0" />
-               </font>
-            </Label>
-            <Label layoutX="177.0" layoutY="152.0" text="Estado:">
-               <font>
-                  <Font name="System Bold" size="12.0" />
-               </font>
-            </Label>
-            <Label layoutX="35.0" layoutY="214.0" text="Cuarto:">
-               <font>
-                  <Font name="System Bold" size="12.0" />
-               </font>
-            </Label>
-            <Label layoutX="176.0" layoutY="214.0" text="Cama:">
-               <font>
-                  <Font name="System Bold" size="12.0" />
-               </font>
-            </Label>
-            <Label layoutX="309.0" layoutY="16.0" text="Padecimientos:">
-               <font>
-                  <Font name="System Bold" size="12.0" />
-               </font>
-            </Label>
-            <JFXTextArea fx:id="txtPadecimientos" layoutX="306.0" layoutY="41.0" prefHeight="218.0" prefWidth="209.0" />
-            <JFXButton fx:id="bAgregarFamiliar" layoutX="37.0" layoutY="288.0" onAction="#pressButtonAgregarFamiliar" prefHeight="38.0" prefWidth="130.0" style="-fx-background-color: #303f9f;" text="Agregar Familiar Responsable" textFill="WHITE" />
-            <JFXButton fx:id="bAgregarServicioEmergencia" layoutX="180.0" layoutY="288.0" onAction="#pressButtonAgregarServicio" prefHeight="38.0" prefWidth="140.0" style="-fx-background-color: #303f9f;" text="Agregar Servicio Emergencia" textFill="WHITE" />
-            <JFXButton fx:id="bAgregarSeguro" layoutX="339.0" layoutY="288.0" onAction="#pressButtonAgregarSeguro" prefHeight="38.0" prefWidth="121.0" style="-fx-background-color: #303f9f;" text="Agregar Seguro" textFill="WHITE" />
-            <JFXTextArea fx:id="txtFamiliares" layoutX="35.0" layoutY="353.0" prefHeight="100.0" prefWidth="130.0" />
-            <JFXTextArea fx:id="txtServicios" layoutX="182.0" layoutY="342.0" prefHeight="113.0" prefWidth="130.0" />
-            <JFXTextArea fx:id="txtSeguros" layoutX="330.0" layoutY="342.0" prefHeight="113.0" prefWidth="130.0" />
-            <JFXTextField fx:id="txtCuarto" layoutX="35.0" layoutY="247.0" prefHeight="24.0" prefWidth="121.0" />
-            <JFXTextField fx:id="txtCama" layoutX="176.0" layoutY="247.0" prefHeight="24.0" prefWidth="121.0" />
-         </children>
-      </Pane>
-      <Label layoutX="32.0" layoutY="112.0" text="Registro de Paciente">
+      <Label layoutX="32.0" layoutY="105.0" text="Registro de Paciente">
          <font>
             <Font name="Roboto Medium" size="14.0" />
          </font>
       </Label>
+      <ScrollPane layoutX="35.0" layoutY="130.0" prefHeight="349.0" prefWidth="531.0" fx:id="scrollPane">
+         <content>
+            <Pane prefHeight="650.0" prefWidth="525.0" style="-fx-background-color: #e1e2e1;" fx:id="contentPane">
+               <children>
+                  <Label layoutX="35.0" layoutY="16.0" text="Nombre Paciente:">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+                  <JFXButton fx:id="btnRegistrar" layoutX="405.0" layoutY="547.0" onAction="#pressButtonRegister" prefHeight="38.0" prefWidth="96.0" style="-fx-background-color: #303f9f;" text="REGISTRAR" textFill="WHITE" />
+                  <JFXTextField fx:id="txtNombre" layoutX="35.0" layoutY="42.0" prefHeight="25.0" prefWidth="235.0" />
+                  <Label layoutX="35.0" layoutY="81.0" text="Fecha de Nacimiento:">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+                  <DatePicker fx:id="dateFechaNacimiento" layoutX="35.0" layoutY="109.0" />
+                  <JFXComboBox fx:id="cbSexo" layoutX="37.0" layoutY="176.0" prefHeight="25.0" prefWidth="96.0" />
+                  <JFXComboBox fx:id="cbEstado" layoutX="177.0" layoutY="176.0" prefHeight="25.0" prefWidth="101.0" />
+                  <Label layoutX="35.0" layoutY="152.0" text="Sexo:">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="177.0" layoutY="152.0" text="Estado:">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="35.0" layoutY="214.0" text="Cuarto:">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="176.0" layoutY="214.0" text="Cama:">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="309.0" layoutY="16.0" text="Padecimientos:">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+                  <JFXTextArea fx:id="txtPadecimientos" layoutX="306.0" layoutY="41.0" prefHeight="218.0" prefWidth="209.0" />
+                  <JFXButton fx:id="bAgregarFamiliar" layoutX="37.0" layoutY="288.0" onAction="#pressButtonAgregarFamiliar" prefHeight="38.0" prefWidth="130.0" style="-fx-background-color: #303f9f;" text="Agregar Familiar Responsable" textFill="WHITE" />
+                  <JFXButton fx:id="bAgregarServicioEmergencia" layoutX="180.0" layoutY="288.0" onAction="#pressButtonAgregarServicio" prefHeight="38.0" prefWidth="140.0" style="-fx-background-color: #303f9f;" text="Agregar Servicio Emergencia" textFill="WHITE" />
+                  <JFXButton fx:id="bAgregarSeguro" layoutX="339.0" layoutY="288.0" onAction="#pressButtonAgregarSeguro" prefHeight="38.0" prefWidth="121.0" style="-fx-background-color: #303f9f;" text="Agregar Seguro" textFill="WHITE" />
+                  <JFXTextArea fx:id="txtFamiliares" layoutX="35.0" layoutY="353.0" prefHeight="100.0" prefWidth="130.0" />
+                  <JFXTextArea fx:id="txtServicios" layoutX="182.0" layoutY="342.0" prefHeight="113.0" prefWidth="130.0" />
+                  <JFXTextArea fx:id="txtSeguros" layoutX="330.0" layoutY="342.0" prefHeight="113.0" prefWidth="130.0" />
+                  <JFXTextField fx:id="txtCuarto" layoutX="35.0" layoutY="240.0" prefHeight="24.0" prefWidth="121.0" />
+                  <JFXTextField fx:id="txtCama" layoutX="176.0" layoutY="238.0" prefHeight="24.0" prefWidth="121.0" />
+                  <JFXTextField fx:id="txtNumeroReferencia" layoutX="39.0" layoutY="503.0" prefHeight="25.0" prefWidth="235.0" />
+                  <Label layoutX="39.0" layoutY="477.0" text="Número de referencia:">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+               </children>
+            </Pane>
+         </content>
+      </ScrollPane>
    </children>
 </AnchorPane>

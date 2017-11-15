@@ -44,7 +44,7 @@ public class PacienteModel extends InterfazDB
                     "INSERT INTO Asilo.Paciente(id, nombre, fechaNacimiento, " +
                             "sexo, estado, numCuarto, numCama, idSeguro, " +
                             "idServicioEmergencia, numeroReferencia)" +
-                            "VALUES (default, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+                            "VALUES (default, ?, ?, ?, ?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
             prepStatement.setString(1, nombre);
             prepStatement.setDate(2, fechaNacimiento);
             prepStatement.setString(3, Character.toString(sexo));
