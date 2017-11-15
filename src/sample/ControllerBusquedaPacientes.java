@@ -25,7 +25,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
 
-public class ControllerBusquedaPacientes {
+public class ControllerBusquedaPacientes extends ControllerBase{
 
     PacienteModel pacienteModel = new PacienteModel();
     private Paciente pacientes[];
@@ -168,13 +168,6 @@ public class ControllerBusquedaPacientes {
     }
 
     public void pressAddPatient(Event event) throws IOException {
-        Stage stage = null;
-        Parent root = null;
-        System.out.println(event.getSource().toString());
-        stage =(Stage) btnAddPatient.getScene().getWindow();
-        root = FXMLLoader.load(getClass().getResource("registropersona.fxml"));
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
+        cargaPantalla(event, "registropersona.fxml", btnAddPatient);
     }
 }
