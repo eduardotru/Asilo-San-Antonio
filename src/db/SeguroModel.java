@@ -120,4 +120,28 @@ public class SeguroModel extends InterfazDB
 
         return seguroId;
     }
+
+    public void deleteSeguro(int id) throws SQLException
+    {
+        try {
+            InterfazDB.crearConexion();
+        }
+        catch(Exception e) {
+            System.err.println("Error al borrar un Seguro: "
+                    + e.getClass().getName() + ": " + e.getMessage());
+        }
+        try {
+            PreparedStatement preparedStatement = c.prepareStatement(
+                    "DELETE FROM Asilo.Seguro WHERE id = ?");
+            preparedStatement.setInt(1, id);
+            preparedStatement.executeUpdate();
+        }
+        catch (Exception e) {
+            System.err.println("Error al eliminar el Seguro: " + id);
+            throw e;
+        }
+        finally {
+            cerrarConexion();
+        }
+    }
 }

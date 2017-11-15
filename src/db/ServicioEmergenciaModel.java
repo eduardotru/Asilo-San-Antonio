@@ -209,4 +209,28 @@ public class ServicioEmergenciaModel extends InterfazDB
 
         return servicioId;
     }
+
+    public void deleteServicioEmergencia(int id) throws SQLException
+    {
+        try {
+            InterfazDB.crearConexion();
+        }
+        catch(Exception e) {
+            System.err.println("Error al borrar un Servicio de Emergencia: "
+                    + e.getClass().getName() + ": " + e.getMessage());
+        }
+        try {
+            PreparedStatement preparedStatement = c.prepareStatement(
+                    "DELETE FROM Asilo.ServicioEmergencia WHERE id = ?");
+            preparedStatement.setInt(1, id);
+            preparedStatement.executeUpdate();
+        }
+        catch (Exception e) {
+            System.err.println("Error al eliminar el Servicio de emergencia: " + id);
+            throw e;
+        }
+        finally {
+            cerrarConexion();
+        }
+    }
 }
