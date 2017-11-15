@@ -20,8 +20,6 @@ import objetos.Paciente;
 import org.controlsfx.control.textfield.TextFields;
 import sun.font.Decoration;
 
-import java.awt.*;
-import java.awt.event.ActionEvent;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -56,6 +54,9 @@ public class ControllerBusquedaPacientes {
     private Label lblSexo;
     @FXML
     private Label lblCuarto;
+
+    @FXML
+    private Button btnAddPatient;
 
     @FXML
     public void initialize() throws Exception {
@@ -164,5 +165,16 @@ public class ControllerBusquedaPacientes {
 
         window.setScene(tableViewScene);
         window.show();
+    }
+
+    public void pressAddPatient(Event event) throws IOException {
+        Stage stage = null;
+        Parent root = null;
+        System.out.println(event.getSource().toString());
+        stage =(Stage) btnAddPatient.getScene().getWindow();
+        root = FXMLLoader.load(getClass().getResource("registropersona.fxml"));
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
     }
 }
