@@ -34,7 +34,8 @@ public class ServicioEmergenciaModel extends InterfazDB
         try {
             PreparedStatement prepStatement = c.prepareStatement(
                     "INSERT INTO Asilo.ServicioEmergencia(id, nombre, telefono, direccion) " +
-                            "VALUES (default, ?, ?, ?)");
+                            "VALUES (default, ?, ?, ?);",
+                    Statement.RETURN_GENERATED_KEYS);
             prepStatement.setString(1, nombre);
             prepStatement.setString(2, telefono);
             prepStatement.setString(3, direccion);

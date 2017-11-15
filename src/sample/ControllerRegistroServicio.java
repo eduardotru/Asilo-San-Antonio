@@ -4,6 +4,7 @@ import db.SeguroModel;
 import db.ServicioEmergenciaModel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -48,7 +49,7 @@ public class ControllerRegistroServicio {
     }
 
     public void  pressButton(ActionEvent event) throws IOException {
-        Stage stage = null;
+        Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();;
 
         System.out.println(event.getSource().toString());
 

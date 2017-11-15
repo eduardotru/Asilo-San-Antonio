@@ -69,4 +69,10 @@ public class FamiliarResponsable {
         }
         return paciente;
     }
+
+    public void setIdPaciente(int idPaciente) {
+        if (this.idPaciente == -1) {
+            this.idPaciente = idPaciente;
+        }
+    }
 }

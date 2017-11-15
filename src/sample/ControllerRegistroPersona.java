@@ -1,6 +1,7 @@
 package sample;
 
 import db.FamiliarResponsableModel;
+import db.PacienteModel;
 import db.SeguroModel;
 import db.ServicioEmergenciaModel;
 import javafx.event.ActionEvent;
@@ -19,6 +20,7 @@ import objetos.ServicioEmergencia;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Calendar;
 
 public class ControllerRegistroPersona {
@@ -35,10 +37,10 @@ public class ControllerRegistroPersona {
     ComboBox cbEstado;
 
     @FXML
-    ComboBox cbCuarto;
+    TextField txtCuarto;
 
     @FXML
-    ComboBox cbCama;
+    TextField txtCama;
 
     @FXML
     Button bAgregarFamiliar;
@@ -53,10 +55,19 @@ public class ControllerRegistroPersona {
     TextArea txtFamiliares;
 
     @FXML
+    TextArea txtServicios;
+
+    @FXML
+    TextArea txtSeguros;
+
+    @FXML
     TextArea txtPadecimientos;
 
     @FXML
     public Button btnRegistrar;
+
+    @FXML
+    private TextField txtNumeroReferencia;
 
     @FXML
     public Label date;
@@ -67,6 +78,10 @@ public class ControllerRegistroPersona {
     private int Dia;
     private int Mes;
     private int Anio;
+
+    private ArrayList<FamiliarResponsable> familiares;
+    private ServicioEmergencia servicio;
+    private Seguro seguro;
 
     @FXML
     private void initialize() {
@@ -119,14 +134,11 @@ public class ControllerRegistroPersona {
             try {
                 nuevoFamiliar = familiarResponsableModel.selectFamiliarResponsable(lastFamiliarId);
                 txtFamiliares.setText(txtFamiliares.getText() + "\n" + nuevoFamiliar.getNombre());
+                familiares.add(nuevoFamiliar);
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
-    }
-
-    public void agregarFamiliarClosed() {
-
     }
 
     public void  pressButtonAgregarServicio(ActionEvent event) throws IOException {
@@ -160,7 +172,12 @@ public class ControllerRegistroPersona {
             ServicioEmergencia nuevoServicio = null;
             try {
                 nuevoServicio = servicioEmergenciaModel.selectServicioEmergencia(lastServicioId);
-                txtFamiliares.setText(txtFamiliares.getText() + "\n" + nuevoServicio.getNombre());
+                txtServicios.setText(txtServicios.getText() + "\n" + nuevoServicio.getNombre());
+                bAgregarFamiliar.setText("Reemplazar Familiar");
+                if (servicio != null) {
+                    servicioEmergenciaModel.deleteServicio(servicio.getId());
+                }
+                servicio = nuevoServicio;
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -198,7 +215,12 @@ public class ControllerRegistroPersona {
             Seguro nuevoSeguro = null;
             try {
                 nuevoSeguro = seguroModel.selectSeguro(lastSeguroId);
-                txtFamiliares.setText(txtFamiliares.getText() + "\n" + nuevoSeguro.getNombre());
+                txtSeguros.setText(txtSeguros.getText() + "\n" + nuevoSeguro.getNombre());
+                bAgregarSeguro.setText("Reemplazar Seguro");
+                if (seguro != null) {
+                    seguroModel.deleteSeguro(seguro.getId());
+                }
+                seguro = nuevoSeguro;
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -208,6 +230,70 @@ public class ControllerRegistroPersona {
     public void  pressButtonRegister(ActionEvent event) throws IOException {
         Stage stage = null;
         Parent root = null;
+
+        if (txtNombre.getText() == "") {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Asilo San Antonio");
+            alert.setHeaderText(null);
+            alert.setContentText("Favor de especificar un nombre para el paciente.");
+            alert.showAndWait();
+            return;
+        }
+
+        if (dateFechaNacimiento.getValue() == null) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Asilo San Antonio");
+            alert.setHeaderText(null);
+            alert.setContentText("Favor de especificar la fecha de nacimiento.");
+            alert.showAndWait();
+            return;
+        }
+
+        if (cbSexo.getValue() == "") {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Asilo San Antonio");
+            alert.setHeaderText(null);
+            alert.setContentText("Favor de especificar el sexo.");
+            alert.showAndWait();
+            return;
+        }
+
+        if (cbEstado.getValue() == "") {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Asilo San Antonio");
+            alert.setHeaderText(null);
+            alert.setContentText("Favor de especificar el estado.");
+            alert.showAndWait();
+            return;
+        }
+
+        PacienteModel pacienteModel = new PacienteModel();
+        String nombre = txtNombre.getText();
+        java.sql.Date fechaNacimiento = java.sql.Date.valueOf(dateFechaNacimiento.getValue());
+        char sexo = ((String)cbSexo.getValue()).charAt(0);
+        String estado = (String)cbEstado.getValue();
+        int numCuarto = Integer.parseInt(txtCuarto.getText());
+        int numCama = Integer.parseInt(txtCama.getText());
+        int idSeguro = seguro.getId();
+        int idServicioEmergencia = servicio.getId();
+        String numeroReferencia = txtNumeroReferencia.getText();
+
+        try {
+            Paciente nuevoPaciente = pacienteModel.addPaciente(nombre, fechaNacimiento,
+                sexo, estado, numCuarto, numCama, idSeguro, idServicioEmergencia, numeroReferencia);
+
+            for (FamiliarResponsable familiar: familiares) {
+                familiar.setIdPaciente(nuevoPaciente.getId());
+            }
+        } catch (Exception e) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Asilo San Antonio");
+            alert.setHeaderText(null);
+            alert.setContentText("Hubo un error al guardar al nuevo paciente. Favor de intentarlo más tarde.");
+            alert.showAndWait();
+            e.printStackTrace();
+            return;
+        }
 
         System.out.println(event.getSource().toString());
     }
