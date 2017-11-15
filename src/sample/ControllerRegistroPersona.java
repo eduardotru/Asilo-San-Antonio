@@ -175,7 +175,7 @@ public class ControllerRegistroPersona {
                 txtServicios.setText(txtServicios.getText() + "\n" + nuevoServicio.getNombre());
                 bAgregarFamiliar.setText("Reemplazar Familiar");
                 if (servicio != null) {
-                    servicioEmergenciaModel.deleteServicio(servicio.getId());
+                    servicioEmergenciaModel.deleteServicioEmergencia(servicio.getId());
                 }
                 servicio = nuevoServicio;
             } catch (Exception e) {
@@ -279,12 +279,21 @@ public class ControllerRegistroPersona {
         String numeroReferencia = txtNumeroReferencia.getText();
 
         try {
-            Paciente nuevoPaciente = pacienteModel.addPaciente(nombre, fechaNacimiento,
+            int nuevoPacienteId = pacienteModel.addPaciente(nombre, fechaNacimiento,
                 sexo, estado, numCuarto, numCama, idSeguro, idServicioEmergencia, numeroReferencia);
 
+            FamiliarResponsableModel familiarResponsableModel = new FamiliarResponsableModel();
             for (FamiliarResponsable familiar: familiares) {
-                familiar.setIdPaciente(nuevoPaciente.getId());
+                familiar.setIdPaciente(nuevoPacienteId);
+                familiarResponsableModel.updateFamiliarResponsable(familiar);
             }
+
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Asilo San Antonio");
+            alert.setHeaderText(null);
+            alert.setContentText("Se ha guardado el nuevo paciente de forma exitosa.");
+            alert.showAndWait();
+            return;
         } catch (Exception e) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Asilo San Antonio");
@@ -294,7 +303,5 @@ public class ControllerRegistroPersona {
             e.printStackTrace();
             return;
         }
-
-        System.out.println(event.getSource().toString());
     }
 }
