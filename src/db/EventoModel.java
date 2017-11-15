@@ -155,6 +155,18 @@ public class EventoModel extends InterfazDB
         return eventos;
     }
 
+    public Evento[] selectEventosDelDia(Date dia) throws SQLException
+    {
+        Evento[] eventos;
+        try {
+            eventos = selectEventos(dia, dia);
+        }
+        catch(Exception e) {
+            throw e;
+        }
+        return eventos;
+    }
+
     private Evento[] crearListaEventos(ResultSet result) throws SQLException
     {
         ArrayList<Evento> listaEventos = new ArrayList<Evento>();
