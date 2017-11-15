@@ -197,6 +197,9 @@ public class EnvaseMedicinaModel extends InterfazDB
             dosisDiarias++;
         }
         int diasDisponibles = envase.getCantidad()/(envase.getMedicamento().getDosis()*dosisDiarias);
+        if(diasDisponibles <= pacienteMedicamento.getDuracion()) {
+            return false;
+        }
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(envase.getFechaSurtimiento());
         calendar.add(Calendar.DAY_OF_MONTH, diasDisponibles);
