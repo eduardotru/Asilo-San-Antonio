@@ -83,6 +83,40 @@ public class FamiliarResponsableModel extends InterfazDB
         return id;
     }
 
+    public int addFamiliarResponsable(String nombre, String relacion, String telefono) throws Exception
+    {
+        int id = -1;
+        try {
+            InterfazDB.crearConexion();
+        } catch (Exception e){
+            System.err.println("Error al agregar un familiarResponsable: "
+                    + e.getClass().getName() + ": " + e.getMessage());
+        }
+        try {
+            PreparedStatement prepStatement = c.prepareStatement(
+                    "INSERT INTO Asilo.FamiliarResponsable(id, nombre, " +
+                            "relacion, telefono) " +
+                            "VALUES (default, ?, ?, ?)");
+            prepStatement.setString(1, nombre);
+            prepStatement.setString(2, relacion);
+            prepStatement.setString(3, telefono);
+            prepStatement.executeUpdate();
+
+            ResultSet result = prepStatement.getGeneratedKeys();
+
+            if(result.next()) {
+                id = result.getInt(1);
+            }
+        }
+        catch (Exception e) {
+            throw e;
+        }
+        finally {
+            cerrarConexion();
+        }
+        return id;
+    }
+
     public FamiliarResponsable selectFamiliarResponsable(int id) throws Exception
     {
         FamiliarResponsable familiarResponsable;
