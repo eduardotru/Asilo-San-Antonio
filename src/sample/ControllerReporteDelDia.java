@@ -9,10 +9,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
@@ -39,6 +36,20 @@ public class ControllerReporteDelDia extends  ControllerBase{
     @FXML private TableColumn<EventoTabla,String> columnaPaciente;
     @FXML private TableColumn<EventoTabla,String> columnaEvento;
     @FXML private TableColumn<EventoTabla,String> columnaEnfermero;
+    @FXML
+    private TextField campoPaciente;
+    @FXML
+    private TextField campoAsunto;
+    @FXML
+    private TextField campoDescripcion;
+    @FXML
+    private TextField campoNotificado;
+    @FXML
+    private TextField campoHospitalito;
+    @FXML
+    private TextField campoConsulta;
+    @FXML
+    private TextField campoEnfermero;
 
     private int Dia;
     private int Mes;
@@ -97,6 +108,12 @@ public class ControllerReporteDelDia extends  ControllerBase{
     @FXML
     public void  filaClickeada(){
         EventoTabla eventoSeleccionado=  tableEventoDelDia.getSelectionModel().selectedItemProperty().get();
-        System.out.println(eventoSeleccionado.getAsunto());
+        campoAsunto.setText(eventoSeleccionado.getAsunto());
+        campoPaciente.setText(eventoSeleccionado.getPaciente());
+        campoDescripcion.setText(eventoSeleccionado.getDescripcion());
+        campoEnfermero.setText(eventoSeleccionado.getEnfermero());
+        campoNotificado.setText(eventoSeleccionado.getAvisoFamiliar());
+        campoHospitalito.setText(eventoSeleccionado.getEstaHospitalito());
+        campoConsulta.setText(eventoSeleccionado.getRequirioConsulta());
     }
 }

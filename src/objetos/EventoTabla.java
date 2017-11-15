@@ -76,4 +76,20 @@ public class EventoTabla {
     public String getEnfermero() {
         return enfermero.get();
     }
+
+    public String getDescripcion() {
+        return descripcion.get();
+    }
+
+    public String getAvisoFamiliar() {
+        return avisoFamiliar.get();
+    }
+
+    public String getEstaHospitalito() {
+        return estaHospitalito.get();
+    }
+
+    public String getRequirioConsulta() {
+        return requirioConsulta.get();
+    }
 }
