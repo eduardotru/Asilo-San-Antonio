@@ -114,6 +114,37 @@ public class FamiliarResponsableModel extends InterfazDB
         return familiarResponsable;
     }
 
+    public FamiliarResponsable selectFamiliarResponsablePorPacienteId(int id) throws Exception
+    {
+        FamiliarResponsable familiarResponsable;
+        try {
+            InterfazDB.crearConexion();
+        } catch (Exception e){
+            System.err.println("Error al obtener los familiarResponsables: "
+                    + e.getClass().getName() + ": " + e.getMessage());
+        }
+        try {
+            PreparedStatement  prepeparedStatement = c.prepareStatement(
+                    "SELECT * FROM Asilo.FamiliarResponsable WHERE idPaciente = ?");
+            prepeparedStatement.setInt(1, id);
+            ResultSet result = prepeparedStatement.executeQuery();
+            FamiliarResponsable[] familiarResponsables = crearListaFamiliarResponsables(result);
+            if(familiarResponsables.length == 1) {
+                familiarResponsable = familiarResponsables[0];
+            }
+            else {
+                familiarResponsable = null;
+            }
+        }
+        catch (Exception e) {
+            throw e;
+        }
+        finally {
+            cerrarConexion();
+        }
+        return familiarResponsable;
+    }
+
     public int selectIdFamiliarResponsable(String nombre) throws Exception
     {
         int id = -1;

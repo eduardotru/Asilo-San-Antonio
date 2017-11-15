@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
-<?import com.jfoenix.controls.JFXTextArea?>
+<?import com.jfoenix.controls.JFXDatePicker?>
+<?import com.jfoenix.controls.JFXListView?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TitledPane?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.shape.Rectangle?>
@@ -34,12 +36,11 @@
                   <Font size="14.0" />
                </font>
             </Label>
-            <Label layoutX="15.0" layoutY="41.0" text="Fecha De Nacimiento:">
+            <Label layoutX="15.0" layoutY="41.0" text="Fecha de Nac.">
                <font>
                   <Font size="14.0" />
                </font>
             </Label>
-            <JFXTextField fx:id="campoFechaNac" layoutX="154.0" layoutY="38.0" prefHeight="24.0" prefWidth="84.0" />
             <JFXTextField fx:id="campoSexo" layoutX="55.0" layoutY="67.0" prefHeight="24.0" prefWidth="25.0" />
             <JFXTextField fx:id="campoNombrePaciente" layoutX="71.0" layoutY="10.0" prefHeight="24.0" prefWidth="165.0" />
             <JFXTextField fx:id="campoEstado" layoutX="64.0" layoutY="99.0" prefHeight="24.0" prefWidth="171.0" />
@@ -53,6 +54,7 @@
                   <Font size="14.0" />
                </font>
             </Label>
+            <JFXDatePicker fx:id="campoFechaNac" layoutX="127.0" layoutY="39.0" prefHeight="24.0" prefWidth="128.0" />
          </children></Pane>
       <Label layoutX="32.0" layoutY="139.0" text="Paciente">
          <font>
@@ -66,18 +68,34 @@
       </Label>
       <Pane layoutX="321.0" layoutY="167.0" prefHeight="132.0" prefWidth="241.0" style="-fx-background-color: #e1e2e1;">
          <children>
-            <JFXTextArea layoutX="15.0" layoutY="16.0" prefHeight="100.0" prefWidth="211.0" text="Nombre:&#10;Parentesco:&#10;Teléfono">
+            <Label layoutX="15.0" layoutY="15.0" text="Nombre:">
                <font>
-                  <Font name="Roboto" size="12.0" />
+                  <Font size="14.0" />
                </font>
-            </JFXTextArea>
+            </Label>
+            <Label layoutX="14.0" layoutY="49.0" text="Parentesco:">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label layoutX="14.0" layoutY="86.0" text="Teléfono:">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <JFXTextField fx:id="campoNombreFamiliar" layoutX="69.0" layoutY="13.0" prefHeight="24.0" prefWidth="158.0" />
+            <JFXTextField fx:id="campoParentesco" layoutX="85.0" layoutY="47.0" prefHeight="24.0" prefWidth="143.0" />
+            <JFXTextField fx:id="campoTelefonoPariente" layoutX="71.0" layoutY="84.0" prefHeight="24.0" prefWidth="158.0" />
          </children>
       </Pane>
-      <Pane layoutX="321.0" layoutY="343.0" prefHeight="132.0" prefWidth="241.0" style="-fx-background-color: #e1e2e1;" />
+      <Pane layoutX="321.0" layoutY="343.0" prefHeight="132.0" prefWidth="241.0" style="-fx-background-color: #e1e2e1;">
+         <children>
+            <JFXListView fx:id="listaTabla" layoutX="15.0" layoutY="11.0" prefHeight="114.0" prefWidth="211.0" />
+         </children></Pane>
       <Pane layoutX="33.0" layoutY="341.0" prefHeight="132.0" prefWidth="261.0" style="-fx-background-color: #e1e2e1;">
          <children>
-            <JFXTextField fx:id="campoNombreSrvEmergencia" layoutX="69.0" layoutY="10.0" prefHeight="24.0" prefWidth="165.0" />
-            <JFXTextField fx:id="campoTelSrvEmergencia" layoutX="76.0" layoutY="91.0" prefHeight="24.0" prefWidth="158.0" />
+            <JFXTextField fx:id="campoNombreSrvEmergencia" editable="false" layoutX="69.0" layoutY="10.0" prefHeight="24.0" prefWidth="165.0" />
+            <JFXTextField fx:id="campoTelSrvEmergencia" editable="false" layoutX="76.0" layoutY="91.0" prefHeight="24.0" prefWidth="158.0" />
             <JFXTextField fx:id="campoNumSrvEmergencia" layoutX="91.0" layoutY="54.0" prefHeight="24.0" prefWidth="143.0" />
             <Label layoutX="15.0" layoutY="13.0" text="Nombre:">
                <font>
@@ -106,13 +124,20 @@
             <Font name="Roboto Medium" size="14.0" />
          </font>
       </Label>
-      <Pane layoutX="34.0" layoutY="515.0" prefHeight="132.0" prefWidth="241.0" style="-fx-background-color: #e1e2e1;">
+      <Pane layoutX="34.0" layoutY="515.0" prefHeight="132.0" prefWidth="261.0" style="-fx-background-color: #e1e2e1;">
          <children>
-            <JFXTextArea layoutX="15.0" layoutY="16.0" prefHeight="100.0" prefWidth="211.0" text="Nombre:&#10;Teléfono:&#10;No. de Poliza:&#10;&#10;&#10;">
+            <JFXTextField fx:id="campoNombreSeguro" layoutX="69.0" layoutY="13.0" prefHeight="24.0" prefWidth="158.0" />
+            <JFXTextField fx:id="campoNumPoliza" layoutX="91.0" layoutY="50.0" />
+            <Label layoutX="15.0" layoutY="15.0" text="Nombre:">
                <font>
-                  <Font name="Roboto" size="12.0" />
+                  <Font size="14.0" />
                </font>
-            </JFXTextArea>
+            </Label>
+            <Label layoutX="15.0" layoutY="53.0" text="No. Póliza:">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
          </children>
       </Pane>
       <Label layoutX="35.0" layoutY="489.0" text="Seguro de Gastos Médicos">
@@ -125,17 +150,13 @@
             <Font name="Roboto Medium" size="14.0" />
          </font>
       </Label>
-      <Pane layoutX="321.0" layoutY="514.0" prefHeight="132.0" prefWidth="241.0" style="-fx-background-color: #e1e2e1;">
+      <Pane layoutX="321.0" layoutY="514.0" prefHeight="132.0" prefWidth="232.0" style="-fx-background-color: #e1e2e1;">
          <children>
-            <JFXTextArea layoutX="15.0" layoutY="16.0" prefHeight="100.0" prefWidth="211.0" text="&#10;&#10;&#10;">
-               <font>
-                  <Font name="Roboto" size="12.0" />
-               </font>
-            </JFXTextArea>
+            <JFXListView fx:id="listaPadecimientos" layoutX="3.0" layoutY="5.0" prefHeight="125.0" prefWidth="224.0" />
          </children>
       </Pane>
-      <JFXButton layoutX="494.0" layoutY="101.0" text="Actualizar" />
-      <JFXButton layoutX="494.0" layoutY="655.0" text="Actualizar" />
+      <JFXButton layoutX="494.0" layoutY="101.0" onAction="#pushedActualizar" text="Actualizar" />
+      <JFXButton layoutX="494.0" layoutY="655.0" onAction="#pushedActualizar" text="Actualizar" />
       <Label layoutX="32.0" layoutY="112.0" text="Detalles del Paciente">
          <font>
             <Font name="Roboto Medium" size="14.0" />
@@ -143,5 +164,6 @@
       </Label>
       <JFXButton fx:id="btnPacientes" layoutX="90.0" layoutY="77.0" onAction="#pushedBtnBuscaP" style="-fx-background-color: #303f9f;" text="Pacientes" textFill="WHITE" />
       <JFXButton fx:id="btnHome" layoutX="46.0" layoutY="77.0" onAction="#pushedBtnHome" style="-fx-background-color: #303f9f;" text="Home" textFill="WHITE" />
+      <TitledPane animated="false" layoutX="198.0" layoutY="-34.0" text="untitled" />
    </children>
 </AnchorPane>

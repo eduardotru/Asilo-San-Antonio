@@ -95,7 +95,7 @@ public class PadecimientoModel extends InterfazDB
         }
         try {
             PreparedStatement prepStatement = c.prepareStatement(
-                    "SELECT * FROM Asilo.Padecimiento WHERE idPaciente = ?");
+                    "SELECT * FROM Asilo.Padecimientos WHERE idPaciente = ?");
             prepStatement.setInt(1, idPaciente);
             prepStatement.executeQuery();
 

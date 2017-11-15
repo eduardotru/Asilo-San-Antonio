@@ -22,6 +22,14 @@ public class Seguro {
         }
     }
 
+    public void setNombre(String nombr){
+        this.nombre = nombr;
+    }
+
+    public void setNumPoliza(String numPol){
+        this.numPoliza = numPol;
+    }
+
     public String getNombre() {
         return nombre;
     }

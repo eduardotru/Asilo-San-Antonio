@@ -104,6 +104,10 @@ public class Paciente {
         this.idSeguro = idSeguro;
     }
 
+    public void setIdServicioEmergencia(int idServ){
+        this.idServicioEmergencia = idServ;
+    }
+
     public Seguro getSeguro() {
         if(seguro == null && idSeguro != -1) {
             try {
