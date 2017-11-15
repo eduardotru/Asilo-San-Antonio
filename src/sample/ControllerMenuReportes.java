@@ -35,7 +35,7 @@ public class ControllerMenuReportes extends ControllerBase{
             root = FXMLLoader.load(getClass().getResource("reportedeldia.fxml"));
         } else if(event.getSource()==btnHistorialRps) {
             stage = (Stage) btnHistorialRps.getScene().getWindow();
-            root = FXMLLoader.load(getClass().getResource("historialdereportes.fxml"));
+            root = FXMLLoader.load(getClass().getResource("reporteconsulta.fxml"));
         }
         Scene scene = new Scene(root);
         stage.setScene(scene);
