@@ -10,9 +10,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.JavaFXBuilderFactory;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.*;
 import javafx.scene.control.Button;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
@@ -194,6 +193,12 @@ public class ControllerDetallesPaciente extends  ControllerBase{
         paciente.setEstado(campoEstado.getText());
         paciente.setFechaNacimiento(Date.from(campoFechaNac.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant()));
         try {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Asilo San Antonio");
+            alert.setHeaderText(null);
+            alert.setContentText("Se ha actualizado el paciente de forma exitosa.");
+            alert.showAndWait();
+
             pacienteModel.updatePaciente(paciente);
             System.out.println("Datos actualizados correctamente");
         }catch (Exception e) {

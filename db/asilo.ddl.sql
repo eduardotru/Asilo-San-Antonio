@@ -10,6 +10,7 @@ create table Paciente (
     numCama int unsigned,
     idSeguro int unsigned,
     idServicioEmergencia int unsigned,
+    numeroReferencia varchar(50),
     PRIMARY KEY(id)
 );
 
@@ -19,22 +20,6 @@ create table Padecimientos(
     padecimiento varchar(100),
     PRIMARY KEY(id),
     FOREIGN KEY(idPaciente) REFERENCES Paciente(id)
-);
-
-create table Cuarto(
-    id int unsigned AUTO_INCREMENT,
-    numCuarto int unsigned,
-    PRIMARY KEY(id)
-);
-
-create table Cama(
-    id int unsigned AUTO_INCREMENT,
-    numCama int unsigned,
-    idPaciente int unsigned,
-    idCuarto int unsigned,
-    PRIMARY KEY(id),
-    FOREIGN KEY(idPaciente) references Paciente(id),
-    FOREIGN KEY(idCuarto) references Cuarto(id)
 );
 
 create table Seguro(
