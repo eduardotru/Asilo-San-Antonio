@@ -53,12 +53,6 @@ public class ControllerRegistroPersona {
     TextArea txtFamiliares;
 
     @FXML
-    TextArea txtServicios;
-
-    @FXML
-    TextArea txtSeguros;
-
-    @FXML
     TextArea txtPadecimientos;
 
     @FXML
@@ -166,7 +160,7 @@ public class ControllerRegistroPersona {
             ServicioEmergencia nuevoServicio = null;
             try {
                 nuevoServicio = servicioEmergenciaModel.selectServicioEmergencia(lastServicioId);
-                txtServicios.setText(txtServicios.getText() + "\n" + nuevoServicio.getNombre());
+                txtFamiliares.setText(txtFamiliares.getText() + "\n" + nuevoServicio.getNombre());
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -204,7 +198,7 @@ public class ControllerRegistroPersona {
             Seguro nuevoSeguro = null;
             try {
                 nuevoSeguro = seguroModel.selectSeguro(lastSeguroId);
-                txtSeguros.setText(txtSeguros.getText() + "\n" + nuevoSeguro.getNombre());
+                txtFamiliares.setText(txtFamiliares.getText() + "\n" + nuevoSeguro.getNombre());
             } catch (Exception e) {
                 e.printStackTrace();
             }
