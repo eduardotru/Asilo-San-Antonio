@@ -295,7 +295,7 @@ public class ControllerRegistroPersona {
             alert.showAndWait();
             return;
         } catch (Exception e) {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Asilo San Antonio");
             alert.setHeaderText(null);
             alert.setContentText("Hubo un error al guardar al nuevo paciente. Favor de intentarlo más tarde.");
