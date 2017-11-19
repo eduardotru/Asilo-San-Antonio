@@ -22,55 +22,26 @@ import java.util.*;
 
 import objetos.*;
 
-public class AddEventController {
-    @FXML
-    public Label date;
+public class AddEventController extends ControllerBase{
+    //Definición de todos los elementos que están dentro de la interfáz y serán manejados por el controlador.
+    @FXML    public Label lblDate;
+    @FXML    public Button btnRegistrar;
+    @FXML    public Label ruta;
+    @FXML    public ComboBox nombrePaciente;
+    @FXML    public ComboBox nombreEnfermero;
+    @FXML    public TextField textAsunto;
+    @FXML    public CheckBox bHospitalito;
+    @FXML    public CheckBox bFamiliar;
+    @FXML    public CheckBox bConsulta;
+    @FXML    public DatePicker fechaEventualidad;
+    @FXML    public TextArea textComentarios;
 
-    @FXML
-    public Button btnRegistrar;
-
-    @FXML
-    public Label ruta;
-
-    @FXML
-    public ComboBox nombrePaciente;
-
-    @FXML
-    public ComboBox nombreEnfermero;
-
-    @FXML
-    public TextField textAsunto;
-
-    @FXML
-    public CheckBox bHospitalito;
-
-    @FXML
-    public CheckBox bFamiliar;
-
-    @FXML
-    public CheckBox bConsulta;
-
-    @FXML
-    public DatePicker fechaEventualidad;
-
-    @FXML
-    public TextArea textComentarios;
-
-    private int Dia;
-    private int Mes;
-    private int Anio;
 
     @FXML
     private void initialize() {
-        Calendar cal = Calendar.getInstance();
-        Dia = cal.get(Calendar.DAY_OF_MONTH);
-        Mes = cal.get(Calendar.MONTH) + 1;
-        Anio = cal.get(Calendar.YEAR);
-        date.setText("Fecha: " + Dia + "/" + Mes + "/" + Anio);
+        initializeDate(lblDate);
         ruta.setText("Home > Registrar Eventualidad");
-
         PacienteModel pacienteModel = new PacienteModel();
-
         Paciente[] pacientes;
         try {
             pacientes = pacienteModel.selectPacientes();

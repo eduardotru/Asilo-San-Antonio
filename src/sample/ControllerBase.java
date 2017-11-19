@@ -12,6 +12,8 @@ import java.io.IOException;
 import java.util.Calendar;
 
 public class ControllerBase {
+    //Carga la ventana la interfaz que se da como parámetros
+    //Entradas: El nombre de la pantalla a cargar, el botón que se presionó.
     public void cargaPantalla(Event event, String nombrePantalla, Button button) throws IOException {
         Stage stage = null;
         Parent root = null;
@@ -23,6 +25,9 @@ public class ControllerBase {
         stage.show();
     }
 
+    //Obtiene la fecha actual y lo escribe en un Label
+    //Entrada: El label que será modificado.
+    //Salida: Ninguna
     public void initializeDate(Label date) {
         Calendar cal = Calendar.getInstance();
         int Dia = cal.get(Calendar.DAY_OF_MONTH);

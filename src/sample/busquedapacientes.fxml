@@ -1,11 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.*?>
-<?import java.lang.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.shape.*?>
-<?import javafx.scene.text.*?>
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXListView?>
 <?import com.jfoenix.controls.JFXTextField?>
@@ -15,7 +9,7 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.ControllerBusquedaPacientes">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.ControllerBusquedaPacientes">
    <children>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#303f9f" height="75.0" stroke="TRANSPARENT" strokeType="INSIDE" strokeWidth="0.0" width="606.0" />
       <Label fx:id="date" layoutX="463.0" layoutY="86.0" prefHeight="15.0" prefWidth="133.0" text="Fecha" textAlignment="RIGHT">
@@ -54,5 +48,10 @@
       <JFXListView fx:id="listaPacientes" layoutX="14.0" layoutY="209.0" onMouseClicked="#muestraPacienteSeleccionado" prefHeight="157.0" prefWidth="133.0" />
       <JFXButton fx:id="btnMasDetalles" disable="true" layoutX="462.0" layoutY="340.0" onAction="#pushedBtnMasDetalles" style="-fx-background-color: white;" text="Ver más detalles" />
       <JFXButton fx:id="btnHome" layoutX="55.0" layoutY="82.0" onAction="#pushedBtnHome" style="-fx-background-color: #303f9f;" text="Home" textFill="WHITE" />
+      <Label layoutX="24.0" layoutY="24.0" prefHeight="38.0" prefWidth="367.0" text="Asilo Luis Elizondo " textFill="WHITE">
+         <font>
+            <Font name="Roboto Medium" size="30.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

@@ -140,14 +140,7 @@ public class ControllerBusquedaPacientes extends ControllerBase{
     }
 
     public void pushedBtnHome(Event event) throws IOException {
-        Stage stage = null;
-        Parent root = null;
-        System.out.println(event.getSource().toString());
-        stage =(Stage) btnHome.getScene().getWindow();
-        root = FXMLLoader.load(getClass().getResource("home.fxml"));
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
+        cargaPantalla(event,"home.fxml", btnHome);
     }
 
     //Este metodo muestra la ventana de mas detalles sobre el paciente seleccionado, pasando como parametro la persona seleccionada

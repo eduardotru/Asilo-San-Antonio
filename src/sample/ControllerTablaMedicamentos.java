@@ -9,13 +9,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import objetos.Medicamento;
 import objetos.PacienteMedicamento;
-
-import javax.print.DocFlavor;
-import java.time.Instant;
-import java.util.Date;
-import java.util.ResourceBundle;
+import objetos.PacienteMedicamentoTabla;
 
 public class ControllerTablaMedicamentos {
     @FXML

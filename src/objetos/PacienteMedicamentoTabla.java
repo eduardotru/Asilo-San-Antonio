@@ -1,4 +1,4 @@
-package sample;
+package objetos;
 
 import db.MedicamentoModel;
 import javafx.beans.property.SimpleStringProperty;
@@ -7,6 +7,9 @@ import objetos.Medicamento;
 import objetos.PacienteMedicamento;
 
 public class PacienteMedicamentoTabla{
+
+    //Los atributos clase deben de estar en un tipo de variable especial llamado Single Property para que los datos puedan
+    //ser utilizados por los TableView
     private final SimpleStringProperty medicamento;
     private final SimpleStringProperty tomaManana;
     private final SimpleStringProperty tomaMedio;
@@ -14,7 +17,8 @@ public class PacienteMedicamentoTabla{
     private final SimpleStringProperty via;
     private final SimpleStringProperty dosis;
 
-    PacienteMedicamentoTabla(String medicamento, String tomaManana, String tomaMedio, String tomaTarde, String via,String dosis) {
+    //Constructor con parámetros del la clase
+    public PacienteMedicamentoTabla(String medicamento, String tomaManana, String tomaMedio, String tomaTarde, String via,String dosis) {
         super();
         this.medicamento = new SimpleStringProperty(medicamento);
         this.tomaManana = new SimpleStringProperty(tomaManana);
@@ -24,7 +28,21 @@ public class PacienteMedicamentoTabla{
         this.dosis = new SimpleStringProperty(dosis);
     }
 
-    PacienteMedicamentoTabla(PacienteMedicamento pacienteMedicamento){
+    //Constructor por default de la clase
+    public PacienteMedicamentoTabla() {
+        super();
+        this.medicamento = new SimpleStringProperty() ;
+        this.tomaManana = new SimpleStringProperty();
+        this.tomaMedio = new SimpleStringProperty();
+        this.tomaTarde = new SimpleStringProperty();
+        this.via = new SimpleStringProperty();
+        this.dosis = new SimpleStringProperty();
+    }
+
+    //Este contructor convierte directamente un objeto de la clase Paciente medicamento a un objeto compatible
+    //para los Table View de las interfaces
+    //Entrada: Objeto de tipo Paciente Medicamento.
+    public PacienteMedicamentoTabla(PacienteMedicamento pacienteMedicamento){
         super();
         Medicamento medicamento = null;
         MedicamentoModel medicamentoModel = new MedicamentoModel();
@@ -42,6 +60,7 @@ public class PacienteMedicamentoTabla{
         this.dosis= new SimpleStringProperty(Integer.toString(medicamento.getDosis()));
     }
 
+    //Método para convertir los atributos booleanos de la clase Paciente medicamento a tipo String
     private String toString(boolean bool){
         if(bool)
         {
@@ -53,6 +72,7 @@ public class PacienteMedicamentoTabla{
 
     }
 
+    //Gets de los atributos de la clase
     public String getMedicamento(){
         return medicamento.get();
     }
