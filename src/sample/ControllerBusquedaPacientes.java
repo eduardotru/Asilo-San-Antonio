@@ -82,7 +82,9 @@ public class ControllerBusquedaPacientes extends ControllerBase{
         setAutoCompletado();
     }
 
-    //Esta funcion habilita la funcion de autocompletado en el textField de busqueda
+    /**
+     * Esta funcion habilita la funcion de autocompletado en el textField de busqueda
+     */
     private void setAutoCompletado(){
         for (int i = 0; i < pacientes.length; i++) {
            nombresPacientes.add(pacientes[i].getNombre());
@@ -119,7 +121,10 @@ public class ControllerBusquedaPacientes extends ControllerBase{
 
     }
 
-    //Metodo para mostrar los datos de un paciente recibido como parametro en la ventana principal de datos
+    /**
+     * Método para mostrar los datos de un paciente recibido como parametro en la ventana principal de datos
+     * @param paciente
+     */
     public void muestraDatosPaciente(Paciente paciente){
         lblNombre.setText("Nombre: " + paciente.getNombre());
         lblEdad.setText("Edad: " + Integer.toString(paciente.getEdad()));
@@ -131,7 +136,10 @@ public class ControllerBusquedaPacientes extends ControllerBase{
         btnMasDetalles.setDisable(false);
     }
 
-    //Se busca el paciente indicado por el usuario dentro del TextField de busqueda al presionar la tecla ENTER
+    /**
+     * Se busca el paciente indicado por el usuario dentro del TextField de busqueda al presionar la tecla ENTER.
+     * @param e
+     */
     @FXML
     public void enterPresionado(KeyEvent e){
         if(e.getCode().toString().equals("ENTER")){
@@ -143,7 +151,12 @@ public class ControllerBusquedaPacientes extends ControllerBase{
         cargaPantalla(event,"home.fxml", btnHome);
     }
 
-    //Este metodo muestra la ventana de mas detalles sobre el paciente seleccionado, pasando como parametro la persona seleccionada
+    /**
+     * Este método muestra la ventana de mas detalles sobre el paciente seleccionado, pasando
+     * como parámetro la persona seleccionada.
+     * @param event
+     * @throws IOException
+     */
     public void pushedBtnMasDetalles(Event event) throws IOException{
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("detallespaciente.fxml"));

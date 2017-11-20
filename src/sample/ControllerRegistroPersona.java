@@ -25,74 +25,44 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 public class ControllerRegistroPersona  extends ControllerBase {
-    @FXML
-    TextField txtNombre;
-
-    @FXML
-    DatePicker  dateFechaNacimiento;
-
-    @FXML
-    ComboBox cbSexo;
-
-    @FXML
-    ComboBox cbEstado;
-
-    @FXML
-    TextField txtCuarto;
-
-    @FXML
-    TextField txtCama;
-
-    @FXML
-    Button bAgregarFamiliar;
-
-    @FXML
-    Button bAgregarServicioEmergencia;
-
-    @FXML
-    Button bAgregarSeguro;
-
-    @FXML
-    TextArea txtFamiliares;
-
-    @FXML
-    TextArea txtServicios;
-
-    @FXML
-    TextArea txtSeguros;
-
-    @FXML
-    TextArea txtPadecimientos;
-
-    @FXML
-    public Button btnRegistrar;
-
-    @FXML
-    private TextField txtNumeroReferencia;
+    @FXML private TextField txtNombre;
+    @FXML private DatePicker  dateFechaNacimiento;
+    @FXML private ComboBox cbSexo;
+    @FXML private ComboBox cbEstado;
+    @FXML private TextField txtCuarto;
+    @FXML private TextField txtCama;
+    @FXML private Button bAgregarFamiliar;
+    @FXML private Button bAgregarServicioEmergencia;
+    @FXML private Button bAgregarSeguro;
+    @FXML private TextArea txtFamiliares;
+    @FXML private TextArea txtServicios;
+    @FXML private TextArea txtSeguros;
+    @FXML private TextArea txtPadecimientos;
+    @FXML private TextField txtNumeroReferencia;
+    @FXML public Button btnRegistrar;
 
     @FXML
     public Label date;
-
     @FXML
     public Label ruta;
-
     @FXML
     public ScrollPane scrollPane;
 
     private int Dia;
     private int Mes;
     private int Anio;
-
+    
     private ArrayList<FamiliarResponsable> familiares;
     private ServicioEmergencia servicio;
     private Seguro seguro;
 
-    // Inicializa los labels de la parte superior de la pantalla, añade los elementos a ser utilizados
-    // en los ComboBox de la interfaz y prepara la lista de familiares a llenarse para el paciente.
-    //
-    // Entrada: Ninguna (void)
-    // Salida: Ninguna (void)
     @FXML
+    /** Inicializa los labels de la parte superior de la pantalla, añade los elementos a ser utilizados
+     *  en los ComboBox de la interfaz y prepara la lista de familiares a llenarse para el paciente.
+     *
+     *  Entrada: Ninguna (void)
+     *  Salida: Ninguna (void)
+     */
     private void initialize() {
         initializeDate(date);
         ruta.setText("Home > Registrar Persona");

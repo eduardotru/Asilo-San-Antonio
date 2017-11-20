@@ -14,52 +14,41 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.Calendar;
 
-public class ControllerRegistroFamiliarResponsable {
+public class ControllerRegistroFamiliarResponsable extends ControllerBase {
 
-    @FXML
-    public TextField textNombre;
-
-    @FXML
-    public TextField textRelacion;
-
-    @FXML
-    public TextField textTelefono;
-
-    @FXML
-    public Button btnRegistrar;
-
-    @FXML
-    public Label date;
-
-    @FXML
-    public Label ruta;
+    @FXML private TextField textNombre;
+    @FXML private TextField textRelacion;
+    @FXML private TextField textTelefono;
+    @FXML private Button btnRegistrar;
+    @FXML private Label date;
+    @FXML private Label ruta;
 
     private int Dia;
     private int Mes;
     private int Anio;
 
     @FXML
+    /**
+     * Entrada: ninguna
+     * Salida: ninguna
+     */
     private void initialize() {
-        Calendar cal = Calendar.getInstance();
-        Dia = cal.get(Calendar.DAY_OF_MONTH);
-        Mes = cal.get(Calendar.MONTH) + 1;
-        Anio = cal.get(Calendar.YEAR);
-        date.setText("Fecha: " + Dia + "/" + Mes + "/" + Anio);
+        initializeDate(date);
         ruta.setText("Home > Registrar Familiar Responsable");
     }
 
+    /**
+     * Acción detonada al presionar el botón "Registrar" en la interfaz de usuario. Al finalizar el método se cierra
+     * la ventana.
+     * @param event
+     * @throws IOException
+     */
     public void  pressButton(ActionEvent event) throws IOException {
         Stage stage = null;
         Parent root = null;
 
-        System.out.println(event.getSource().toString());
-        stage = (Stage) btnRegistrar.getScene().getWindow();
-        root = FXMLLoader.load(getClass().getResource("sample.fxml"));
-
         // Save the new Familiar Responsable in the database.
         PacienteModel pacienteModel = new PacienteModel();
-
-
         FamiliarResponsableModel familiarResponsableModel = new FamiliarResponsableModel();
         try {
             familiarResponsableModel.addFamiliarResponsable(

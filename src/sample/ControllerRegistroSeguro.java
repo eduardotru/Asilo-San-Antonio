@@ -15,20 +15,14 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.Calendar;
 
-public class ControllerRegistroSeguro {
+public class ControllerRegistroSeguro extends ControllerBase {
 
-    @FXML
-    public TextField textNombre;
-
-    @FXML
-    public TextField textPoliza;
-
-    @FXML
-    public Button btnRegistrar;
+    @FXML private TextField textNombre;
+    @FXML private TextField textPoliza;
+    @FXML  private Button btnRegistrar;
 
     @FXML
     public Label date;
-
     @FXML
     public Label ruta;
 
@@ -37,19 +31,23 @@ public class ControllerRegistroSeguro {
     private int Anio;
 
     @FXML
+    /**
+     * Entrada: ninguna
+     * Salida: ninguna (void)
+     */
     private void initialize() {
-        Calendar cal = Calendar.getInstance();
-        Dia = cal.get(Calendar.DAY_OF_MONTH);
-        Mes = cal.get(Calendar.MONTH) + 1;
-        Anio = cal.get(Calendar.YEAR);
-        date.setText("Fecha: " + Dia + "/" + Mes + "/" + Anio);
+        // Poner en el label que muestra la fecha la fecha del día de hoy.
+        initializeDate(date);
         ruta.setText("Home > Registrar Seguro Médico y de Emergencias");
     }
 
+    /**
+     * Acción detonada al presionar el botón "Registrar" en la pantalla de registro de un nuevo seguro.
+     * @param event
+     * @throws IOException
+     */
     public void  pressButton(ActionEvent event) throws IOException {
         Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-
-        System.out.println(event.getSource().toString());
 
         SeguroModel seguroModel = new SeguroModel();
         try {

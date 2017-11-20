@@ -26,6 +26,7 @@ import java.security.spec.ECField;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.util.ArrayList;
 import java.util.Date;
 
 
@@ -76,6 +77,15 @@ public class ControllerDetallesPaciente extends  ControllerBase{
     private ListView<Pane> listaTabla;
     @FXML
     private ListView<String> listaPadecimientos;
+
+    @FXML private Button bAgregarFamiliar;
+    @FXML private Button bAgregarServicioEmergencia;
+    @FXML private Button bAgregarSeguro;
+
+    // Variables auxiliares para el añadimiento y/o reemplazo de familiares responsables, servicio de emergencia
+    // y seguro.
+    private ArrayList<FamiliarResponsable> familiares;
+    private ServicioEmergencia servicio;
 
     public void initData(Paciente paciente) {
         //Rellena los campos con los datos del paciente
