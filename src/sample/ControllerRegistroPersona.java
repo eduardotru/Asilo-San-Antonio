@@ -87,16 +87,17 @@ public class ControllerRegistroPersona  extends ControllerBase {
     private ServicioEmergencia servicio;
     private Seguro seguro;
 
+    // Inicializa los labels de la parte superior de la pantalla, añade los elementos a ser utilizados
+    // en los ComboBox de la interfaz y prepara la lista de familiares a llenarse para el paciente.
+    //
+    // Entrada: Ninguna (void)
+    // Salida: Ninguna (void)
     @FXML
     private void initialize() {
-        Calendar cal = Calendar.getInstance();
-        Dia = cal.get(Calendar.DAY_OF_MONTH);
-        Mes = cal.get(Calendar.MONTH) + 1;
-        Anio = cal.get(Calendar.YEAR);
-        date.setText("Fecha: " + Dia + "/" + Mes + "/" + Anio);
+        initializeDate(date);
         ruta.setText("Home > Registrar Persona");
 
-        // TODO(erickzul): Make estados table in database and retreive these values from it.
+        //
         cbEstado.getItems().add("Estable");
         cbEstado.getItems().add("Hospitalito");
         cbEstado.getItems().add("Internado");
@@ -110,11 +111,21 @@ public class ControllerRegistroPersona  extends ControllerBase {
         scrollPane.setVvalue(-1000);
     }
 
+    /**
+     *  Acción al presionar el botón "Agregar Familiar" en la interfaz.
+     *
+     *  Se crea una ventana emergente donde el usuario
+     *  crea un nuevo familiar. Para procurar un bajo acoplamiento entre este este controlador y el de la ventana
+     *  emergente, primero se guarda el último índice creado, y este se vuelve a consultar unav vez que la ventana
+     *  emergente se cierra. Si los id's son diferentes, se creo un nuevo familiar y debe agregarse a la lista.
+     *  De lo contrario, no se hace nada.
+     * @param event
+     * @throws IOException
+     */
     public void  pressButtonAgregarFamiliar(ActionEvent event) throws IOException {
         Stage stage = null;
         Parent root = null;
 
-        System.out.println(event.getSource().toString());
 
         int prevLastFamiliarId = -1;
         FamiliarResponsableModel familiarResponsableModel = new FamiliarResponsableModel();
@@ -149,6 +160,12 @@ public class ControllerRegistroPersona  extends ControllerBase {
         }
     }
 
+    /**
+     * Acción al presionar el botón "Agregar Servicio" en la interfaz.
+     * Al crear un nuevo servicio la función ahora reemplazará el servicio anterior con el creado.
+     * @param event
+     * @throws IOException
+     */
     public void  pressButtonAgregarServicio(ActionEvent event) throws IOException {
         Stage stage = null;
         Parent root = null;
@@ -192,6 +209,12 @@ public class ControllerRegistroPersona  extends ControllerBase {
         }
     }
 
+    /**
+     * Acción al presionar el botón "Agregar Seguro" en la interfaz.
+     * Una vez creado un seguro inicial, si se intenta crear otro seguro para el paciente, este reemplaza al anterior.
+     * @param event
+     * @throws IOException
+     */
     public void  pressButtonAgregarSeguro(ActionEvent event) throws IOException {
         Stage stage = null;
         Parent root = null;
@@ -235,73 +258,95 @@ public class ControllerRegistroPersona  extends ControllerBase {
         }
     }
 
+    /**
+     * Verifica que los campos obligatorios de la forma de registro están llenados, y manda un cuadro
+     * de dialogo de advertencia al usuario en caso de que falta alguno.
+     * @return valor booleano. Indica si los valores obligatorios de la forma de registro están presentes
+     * y llenados por el usuario.
+     */
+    private boolean validacionesFormaRegistro() {
+        String elementoRestante = "";
+
+        if (txtNombre.getText().length() <= 0) {
+            elementoRestante = "un nombre para el paciente";
+        } else if (dateFechaNacimiento.getValue() == null) {
+            elementoRestante = "la fecha de nacimiento";
+        } else if (cbSexo.getValue() == null) {
+            elementoRestante= "el sexo";
+        } else if (cbEstado.getValue() == null) {
+            elementoRestante = "el estado";
+        } else if (txtNumeroReferencia.getText().length() <= 0) {
+            elementoRestante = "el número de referencia";
+        } else if (seguro == null) {
+            elementoRestante= "el seguro";
+        } else if (servicio == null) {
+            elementoRestante = "el servicio de emergencias";
+        }
+
+        if (elementoRestante != "") {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Asilo San Antonio");
+            alert.setHeaderText(null);
+            alert.setContentText("Favor de especificar " + elementoRestante + ".");
+            alert.showAndWait();
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * Función auxiliar que maneja la tarea específica de guardar el nuevo paciente en la base de datos.
+     * @param pacienteModel
+     * @param nombre
+     * @param fechaNacimiento
+     * @param sexo
+     * @param estado
+     * @param numCuarto
+     * @param numCama
+     * @param idSeguro
+     * @param idServicioEmergencia
+     * @param numeroReferencia
+     * @return valor booleano. Regresa verdadero si la transacción en SQL fue exitosa. De lo contrario, regresa
+     * un valor falso.
+     */
+    private boolean registrarPaciente(PacienteModel pacienteModel,
+                                   String nombre, java.sql.Date fechaNacimiento, char sexo, String estado,
+                                   int numCuarto, int numCama,
+                                   int idSeguro, int idServicioEmergencia, String numeroReferencia) {
+        try {
+            int nuevoPacienteId = pacienteModel.addPaciente(nombre, fechaNacimiento,
+                    sexo, estado, numCuarto, numCama, idSeguro, idServicioEmergencia, numeroReferencia);
+
+            FamiliarResponsableModel familiarResponsableModel = new FamiliarResponsableModel();
+            for (FamiliarResponsable familiar: familiares) {
+                familiar.setIdPaciente(nuevoPacienteId);
+                familiarResponsableModel.updateFamiliarResponsable(familiar);
+            }
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+
+
+    /**
+     * Acción al presionar el botón "Registrar" en la interfaz de usuario.
+     * @param event
+     * @throws IOException
+     */
     public void  pressButtonRegister(ActionEvent event) throws IOException {
         Stage stage = null;
         Parent root = null;
 
-        if (txtNombre.getText().length() <= 0) {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Asilo San Antonio");
-            alert.setHeaderText(null);
-            alert.setContentText("Favor de especificar un nombre para el paciente.");
-            alert.showAndWait();
+        // Se asegura que los campos obligatorios de la forma de registro estén llenados.
+        if (validacionesFormaRegistro() == false) {
             return;
         }
 
-        if (dateFechaNacimiento.getValue() == null) {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Asilo San Antonio");
-            alert.setHeaderText(null);
-            alert.setContentText("Favor de especificar la fecha de nacimiento.");
-            alert.showAndWait();
-            return;
-        }
-
-        if (cbSexo.getValue() == null) {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Asilo San Antonio");
-            alert.setHeaderText(null);
-            alert.setContentText("Favor de especificar el sexo.");
-            alert.showAndWait();
-            return;
-        }
-
-        if (cbEstado.getValue() == null) {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Asilo San Antonio");
-            alert.setHeaderText(null);
-            alert.setContentText("Favor de especificar el estado.");
-            alert.showAndWait();
-            return;
-        }
-
-        if (txtNumeroReferencia.getText().length() <= 0) {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Asilo San Antonio");
-            alert.setHeaderText(null);
-            alert.setContentText("Favor de especificar el número de referencia");
-            alert.showAndWait();
-            return;
-        }
-
-        if (seguro == null) {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Asilo San Antonio");
-            alert.setHeaderText(null);
-            alert.setContentText("Favor de especificar el seguro");
-            alert.showAndWait();
-            return;
-        }
-
-        if (servicio == null) {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Asilo San Antonio");
-            alert.setHeaderText(null);
-            alert.setContentText("Favor de especificar el servicio de emergencias.");
-            alert.showAndWait();
-            return;
-        }
-
+        // Se obtiene la información de la forma de registro.
         PacienteModel pacienteModel = new PacienteModel();
         String nombre = txtNombre.getText();
         java.sql.Date fechaNacimiento = java.sql.Date.valueOf(dateFechaNacimiento.getValue());
@@ -319,16 +364,11 @@ public class ControllerRegistroPersona  extends ControllerBase {
         int idServicioEmergencia = servicio.getId();
         String numeroReferencia = txtNumeroReferencia.getText();
 
-        try {
-            int nuevoPacienteId = pacienteModel.addPaciente(nombre, fechaNacimiento,
-                sexo, estado, numCuarto, numCama, idSeguro, idServicioEmergencia, numeroReferencia);
+        boolean registroExitoso =
+                registrarPaciente(pacienteModel, nombre, fechaNacimiento, sexo, estado, numCuarto, numCama,
+                idSeguro, idServicioEmergencia, numeroReferencia);
 
-            FamiliarResponsableModel familiarResponsableModel = new FamiliarResponsableModel();
-            for (FamiliarResponsable familiar: familiares) {
-                familiar.setIdPaciente(nuevoPacienteId);
-                familiarResponsableModel.updateFamiliarResponsable(familiar);
-            }
-
+        if (registroExitoso) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Asilo San Antonio");
             alert.setHeaderText(null);
@@ -336,14 +376,12 @@ public class ControllerRegistroPersona  extends ControllerBase {
             alert.showAndWait();
 
             cargaPantalla(event, "busquedapacientes.fxml", btnRegistrar);
-        } catch (Exception e) {
+        } else {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Asilo San Antonio");
             alert.setHeaderText(null);
             alert.setContentText("Hubo un error al guardar al nuevo paciente. Favor de intentarlo más tarde.");
             alert.showAndWait();
-            e.printStackTrace();
-            return;
         }
     }
 }
