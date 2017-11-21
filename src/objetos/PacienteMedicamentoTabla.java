@@ -57,7 +57,7 @@ public class PacienteMedicamentoTabla{
         this.tomaMedio = new SimpleStringProperty(toString(pacienteMedicamento.isTomaMedio()));
         this.tomaTarde = new SimpleStringProperty(toString(pacienteMedicamento.isTomaTarde()));
         this.via = new SimpleStringProperty(medicamento.getMedidaDosis());
-        this.dosis= new SimpleStringProperty(Integer.toString(medicamento.getDosis()));
+        this.dosis= new SimpleStringProperty(Integer.toString(pacienteMedicamento.getDosis()));
     }
 
     //Método para convertir los atributos booleanos de la clase Paciente medicamento a tipo String

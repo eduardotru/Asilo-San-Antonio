@@ -196,7 +196,7 @@ public class EnvaseMedicinaModel extends InterfazDB
         if(pacienteMedicamento.isTomaTarde()) {
             dosisDiarias++;
         }
-        int diasDisponibles = envase.getCantidad()/(envase.getMedicamento().getDosis()*dosisDiarias);
+        int diasDisponibles = envase.getCantidad()/(pacienteMedicamento.getDosis()*dosisDiarias);
         if(diasDisponibles <= pacienteMedicamento.getDuracion()) {
             return false;
         }

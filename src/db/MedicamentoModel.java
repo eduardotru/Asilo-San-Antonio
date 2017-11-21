@@ -13,7 +13,7 @@ public class MedicamentoModel extends InterfazDB
     public void addMedicamento(Medicamento medicamento) throws Exception
     {
         try {
-            int id = addMedicamento(medicamento.getDosis(), medicamento.getMedidaDosis(),
+            int id = addMedicamento(medicamento.getMedidaDosis(),
                     medicamento.getNombreGenerico());
             medicamento.setId(id);
         }
@@ -22,7 +22,7 @@ public class MedicamentoModel extends InterfazDB
         }
     }
 
-    public int addMedicamento(int dosis, String medidaDosis, String nombreGenerico) throws Exception
+    public int addMedicamento(String medidaDosis, String nombreGenerico) throws Exception
     {
         int id = -1;
         try {
@@ -33,11 +33,10 @@ public class MedicamentoModel extends InterfazDB
         }
         try {
             PreparedStatement prepStatement = c.prepareStatement(
-                    "INSERT INTO Asilo.Medicamento(id, dosis, medidaDosis, nombreGenerico) " +
-                            "VALUES (default, ?, ?, ?)");
-            prepStatement.setInt(1, dosis);
-            prepStatement.setString(2, medidaDosis);
-            prepStatement.setString(3, nombreGenerico);
+                    "INSERT INTO Asilo.Medicamento(id, medidaDosis, nombreGenerico) " +
+                            "VALUES (default, ?, ?)");
+            prepStatement.setString(1, medidaDosis);
+            prepStatement.setString(2, nombreGenerico);
             prepStatement.executeUpdate();
 
             ResultSet result = prepStatement.getGeneratedKeys();
@@ -116,10 +115,9 @@ public class MedicamentoModel extends InterfazDB
         while(result.next())
         {
             int id = result.getInt("id");
-            int dosis = result.getInt("dosis");
             String medidaDosis = result.getString("medidaDosis");
             String nombreGenerico = result.getString("nombreGenerico");
-            listaMedicamentos.add(new Medicamento(id, dosis, medidaDosis, nombreGenerico));
+            listaMedicamentos.add(new Medicamento(id, medidaDosis, nombreGenerico));
         }
         Medicamento[] arrMedicamentos = new Medicamento[listaMedicamentos.size()];
         listaMedicamentos.toArray(arrMedicamentos);
@@ -137,12 +135,11 @@ public class MedicamentoModel extends InterfazDB
         try {
             PreparedStatement prepStatement = c.prepareStatement(
                     "UPDATE Asilo.Medicamento " +
-                        "SET dosis = ?, medidaDosis = ?, nombreGenerico = ? " +
+                        "SET medidaDosis = ?, nombreGenerico = ? " +
                         "WHERE id = ?");
-            prepStatement.setInt(1, medicamento.getDosis());
-            prepStatement.setString(2, medicamento.getMedidaDosis());
-            prepStatement.setString(3, medicamento.getNombreGenerico());
-            prepStatement.setInt(4, medicamento.getId());
+            prepStatement.setString(1, medicamento.getMedidaDosis());
+            prepStatement.setString(2, medicamento.getNombreGenerico());
+            prepStatement.setInt(3, medicamento.getId());
 
             prepStatement.executeUpdate();
         }

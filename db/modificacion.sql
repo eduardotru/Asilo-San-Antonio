@@ -10,3 +10,9 @@ DROP TABLE Asilo.Cama;
 
 ALTER TABLE Asilo.Paciente
 ADD numeroReferencia varchar(50);
+
+ALTER TABLE Asilo.PacienteMedicamento
+ADD dosis int;
+
+ALTER TABLE Asilo.Medicamento
+DROP COLUMN dosis;
