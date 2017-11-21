@@ -4,6 +4,7 @@ package sample;
 import db.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -23,6 +24,7 @@ import javax.naming.Name;
 import java.awt.*;
 import java.io.IOException;
 import java.security.spec.ECField;
+import java.sql.SQLException;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
@@ -166,8 +168,153 @@ public class ControllerDetallesPaciente extends  ControllerBase{
         }catch (Exception e){
             System.out.println("Error al cargar padecimientos");
         }
+    }
+
+    /**
+     *  Acción al presionar el botón "Agregar Familiar" en la interfaz.
+     *
+     *  Se crea una ventana emergente donde el usuario
+     *  crea un nuevo familiar. Para procurar un bajo acoplamiento entre este este controlador y el de la ventana
+     *  emergente, primero se guarda el último índice creado, y este se vuelve a consultar unav vez que la ventana
+     *  emergente se cierra. Si los id's son diferentes, se creo un nuevo familiar y debe agregarse a la lista.
+     *  De lo contrario, no se hace nada.
+     * @param event
+     * @throws IOException
+     */
+    public void  pressButtonAgregarFamiliar(ActionEvent event) throws IOException {
+        Stage stage = null;
+        Parent root = null;
 
 
+        int prevLastFamiliarId = -1;
+        FamiliarResponsableModel familiarResponsableModel = new FamiliarResponsableModel();
+        try {
+            prevLastFamiliarId = familiarResponsableModel.getLastFamiliarAddedId();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        root = FXMLLoader.load(getClass().getResource("agregarFamiliar.fxml"));
+        stage = new Stage();
+        stage.setTitle("Asilo San Antonio - Agregar Familiar");
+        stage.setScene(new Scene(root, 580, 500));
+        stage.showAndWait();
+
+        int lastFamiliarId = -1;
+        try {
+            lastFamiliarId = familiarResponsableModel.getLastFamiliarAddedId();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        if (prevLastFamiliarId != lastFamiliarId) {
+            FamiliarResponsable nuevoFamiliar = null;
+            try {
+                nuevoFamiliar = familiarResponsableModel.selectFamiliarResponsable(lastFamiliarId);
+                txtFamiliares.setText(txtFamiliares.getText() + "\n" + nuevoFamiliar.getNombre());
+                familiares.add(nuevoFamiliar);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    /**
+     * Acción al presionar el botón "Agregar Servicio" en la interfaz.
+     * Al crear un nuevo servicio la función ahora reemplazará el servicio anterior con el creado.
+     * @param event
+     * @throws IOException
+     */
+    public void  pressButtonAgregarServicio(ActionEvent event) throws IOException {
+        Stage stage = null;
+        Parent root = null;
+
+        System.out.println(event.getSource().toString());
+
+        int prevLastServicioId = -1;
+        ServicioEmergenciaModel servicioEmergenciaModel = new ServicioEmergenciaModel();
+        try {
+            prevLastServicioId = servicioEmergenciaModel.getLastServicioAddedId();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        root = FXMLLoader.load(getClass().getResource("agregarServicio.fxml"));
+        stage = new Stage();
+        stage.setTitle("Asilo San Antonio - Agregar Servicio de Emergencia");
+        stage.setScene(new Scene(root, 580, 500));
+        stage.showAndWait();
+
+        int lastServicioId = -1;
+        try {
+            lastServicioId = servicioEmergenciaModel.getLastServicioAddedId();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        if (prevLastServicioId != lastServicioId) {
+            ServicioEmergencia nuevoServicio = null;
+            try {
+                nuevoServicio = servicioEmergenciaModel.selectServicioEmergencia(lastServicioId);
+                txtServicios.setText(nuevoServicio.getNombre());
+                bAgregarServicioEmergencia.setText("Reemplazar Servicio");
+                if (servicio != null) {
+                    servicioEmergenciaModel.deleteServicioEmergencia(servicio.getId());
+                }
+                servicio = nuevoServicio;
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    /**
+     * Acción al presionar el botón "Agregar Seguro" en la interfaz.
+     * Una vez creado un seguro inicial, si se intenta crear otro seguro para el paciente, este reemplaza al anterior.
+     * @param event
+     * @throws IOException
+     */
+    public void  pressButtonAgregarSeguro(ActionEvent event) throws IOException {
+        Stage stage = null;
+        Parent root = null;
+
+        System.out.println(event.getSource().toString());
+
+        int prevLastSeguroId = -1;
+        SeguroModel seguroModel = new SeguroModel();
+        try {
+            prevLastSeguroId = seguroModel.getLastSeguroAddedId();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        root = FXMLLoader.load(getClass().getResource("agregarSeguro.fxml"));
+        stage = new Stage();
+        stage.setTitle("Asilo San Antonio - Agregar Seguro Médico");
+        stage.setScene(new Scene(root, 580, 500));
+        stage.showAndWait();
+
+        int lastSeguroId = -1;
+        try {
+            lastSeguroId = seguroModel.getLastSeguroAddedId();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        if (prevLastSeguroId != lastSeguroId) {
+            Seguro nuevoSeguro = null;
+            try {
+                nuevoSeguro = seguroModel.selectSeguro(lastSeguroId);
+                txtSeguros.setText(nuevoSeguro.getNombre());
+                bAgregarSeguro.setText("Reemplazar Seguro");
+                if (seguro != null) {
+                    seguroModel.deleteSeguro(seguro.getId());
+                }
+                seguro = nuevoSeguro;
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     @FXML
