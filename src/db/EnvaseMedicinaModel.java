@@ -130,6 +130,38 @@ public class EnvaseMedicinaModel extends InterfazDB
         return id;
     }
 
+    public EnvaseMedicina selectEnvaseMedicina(int idPaciente, int idMedicamento) throws Exception
+    {
+        EnvaseMedicina envaseMedicina;
+        try {
+            InterfazDB.crearConexion();
+        } catch (Exception e){
+            System.err.println("Error al obtener los envaseMedicinas: "
+                    + e.getClass().getName() + ": " + e.getMessage());
+        }
+        try {
+            PreparedStatement  prepeparedStatement = c.prepareStatement(
+                    "SELECT * FROM Asilo.EnvaseMedicina WHERE idPaciente = ? AND idMedicamento = ?");
+            prepeparedStatement.setInt(1, idPaciente);
+            prepeparedStatement.setInt(2, idMedicamento);
+            ResultSet result = prepeparedStatement.executeQuery();
+            EnvaseMedicina[] envaseMedicinas = crearListaEnvaseMedicinas(result);
+            if(envaseMedicinas.length == 1) {
+                envaseMedicina = envaseMedicinas[0];
+            }
+            else {
+                envaseMedicina = null;
+            }
+        }
+        catch (Exception e) {
+            throw e;
+        }
+        finally {
+            cerrarConexion();
+        }
+        return envaseMedicina;
+    }
+
     public EnvaseMedicina[] selectEnvaseMedicinas() throws Exception
     {
         EnvaseMedicina[] envaseMedicinas;
