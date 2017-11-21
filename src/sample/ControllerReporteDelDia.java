@@ -107,7 +107,7 @@ public class ControllerReporteDelDia extends  ControllerBase{
 
     @FXML
     public void  filaClickeada(){
-        EventoTabla eventoSeleccionado=  tableEventoDelDia.getSelectionModel().selectedItemProperty().get();
+        EventoTabla eventoSeleccionado = tableEventoDelDia.getSelectionModel().selectedItemProperty().get();
         campoAsunto.setText(eventoSeleccionado.getAsunto());
         campoPaciente.setText(eventoSeleccionado.getPaciente());
         campoDescripcion.setText(eventoSeleccionado.getDescripcion());

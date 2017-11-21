@@ -129,6 +129,33 @@ public class EventoModel extends InterfazDB
         return eventos;
     }
 
+    public Evento[] selectEventosPorFechaYPaciente(Date desde, Date hasta, int pacienteId) throws SQLException
+    {
+        Evento[] eventos;
+        try {
+            InterfazDB.crearConexion();
+        } catch (Exception e){
+            System.err.println("Error al obtener los eventos: "
+                    + e.getClass().getName() + ": " + e.getMessage());
+        }
+        try {
+            PreparedStatement  prepStatement = c.prepareStatement(
+                    "SELECT * FROM Asilo.Evento AS e WHERE e.idPaciente = ? AND e.fecha BETWEEN ? AND ?");
+            prepStatement.setInt(1, pacienteId);
+            prepStatement.setDate(2, new java.sql.Date(desde.getTime()));
+            prepStatement.setDate(3, new java.sql.Date(hasta.getTime()));
+            ResultSet result = prepStatement.executeQuery();
+            eventos =  crearListaEventos(result);
+        }
+        catch (Exception e) {
+            throw e;
+        }
+        finally {
+            cerrarConexion();
+        }
+        return eventos;
+    }
+
     public Evento[] selectEventos(Date desde, Date hasta) throws SQLException
     {
         Evento[] eventos;

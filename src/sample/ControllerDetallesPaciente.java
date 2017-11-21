@@ -381,13 +381,21 @@ public class ControllerDetallesPaciente extends  ControllerBase{
         }
 
         //Metodos para actualizar
-        actualizaPaciente(paciente);
-        actualizaServicioEm(paciente);
-        actualizaSeguro(paciente);
-        actualizarFamiliares();
+        try {
+            actualizaPaciente(paciente);
+            actualizaServicioEm(paciente);
+            actualizaSeguro(paciente);
+            actualizarFamiliares();
+
+            showAlertDialog(Alert.AlertType.CONFIRMATION, "Se ha actualizado la información del paciente" +
+                    "de manera exitosa");
+        } catch (Exception e) {
+            showAlertDialog(Alert.AlertType.ERROR, "Se produjo un error al actualizar la información." +
+                    " Favor de intentarlo de nuevo.");
+        }
     }
 
-    private void actualizarFamiliares() {
+    private void actualizarFamiliares() throws Exception {
         prevFamiliarIndex = listaFamiliares.getSelectionModel().getSelectedIndex();
         FamiliarResponsable familiarSeleccionado = familiares.get(prevFamiliarIndex);
         campoNombreFamiliar.setText(familiarSeleccionado.getNombre());
@@ -396,70 +404,28 @@ public class ControllerDetallesPaciente extends  ControllerBase{
 
         FamiliarResponsableModel familiarResponsableModel = new FamiliarResponsableModel();
         for (FamiliarResponsable familliar : familiares) {
-            try {
-                familiarResponsableModel.updateFamiliarResponsable(familliar);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+            familiarResponsableModel.updateFamiliarResponsable(familliar);
         }
     }
 
-    private void actualizaPaciente(Paciente paciente){
+    private void actualizaPaciente(Paciente paciente) throws Exception {
         paciente.setNombre(campoNombrePaciente.getText());
         paciente.setSexo(campoSexo.getText().charAt(0));
         paciente.setEstado(campoEstado.getText());
         paciente.setFechaNacimiento(Date.from(campoFechaNac.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant()));
-        try {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Asilo San Antonio");
-            alert.setHeaderText(null);
-            alert.setContentText("Se ha actualizado el paciente de forma exitosa.");
-            alert.showAndWait();
-
-            pacienteModel.updatePaciente(paciente);
-            System.out.println("Datos actualizados correctamente");
-        }catch (Exception e) {
-            System.out.println("No Se pudo actualizar correctamente");
-        }
+        pacienteModel.updatePaciente(paciente);
     }
 
-    private void actualizaServicioEm(Paciente paciente) {
+    private void actualizaServicioEm(Paciente paciente) throws Exception {
         paciente.setNumeroReferencia(campoNumSrvEmergencia.getText());
-        try {
-            paciente.setIdServicioEmergencia(idSrvEmg);
-            pacienteModel.updatePaciente(paciente);
-            System.out.println("Informacion del servicio de emergencia ha sido cambiada con éxito");
-        }catch (Exception e) {
-            System.out.println("No se pudo actualizar la informacion del servicio de emergencias");
-        }
+        paciente.setIdServicioEmergencia(idSrvEmg);
+        pacienteModel.updatePaciente(paciente);
     }
 
-    private void actualizaSeguro(Paciente paciente){
-        try {
-            seguro = seguroModel.selectSeguro(idSeguroSocial);
-            seguro.setNumPoliza(campoNumPoliza.getText());
-            seguro.setNombre(campoNombreSeguro.getText());
-            //seguroModel.updateSeguro(seguro);
-            //System.out.println("Datos del seguro actualizados con éxito");
-        }catch (Exception e){
-            System.out.println("No se pudo actualizar la informacion del seguro");
-        }
-    }
-
-    private void actualizaDatosFamiliar(Integer id) {
-        FamiliarResponsable familiarResponsable = null;
-        try{
-            //Se obtiene el objeto del familiar correspondiente
-            familiarResponsable=familiarResponsableModel.selectFamiliarResponsablePorPacienteId(id);
-            //Se obtienen los nuevos datos de los campos de la interfaz
-            familiarResponsable.setNombre(campoNombreFamiliar.getText());
-            familiarResponsable.setRelacion(campoParentesco.getText());
-            familiarResponsable.setTelefono(campoTelefonoPariente.getText());
-            //Se realiza la actualizacion en la base de datos
-            familiarResponsableModel.updateFamiliarResponsable(familiarResponsable);
-        }catch (Exception e){
-            System.out.println("No se pudo actualizar la informacion del familiar");
-        }
+    private void actualizaSeguro(Paciente paciente) throws Exception {
+        seguro = seguroModel.selectSeguro(idSeguroSocial);
+        seguro.setNumPoliza(campoNumPoliza.getText());
+        seguro.setNombre(campoNombreSeguro.getText());
     }
 
     @FXML

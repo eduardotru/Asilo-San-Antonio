@@ -102,19 +102,13 @@ public class AddEventController extends ControllerBase{
             try {
                 eventoModel.addEventualidad(eventoNuevo);
             } catch (Exception e) {
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("Asilo San Antonio");
-                alert.setHeaderText(null);
-                alert.setContentText("Tuvimos problemas al intentar procesar tu nuevo evento. Intenta más tarde.");
-                alert.showAndWait();
+                showAlertDialog(Alert.AlertType.ERROR,
+                        "La eventualidad ha sido registrada de manera exitosa.");
                 e.printStackTrace();
             }
 
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Asilo San Antonio");
-            alert.setHeaderText(null);
-            alert.setContentText("La eventualidad ha sido registrada de manera exitosa.");
-            alert.showAndWait();
+            showAlertDialog(Alert.AlertType.INFORMATION,
+                    "La eventualidad ha sido registrada de manera exitosa.");
 
             stage =(Stage) btnRegistrar.getScene().getWindow();
             root = FXMLLoader.load(getClass().getResource("home.fxml"));

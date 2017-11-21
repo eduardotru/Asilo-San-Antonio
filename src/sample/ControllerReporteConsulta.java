@@ -41,6 +41,21 @@ public class ControllerReporteConsulta extends  ControllerBase{
     @FXML private ComboBox cbPaciente;
     @FXML private TableColumn<EventoTabla,String> columnaEnfermero;
 
+    @FXML
+    private TextField campoPaciente;
+    @FXML
+    private TextField campoAsunto;
+    @FXML
+    private TextField campoDescripcion;
+    @FXML
+    private TextField campoNotificado;
+    @FXML
+    private TextField campoHospitalito;
+    @FXML
+    private TextField campoConsulta;
+    @FXML
+    private TextField campoEnfermero;
+
     private int Dia;
     private int Mes;
     private int Anio;
@@ -65,7 +80,7 @@ public class ControllerReporteConsulta extends  ControllerBase{
         }
     }
 
-    private void rellenaTabla(){
+    private boolean rellenaTabla(){
         Evento[] eventos;
         eventos = null;
         try {
@@ -79,24 +94,50 @@ public class ControllerReporteConsulta extends  ControllerBase{
                 try {
                     pacienteId = pacienteModel.selectIdPaciente((String) cbPaciente.getValue());
                 } catch (Exception e) {
+                    return false;
                 }
                 try {
                     eventos = eventoModel.selectEventosPorPaciente(pacienteId);
                 } catch (SQLException e) {
+                    return false;
                 }
             } else if (cbPaciente.getValue() == null && (dateFrom.getValue() != null &&
                         dateTo.getValue() != null)) {
+                if (dateFrom.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant().getEpochSecond() >
+                        dateTo.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant().getEpochSecond()) {
+                    showAlertDialog(Alert.AlertType.INFORMATION,
+                            "La fecha de inicio debe ser menor a la fecha de término");
+                    return false;
+                }
                 try {
                     eventos = eventoModel.selectEventos(Date.from(dateFrom.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant()),
                             Date.from(dateTo.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant()));
                 } catch (SQLException e) {
+                    return false;
+                }
+            } else if (cbPaciente.getValue() != null && dateFrom.getValue() != null &&
+                    dateTo.getValue() != null) {
+                if (dateFrom.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant().getEpochSecond() >
+                        dateTo.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant().getEpochSecond()) {
+                    showAlertDialog(Alert.AlertType.INFORMATION,
+                            "La fecha de inicio debe ser menor a la fecha de término");
+                    return false;
+                }
+                try {
+                    PacienteModel pacienteModel = new PacienteModel();
+                    eventos = eventoModel.selectEventosPorFechaYPaciente(Date.from(dateFrom.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant()),
+                            Date.from(dateTo.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant()),
+                            pacienteModel.selectIdPaciente((String) cbPaciente.getValue()));
+                } catch (SQLException e) {
+                    return false;
                 }
             }
-            System.out.println("Eventos cargados!");
+            initTable(eventos);
+            return true;
         }catch (Exception e) {
-            System.out.println("No se pudieron cargar los eventos del dia");
+            initTable(eventos);
+            return false;
         }
-        initTable(eventos);
     }
 
     private void initTable(Evento[] eventos){
@@ -132,11 +173,23 @@ public class ControllerReporteConsulta extends  ControllerBase{
 
     @FXML
     public void  filaClickeada(){
-        EventoTabla eventoSeleccionado=  tableEventoDelDia.getSelectionModel().selectedItemProperty().get();
-        System.out.println(eventoSeleccionado.getAsunto());
+        EventoTabla eventoSeleccionado = tableEventoDelDia.getSelectionModel().selectedItemProperty().get();
+        campoAsunto.setText(eventoSeleccionado.getAsunto());
+        campoPaciente.setText(eventoSeleccionado.getPaciente());
+        campoDescripcion.setText(eventoSeleccionado.getDescripcion());
+        campoEnfermero.setText(eventoSeleccionado.getEnfermero());
+        campoNotificado.setText(eventoSeleccionado.getAvisoFamiliar());
+        campoHospitalito.setText(eventoSeleccionado.getEstaHospitalito());
+        campoConsulta.setText(eventoSeleccionado.getRequirioConsulta());
     }
 
     public void pressButtonSearch(ActionEvent event) throws IOException {
-        rellenaTabla();
+        boolean rellenoTabla = rellenaTabla();
+        if (rellenoTabla) {
+            showAlertDialog(Alert.AlertType.INFORMATION, "Eventos cargados de forma exitosa.");
+        } else {
+            showAlertDialog(Alert.AlertType.INFORMATION,
+                    "Hubo un error al cargar los eventos con los parámetros que elegiste. Intenta de nuevo.");
+        }
     }
 }

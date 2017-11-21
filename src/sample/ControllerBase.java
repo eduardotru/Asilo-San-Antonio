@@ -4,6 +4,7 @@ import javafx.event.Event;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -54,5 +55,13 @@ public class ControllerBase {
         int Mes = cal.get(Calendar.MONTH) + 1;
         int Anio = cal.get(Calendar.YEAR);
         date.setText("Fecha: " + Dia + "/" + Mes + "/" + Anio);
+    }
+
+    public void showAlertDialog(Alert.AlertType alertType, String message) {
+        Alert alert = new Alert(alertType);
+        alert.setTitle("Asilo San Antonio");
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
     }
 }

@@ -255,11 +255,7 @@ public class ControllerRegistroPersona  extends ControllerBase {
         }
 
         if (elementoRestante != "") {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Asilo San Antonio");
-            alert.setHeaderText(null);
-            alert.setContentText("Favor de especificar " + elementoRestante + ".");
-            alert.showAndWait();
+            showAlertDialog(Alert.AlertType.INFORMATION, "Favor de especificar " + elementoRestante + ".");
             return false;
         }
 
@@ -340,19 +336,12 @@ public class ControllerRegistroPersona  extends ControllerBase {
                 idSeguro, idServicioEmergencia, numeroReferencia);
 
         if (registroExitoso) {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Asilo San Antonio");
-            alert.setHeaderText(null);
-            alert.setContentText("Se ha guardado el nuevo paciente de forma exitosa.");
-            alert.showAndWait();
+            showAlertDialog(Alert.AlertType.INFORMATION,"Se ha guardado el nuevo paciente de forma exitosa.");
 
             cargaPantalla(event, "busquedapacientes.fxml", btnRegistrar);
         } else {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Asilo San Antonio");
-            alert.setHeaderText(null);
-            alert.setContentText("Hubo un error al guardar al nuevo paciente. Favor de intentarlo más tarde.");
-            alert.showAndWait();
+            showAlertDialog(Alert.AlertType.ERROR,
+                    "Hubo un error al guardar al nuevo paciente. Favor de intentarlo más tarde.");
         }
     }
 }
