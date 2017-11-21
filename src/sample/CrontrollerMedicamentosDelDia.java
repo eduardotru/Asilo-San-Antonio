@@ -38,7 +38,7 @@ public class CrontrollerMedicamentosDelDia extends ControllerBase{
     @FXML
     private void initialize()
     {
-        
+
         //Obtener la lista de Pacientes
         try {
 
