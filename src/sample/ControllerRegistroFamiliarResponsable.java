@@ -5,7 +5,9 @@ import db.PacienteModel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -44,7 +46,7 @@ public class ControllerRegistroFamiliarResponsable extends ControllerBase {
      * @throws IOException
      */
     public void  pressButton(ActionEvent event) throws IOException {
-        Stage stage = null;
+        Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         Parent root = null;
 
         // Save the new Familiar Responsable in the database.
@@ -57,7 +59,6 @@ public class ControllerRegistroFamiliarResponsable extends ControllerBase {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
         stage.close();
     }
 }

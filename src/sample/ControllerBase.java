@@ -6,12 +6,32 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import objetos.Paciente;
+import org.controlsfx.control.textfield.TextFields;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 public class ControllerBase {
+
+
+
+    /**
+     * Esta funcion habilita la funcion de autocompletado en el textField de busqueda
+     */
+    public void setAutoCompletado(Paciente[] pacientes, TextField campoBusquedaPaciente){
+        List<String> nombresPacientes = new ArrayList<String>();
+        for (int i = 0; i < pacientes.length; i++) {
+            nombresPacientes.add(pacientes[i].getNombre());
+        }
+        TextFields.bindAutoCompletion(campoBusquedaPaciente, nombresPacientes);
+    }
+
+
     //Carga la ventana la interfaz que se da como parámetros
     //Entradas: El nombre de la pantalla a cargar, el botón que se presionó.
     public void cargaPantalla(Event event, String nombrePantalla, Button button) throws IOException {

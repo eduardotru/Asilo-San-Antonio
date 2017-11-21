@@ -28,10 +28,22 @@ public class CrontrollerMedicamentosDelDia extends ControllerBase{
     private Button btnHome;
     @FXML
     private Button btnMenu;
+    @FXML
+    private TextField campoBusquedaPacientes;
 
     @FXML
     private void initialize()
     {
+        //Obtener la lista de Pacientes
+        try {
+
+            pacientes = pacienteModel.selectPacientes();
+        }catch (Exception e) {
+            System.out.println("Error al cargar la lista de pacienes");
+        }
+
+        setAutoCompletado(pacientes,campoBusquedaPacientes);
+
         cargaTablaMedicamentosDelDia();
     }
 
@@ -46,15 +58,8 @@ public class CrontrollerMedicamentosDelDia extends ControllerBase{
     }
 
     void cargaTablaMedicamentosDelDia(){
-        //Obtener la lista de Pacientes
+
         ObservableList<Pane> listaMedicamento = FXCollections.observableArrayList();
-        try {
-
-            pacientes = pacienteModel.selectPacientes();
-        }catch (Exception e) {
-            System.out.println("Error al cargar la lista de pacienes");
-        }
-
         try {
             for(int i=0; i<pacientes.length;i++) {
                 listaMedicamento.add(new Pane());

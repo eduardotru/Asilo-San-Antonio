@@ -38,7 +38,7 @@
             <Font name="Roboto Medium" size="14.0" />
          </font>
       </Label>
-      <JFXTextField layoutX="120.0" layoutY="121.0" prefHeight="24.0" prefWidth="331.0" />
+      <JFXTextField fx:id="campoBusquedaPacientes" layoutX="120.0" layoutY="121.0" prefHeight="24.0" prefWidth="331.0" />
       <JFXListView fx:id="listaMedicamentos" layoutX="47.0" layoutY="167.0" prefHeight="200.0" prefWidth="461.0" />
    </children>
 </AnchorPane>

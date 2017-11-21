@@ -29,7 +29,7 @@ public class ControllerBusquedaPacientes extends ControllerBase{
 
     PacienteModel pacienteModel = new PacienteModel();
     private Paciente pacientes[];
-    private List<String> nombresPacientes = new ArrayList<String>();
+
     private Paciente pacienteBuscado;
 
     @FXML
@@ -79,18 +79,10 @@ public class ControllerBusquedaPacientes extends ControllerBase{
         }
         listaPacientes.setItems(list);
 
-        setAutoCompletado();
+        setAutoCompletado(pacientes,campoBusquedaPaciente);
     }
 
-    /**
-     * Esta funcion habilita la funcion de autocompletado en el textField de busqueda
-     */
-    private void setAutoCompletado(){
-        for (int i = 0; i < pacientes.length; i++) {
-           nombresPacientes.add(pacientes[i].getNombre());
-        }
-        TextFields.bindAutoCompletion(campoBusquedaPaciente, nombresPacientes);
-    }
+
 
     @FXML
     public void muestraPacienteSeleccionado(){
