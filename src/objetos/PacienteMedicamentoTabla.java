@@ -1,5 +1,6 @@
 package objetos;
 
+import db.EnvaseMedicinaModel;
 import db.MedicamentoModel;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringPropertyBase;
@@ -16,9 +17,10 @@ public class PacienteMedicamentoTabla{
     private final SimpleStringProperty tomaTarde;
     private final SimpleStringProperty via;
     private final SimpleStringProperty dosis;
+    private final SimpleStringProperty dosisDisponibles;
 
     //Constructor con parámetros del la clase
-    public PacienteMedicamentoTabla(String medicamento, String tomaManana, String tomaMedio, String tomaTarde, String via,String dosis) {
+    public PacienteMedicamentoTabla(String medicamento, String tomaManana, String tomaMedio, String tomaTarde, String via,String dosis,String dosisDisp) {
         super();
         this.medicamento = new SimpleStringProperty(medicamento);
         this.tomaManana = new SimpleStringProperty(tomaManana);
@@ -26,6 +28,7 @@ public class PacienteMedicamentoTabla{
         this.tomaTarde = new SimpleStringProperty(tomaTarde);
         this.via = new SimpleStringProperty(via);
         this.dosis = new SimpleStringProperty(dosis);
+        this.dosisDisponibles = new SimpleStringProperty(dosisDisp);
     }
 
     //Constructor por default de la clase
@@ -37,6 +40,7 @@ public class PacienteMedicamentoTabla{
         this.tomaTarde = new SimpleStringProperty();
         this.via = new SimpleStringProperty();
         this.dosis = new SimpleStringProperty();
+        this.dosisDisponibles = new SimpleStringProperty();
     }
 
     //Este contructor convierte directamente un objeto de la clase Paciente medicamento a un objeto compatible
@@ -45,10 +49,13 @@ public class PacienteMedicamentoTabla{
     public PacienteMedicamentoTabla(PacienteMedicamento pacienteMedicamento){
         super();
         Medicamento medicamento = null;
+
+        EnvaseMedicinaModel envaseMedicinaModel = new EnvaseMedicinaModel();
         MedicamentoModel medicamentoModel = new MedicamentoModel();
         try {
             //Se obtiene el objeto medicamento
            medicamento = medicamentoModel.selectMedicamento(pacienteMedicamento.getIdMedicamento());
+
         }catch (Exception e) {
             System.out.println("No se pudo convertir correctamente el objeto medicamento a medicamentoTabla");
         }
@@ -58,6 +65,7 @@ public class PacienteMedicamentoTabla{
         this.tomaTarde = new SimpleStringProperty(toString(pacienteMedicamento.isTomaTarde()));
         this.via = new SimpleStringProperty(medicamento.getMedidaDosis());
         this.dosis= new SimpleStringProperty(Integer.toString(medicamento.getDosis()));
+        this.dosisDisponibles = new SimpleStringProperty("Prueba");
     }
 
     //Método para convertir los atributos booleanos de la clase Paciente medicamento a tipo String

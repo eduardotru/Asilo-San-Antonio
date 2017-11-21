@@ -17,7 +17,7 @@
             </JFXButton>
          </children>
       </AnchorPane>
-      <JFXButton buttonType="RAISED" layoutX="321.0" layoutY="188.0" prefHeight="68.0" prefWidth="160.0" style="-fx-background-color: #303f9f;" text="Listado de medicamentos" textFill="WHITE" AnchorPane.rightAnchor="119.0">
+      <JFXButton fx:id="btnMedicamentosInventario" buttonType="RAISED" layoutX="321.0" layoutY="188.0" onAction="#pshBotonMedicamentosInventario" prefHeight="68.0" prefWidth="160.0" style="-fx-background-color: #303f9f;" text="Listado de medicamentos" textFill="WHITE" AnchorPane.rightAnchor="119.0">
          <font>
             <Font name="Roboto" size="14.0" />
          </font>
