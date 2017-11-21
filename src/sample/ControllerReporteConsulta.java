@@ -121,6 +121,7 @@ public class ControllerReporteConsulta extends  ControllerBase{
                         dateTo.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant().getEpochSecond()) {
                     showAlertDialog(Alert.AlertType.INFORMATION,
                             "La fecha de inicio debe ser menor a la fecha de término");
+
                     return false;
                 }
                 try {

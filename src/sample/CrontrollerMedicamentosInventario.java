@@ -39,10 +39,10 @@ public class CrontrollerMedicamentosInventario extends ControllerBase{
     private TableColumn<PacienteMedicamentoTabla, String> columnaDosisDisp;
 
     @FXML
-    private void initTable(){
+    private void initTable(int idPaciente){
         columnaNombG.setCellValueFactory(new PropertyValueFactory<PacienteMedicamentoTabla,String>("medicamento"));
         columnaDosisDisp.setCellValueFactory(new PropertyValueFactory<PacienteMedicamentoTabla,String>("dosis"));
-        tablaResumenMedicamentos.setItems(getMedicamentos(1));
+        tablaResumenMedicamentos.setItems(getMedicamentos(idPaciente));
     }
 
     @FXML
@@ -82,7 +82,7 @@ public class CrontrollerMedicamentosInventario extends ControllerBase{
 
 
     private void rellenaTablaMedicamentoPaciente(Paciente paciente){
-
+        initTable(paciente.getId());
     }
 
     private ObservableList<PacienteMedicamentoTabla> getMedicamentos(int idPaciente){
