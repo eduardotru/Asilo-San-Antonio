@@ -168,6 +168,6 @@
       <JFXButton fx:id="bAgregarFamiliar" layoutX="503.0" layoutY="138.0" onAction="#pressButtonAgregarFamiliar" style="-fx-background-color: #303f9f;" text="Agregar" textFill="WHITE" />
       <JFXButton fx:id="bAgregarSeguro" layoutX="235.0" layoutY="487.0" onAction="#pressButtonAgregarSeguro" style="-fx-background-color: #303f9f;" text="Agregar" textFill="WHITE" />
       <JFXButton fx:id="bAgregarServicioEmergencia" layoutX="235.0" layoutY="310.0" onAction="#pressButtonAgregarServicio" style="-fx-background-color: #303f9f;" text="Agregar" textFill="WHITE" />
-      <JFXListView fx:id="listaFamiliares" layoutX="586.0" layoutY="163.0" prefHeight="132.0" prefWidth="241.0" />
+      <JFXListView fx:id="listaFamiliares" layoutX="586.0" layoutY="163.0" onMouseClicked="#clickFamiliar" prefHeight="132.0" prefWidth="241.0" />
    </children>
 </AnchorPane>
