@@ -38,7 +38,7 @@ public class ControllerTablaMedicamentosDelDia {
     }
 
     public void initTable(Paciente paciente) {
-
+        tableView.setItems(null);
         lblNombrePaciente.setText(paciente.getNombre());
 
         tableColumn.setCellValueFactory(new PropertyValueFactory<PacienteMedicamentoTabla, String>("medicamento"));

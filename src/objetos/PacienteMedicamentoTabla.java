@@ -2,6 +2,7 @@ package objetos;
 
 import db.EnvaseMedicinaModel;
 import db.MedicamentoModel;
+import db.PacienteMedicamentoModel;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringPropertyBase;
 import objetos.Medicamento;
@@ -49,13 +50,12 @@ public class PacienteMedicamentoTabla{
     public PacienteMedicamentoTabla(PacienteMedicamento pacienteMedicamento){
         super();
         Medicamento medicamento = null;
-
+        PacienteMedicamentoModel pacienteMedicamentoModel = new PacienteMedicamentoModel();
         EnvaseMedicinaModel envaseMedicinaModel = new EnvaseMedicinaModel();
         MedicamentoModel medicamentoModel = new MedicamentoModel();
         try {
             //Se obtiene el objeto medicamento
            medicamento = medicamentoModel.selectMedicamento(pacienteMedicamento.getIdMedicamento());
-
         }catch (Exception e) {
             System.out.println("No se pudo convertir correctamente el objeto medicamento a medicamentoTabla");
         }
@@ -64,7 +64,7 @@ public class PacienteMedicamentoTabla{
         this.tomaMedio = new SimpleStringProperty(toString(pacienteMedicamento.isTomaMedio()));
         this.tomaTarde = new SimpleStringProperty(toString(pacienteMedicamento.isTomaTarde()));
         this.via = new SimpleStringProperty(medicamento.getMedidaDosis());
-        this.dosis= new SimpleStringProperty(Integer.toString(medicamento.getDosis()));
+        this.dosis= new SimpleStringProperty(Integer.toString(pacienteMedicamento.dosis));
         this.dosisDisponibles = new SimpleStringProperty("Prueba");
     }
 
@@ -95,4 +95,7 @@ public class PacienteMedicamentoTabla{
     }
     public String getVia(){return via.get();}
     public String getDosis(){return dosis.get();}
+    public String getDosisDisponibles() {
+        return dosisDisponibles.get();
+    }
 }

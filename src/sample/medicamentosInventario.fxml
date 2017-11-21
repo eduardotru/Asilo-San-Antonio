@@ -28,7 +28,7 @@
             <Font name="Roboto" size="12.0" />
          </font>
       </Label>
-      <Label layoutX="14.0" layoutY="96.0" text="Medicamentos del día">
+      <Label layoutX="14.0" layoutY="96.0" text="Inventario de Medicamentos">
          <font>
             <Font name="Roboto Medium" size="14.0" />
          </font>
@@ -48,5 +48,6 @@
           <TableColumn fx:id="columnaDosisDisp" prefWidth="110.0" text="Dosis disponibles" />
         </columns>
       </TableView>
+      <JFXButton fx:id="btnBuscar" layoutX="467.0" layoutY="121.0" onAction="#pshBtnHome" prefHeight="17.0" prefWidth="53.0" style="-fx-background-color: #303f9f;" text="Buscar" textFill="WHITE" />
    </children>
 </AnchorPane>
