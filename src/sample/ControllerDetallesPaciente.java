@@ -45,6 +45,8 @@ public class ControllerDetallesPaciente extends  ControllerBase{
 
     private Seguro seguro;
     private int idPaciente;
+    private int idSeguroSocial;
+    private int idSrvEmg;
 
 
     @FXML
@@ -98,7 +100,7 @@ public class ControllerDetallesPaciente extends  ControllerBase{
         idPaciente = paciente.getId();
 
         //Obtiene el Servicio de emergencia y rellena los campos con los datos correspondientes
-        int idSrvEmg = paciente.getIdServicioEmergencia();
+        idSrvEmg = paciente.getIdServicioEmergencia();
         try {
             System.out.println("Buscando servicio con id: " + idSrvEmg);
             //Se obtiene el objeto servicio de emergencia
@@ -112,7 +114,7 @@ public class ControllerDetallesPaciente extends  ControllerBase{
         }
 
         //Obtiene el Objeto Seguro de gastos médicos del paciente y vacia los datos en los campos correspondientes
-        int idSeguroSocial = paciente.getIdSeguro();
+        idSeguroSocial = paciente.getIdSeguro();
         try {
             //Se obtiene el objeto seguro con base al id de seguro del paciente
             seguro = seguroModel.selectSeguro(idSeguroSocial);
@@ -181,7 +183,7 @@ public class ControllerDetallesPaciente extends  ControllerBase{
      * @param event
      * @throws IOException
      */
-    public void  pressButtonAgregarFamiliar(ActionEvent event) throws IOException {
+    public void pressButtonAgregarFamiliar(ActionEvent event) throws IOException {
         Stage stage = null;
         Parent root = null;
 
@@ -211,7 +213,9 @@ public class ControllerDetallesPaciente extends  ControllerBase{
             FamiliarResponsable nuevoFamiliar = null;
             try {
                 nuevoFamiliar = familiarResponsableModel.selectFamiliarResponsable(lastFamiliarId);
-                txtFamiliares.setText(txtFamiliares.getText() + "\n" + nuevoFamiliar.getNombre());
+                campoNombreFamiliar.setText(campoNombreFamiliar.getText() + "\n" + nuevoFamiliar.getNombre());
+                campoTelefonoPariente.setText(campoTelefonoPariente.getText() + "\n" + nuevoFamiliar.getTelefono());
+                campoParentesco.setText(campoParentesco.getText() + "\n" + nuevoFamiliar.getRelacion());
                 familiares.add(nuevoFamiliar);
             } catch (Exception e) {
                 e.printStackTrace();
@@ -225,7 +229,7 @@ public class ControllerDetallesPaciente extends  ControllerBase{
      * @param event
      * @throws IOException
      */
-    public void  pressButtonAgregarServicio(ActionEvent event) throws IOException {
+    public void pressButtonAgregarServicio(ActionEvent event) throws IOException {
         Stage stage = null;
         Parent root = null;
 
@@ -256,8 +260,11 @@ public class ControllerDetallesPaciente extends  ControllerBase{
             ServicioEmergencia nuevoServicio = null;
             try {
                 nuevoServicio = servicioEmergenciaModel.selectServicioEmergencia(lastServicioId);
-                txtServicios.setText(nuevoServicio.getNombre());
-                bAgregarServicioEmergencia.setText("Reemplazar Servicio");
+                campoTelSrvEmergencia.setText(nuevoServicio.getTelefono());
+                campoNombreSrvEmergencia.setText(nuevoServicio.getNombre());
+                campoNumSrvEmergencia.setText(nuevoServicio.getDireccion());
+                bAgregarServicioEmergencia.setText("Reemplazar");
+                idSrvEmg = lastServicioId;
                 if (servicio != null) {
                     servicioEmergenciaModel.deleteServicioEmergencia(servicio.getId());
                 }
@@ -274,7 +281,7 @@ public class ControllerDetallesPaciente extends  ControllerBase{
      * @param event
      * @throws IOException
      */
-    public void  pressButtonAgregarSeguro(ActionEvent event) throws IOException {
+    public void pressButtonAgregarSeguro(ActionEvent event) throws IOException {
         Stage stage = null;
         Parent root = null;
 
@@ -305,8 +312,10 @@ public class ControllerDetallesPaciente extends  ControllerBase{
             Seguro nuevoSeguro = null;
             try {
                 nuevoSeguro = seguroModel.selectSeguro(lastSeguroId);
-                txtSeguros.setText(nuevoSeguro.getNombre());
-                bAgregarSeguro.setText("Reemplazar Seguro");
+                idSeguroSocial = lastSeguroId;
+                campoNombreSeguro.setText(nuevoSeguro.getNombre());
+                campoNumPoliza.setText(nuevoSeguro.getNumPoliza());
+                bAgregarSeguro.setText("Reemplazar");
                 if (seguro != null) {
                     seguroModel.deleteSeguro(seguro.getId());
                 }
@@ -336,12 +345,11 @@ public class ControllerDetallesPaciente extends  ControllerBase{
             System.out.println("Hubo error al actualizar el paciente");
         }
 
-
         //Metodos para actualizar
         actualizaPaciente(paciente);
         actualizaServicioEm(paciente);
         actualizaSeguro(paciente);
-        actualizaDatosFamiliar(paciente.getId());
+        //actualizaDatosFamiliar(paciente.getId());
     }
 
     private void actualizaPaciente(Paciente paciente){
@@ -366,7 +374,7 @@ public class ControllerDetallesPaciente extends  ControllerBase{
     private void actualizaServicioEm(Paciente paciente) {
         paciente.setNumeroReferencia(campoNumSrvEmergencia.getText());
         try {
-            paciente.setIdServicioEmergencia(servicioEmergenciaModel.selectIdServicioEmergencia(campoNombreSrvEmergencia.getText()));
+            paciente.setIdServicioEmergencia(idSrvEmg);
             pacienteModel.updatePaciente(paciente);
             System.out.println("Informacion del servicio de emergencia ha sido cambiada con éxito");
         }catch (Exception e) {
@@ -376,7 +384,7 @@ public class ControllerDetallesPaciente extends  ControllerBase{
 
     private void actualizaSeguro(Paciente paciente){
         try {
-            seguro = seguroModel.selectSeguro(paciente.getIdSeguro());
+            seguro = seguroModel.selectSeguro(idSeguroSocial);
             seguro.setNumPoliza(campoNumPoliza.getText());
             seguro.setNombre(campoNombreSeguro.getText());
             //seguroModel.updateSeguro(seguro);
