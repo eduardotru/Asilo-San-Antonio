@@ -76,7 +76,6 @@ create table Evento(
 
 create table Medicamento(
     id int unsigned AUTO_INCREMENT,
-    dosis int,
     medidaDosis varchar(10),
     nombreGenerico varchar(200),
     PRIMARY KEY(id)
@@ -85,6 +84,7 @@ create table Medicamento(
 create table PacienteMedicamento(
     idPaciente int unsigned,
     idMedicamento int unsigned,
+    dosis int,
     tomaManana varchar(1),
     tomaMedio varchar(1),
     tomaTarde varchar(1),

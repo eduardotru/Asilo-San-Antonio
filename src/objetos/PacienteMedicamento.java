@@ -7,17 +7,19 @@ public class PacienteMedicamento {
     private Paciente paciente;
     private int idMedicamento = -1;
     private Medicamento medicamento;
+    int dosis;
     private boolean tomaManana;
     private boolean tomaMedio;
     private boolean tomaTarde;
     private java.util.Date fechaInicio;
     private int duracion;
 
-    public PacienteMedicamento(int idPaciente, int idMedicamento, boolean tomaManana,
+    public PacienteMedicamento(int idPaciente, int idMedicamento, int dosis, boolean tomaManana,
                                boolean tomaMedio, boolean tomaTarde,
                                java.util.Date fechaInicio, int duracion) {
         this.idPaciente = idPaciente;
         this.idMedicamento = idMedicamento;
+        this.dosis = dosis;
         this.tomaManana = tomaManana;
         this.tomaMedio = tomaMedio;
         this.tomaTarde = tomaTarde;
@@ -43,6 +45,14 @@ public class PacienteMedicamento {
         if(idMedicamento == -1) {
             this.idMedicamento = idMedicamento;
         }
+    }
+
+    public int getDosis() {
+        return dosis;
+    }
+
+    public void setDosis(int dosis) {
+        this.dosis = dosis;
     }
 
     public boolean isTomaManana() {
