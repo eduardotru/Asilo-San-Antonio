@@ -41,6 +41,8 @@ public class ControllerRegistroPersona  extends ControllerBase {
     @FXML private TextField txtNumeroReferencia;
     @FXML public Button btnRegistrar;
 
+    @FXML ListView listaFamiliares;
+
     @FXML
     public Label date;
     @FXML
@@ -55,6 +57,7 @@ public class ControllerRegistroPersona  extends ControllerBase {
     private ArrayList<FamiliarResponsable> familiares;
     private ServicioEmergencia servicio;
     private Seguro seguro;
+
 
     @FXML
     /** Inicializa los labels de la parte superior de la pantalla, añade los elementos a ser utilizados
