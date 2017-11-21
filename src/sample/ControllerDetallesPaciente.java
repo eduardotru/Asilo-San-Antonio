@@ -152,11 +152,14 @@ public class ControllerDetallesPaciente extends  ControllerBase{
         FamiliarResponsable familiarResponsable = null;
         try {
             //Se obtiene el objeto del Familiar
-            familiarResponsable = familiarResponsableModel.selectFamiliarResponsablePorPacienteId(paciente.getId());
-            campoNombreFamiliar.setText(familiarResponsable.getNombre());
-            campoParentesco.setText(familiarResponsable.getRelacion());
-            campoTelefonoPariente.setText(familiarResponsable.getTelefono());
-
+            FamiliarResponsable[] familiaresResponsables =
+                    familiarResponsableModel.selectFamiliarResponsablesPorPaciente(idPaciente);
+            if (familiaresResponsables.length > 0) {
+                familiarResponsable = familiaresResponsables[0];
+                campoNombreFamiliar.setText(familiarResponsable.getNombre());
+                campoParentesco.setText(familiarResponsable.getRelacion());
+                campoTelefonoPariente.setText(familiarResponsable.getTelefono());
+            }
         } catch (Exception e){
             System.out.println("Error al cargar los datos del familiar responsable");
         }
@@ -433,7 +436,7 @@ public class ControllerDetallesPaciente extends  ControllerBase{
     }
 
     @FXML
-    public void clickFamiliar(ActionEvent event) {
+    public void clickFamiliar() {
         FamiliarResponsableModel familiarResponsableModel = new FamiliarResponsableModel();
         String nombreFamiliarSeleccionado = listaFamiliares.getSelectionModel().getSelectedItem();
         try {
@@ -446,6 +449,5 @@ public class ControllerDetallesPaciente extends  ControllerBase{
         } catch (Exception e) {
             e.printStackTrace();
         }
-
     }
 }
