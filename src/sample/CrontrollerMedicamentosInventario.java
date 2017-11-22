@@ -86,7 +86,17 @@ public class CrontrollerMedicamentosInventario extends ControllerBase{
 
     @FXML
     public void pshBtnHome(Event event) throws IOException {
-        cargaPantalla(event,"Home.fxml",btnHome);
+        PacienteModel pacienteModel = new PacienteModel();
+        try {
+            Paciente pacienteBuscado =  pacienteModel.
+                    selectPaciente(pacienteModel.selectIdPaciente(campoBusquedaPacientes.getText()));
+
+            ObservableList<String> list = FXCollections.observableArrayList();
+            list.add(pacienteBuscado.getNombre());
+            listaPacientes.setItems(list);
+        } catch (Exception e) {
+            showAlertDialog(Alert.AlertType.ERROR, "No se pude encontrar al paciente. Intenta de nuevo.");
+        }
     }
 
     @FXML
@@ -132,7 +142,10 @@ public class CrontrollerMedicamentosInventario extends ControllerBase{
             showAlertDialog(Alert.AlertType.INFORMATION, "Favor de especificar la fecha.");
         }
 
-        Date dateFromEnvase = Date.from(dateFrom.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant());
+        int indice = listaPacientes.getSelectionModel().getSelectedIndex();
+        rellenaTablaMedicamentoPaciente(pacientes[indice]);
+        pacienteClicked();
+        /*Date dateFromEnvase = Date.from(dateFrom.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant());
 
         Calendar cal  = Calendar.getInstance();
         cal.setTime(dateFromEnvase);
@@ -152,7 +165,7 @@ public class CrontrollerMedicamentosInventario extends ControllerBase{
             );
         } catch (SQLException e) {
             e.printStackTrace();
-        }
+        }*/
     }
 
     public int idPacienteSeleccionado;
