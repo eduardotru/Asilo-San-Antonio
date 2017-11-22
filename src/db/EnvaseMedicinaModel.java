@@ -188,11 +188,88 @@ public class EnvaseMedicinaModel extends InterfazDB
         return envaseMedicinas;
     }
 
+    public EnvaseMedicina[] selectEnvaseMedicinasPorPaciente(int idPaciente) throws Exception
+    {
+        EnvaseMedicina[] envaseMedicinas;
+        try {
+            InterfazDB.crearConexion();
+        } catch (Exception e){
+            System.err.println("Error al obtener los envaseMedicinas: "
+                    + e.getClass().getName() + ": " + e.getMessage());
+        }
+        try {
+            Statement statement = c.createStatement();
+
+            PreparedStatement preparedStatement = c.prepareStatement(
+                    "SELECT * FROM Asilo.EnvaseMedicina as e WHERE e.idPaciente = ? ");
+            preparedStatement.setInt(1, idPaciente);
+            ResultSet result = preparedStatement.executeQuery();
+            envaseMedicinas = crearListaEnvaseMedicinas(result);
+        }
+        catch (Exception e) {
+            throw e;
+        }
+        finally {
+            cerrarConexion();
+        }
+        return envaseMedicinas;
+    }
+
+    public EnvaseMedicina[] selectEnvaseMedicinasPorPacienteMedicamento(int idPaciente, int idMedicina) throws Exception
+    {
+        EnvaseMedicina[] envaseMedicinas;
+        try {
+            InterfazDB.crearConexion();
+        } catch (Exception e){
+            System.err.println("Error al obtener los envaseMedicinas: "
+                    + e.getClass().getName() + ": " + e.getMessage());
+        }
+        try {
+            Statement statement = c.createStatement();
+
+            PreparedStatement preparedStatement = c.prepareStatement(
+                    "SELECT * FROM Asilo.EnvaseMedicina as e WHERE e.idPaciente = ?  AND  e.idMedicamento = ?");
+            preparedStatement.setInt(1, idPaciente);
+            preparedStatement.setInt(2,idMedicina);
+            ResultSet result = preparedStatement.executeQuery();
+            envaseMedicinas = crearListaEnvaseMedicinas(result);
+        }
+        catch (Exception e) {
+            throw e;
+        }
+        finally {
+            cerrarConexion();
+        }
+        return envaseMedicinas;
+    }
+
     public EnvaseMedicina[] selectEnvasesPorTerminarEntre(Date fechaInicio, Date fechaFin) throws SQLException
     {
         EnvaseMedicina[] envaseMedicinas;
         try {
            envaseMedicinas = selectEnvaseMedicinas();
+        }
+        catch (Exception e) {
+            System.out.println("Error al obtener los envases de medicina por vencer");
+            return null;
+        }
+        ArrayList<EnvaseMedicina> listaEnvases = new ArrayList<EnvaseMedicina>();
+        for (EnvaseMedicina envase: envaseMedicinas) {
+            if(envaseVenceEntre(envase, fechaInicio, fechaFin)) {
+                listaEnvases.add(envase);
+            }
+        }
+        envaseMedicinas = new EnvaseMedicina[listaEnvases.size()];
+        listaEnvases.toArray(envaseMedicinas);
+        return envaseMedicinas;
+    }
+
+    public EnvaseMedicina[] selectEnvasesPorTerminarEntreParaPaciente(Date fechaInicio, Date fechaFin,
+                                                                      int idPaciente) throws SQLException
+    {
+        EnvaseMedicina[] envaseMedicinas;
+        try {
+            envaseMedicinas = selectEnvaseMedicinasPorPaciente(idPaciente);
         }
         catch (Exception e) {
             System.out.println("Error al obtener los envases de medicina por vencer");
@@ -247,7 +324,6 @@ public class EnvaseMedicinaModel extends InterfazDB
         else {
             return false;
         }
-
     }
 
     private EnvaseMedicina[] crearListaEnvaseMedicinas(ResultSet result) throws SQLException

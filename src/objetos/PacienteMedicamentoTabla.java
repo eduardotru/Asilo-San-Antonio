@@ -8,10 +8,16 @@ import javafx.beans.property.StringPropertyBase;
 import objetos.Medicamento;
 import objetos.PacienteMedicamento;
 
+import java.time.ZoneId;
+import java.util.Date;
+
 public class PacienteMedicamentoTabla{
+
 
     //Los atributos clase deben de estar en un tipo de variable especial llamado Single Property para que los datos puedan
     //ser utilizados por los TableView
+    private int idMedicamento;
+    private Date inicioReceta;
     private final SimpleStringProperty medicamento;
     private final SimpleStringProperty tomaManana;
     private final SimpleStringProperty tomaMedio;
@@ -19,10 +25,12 @@ public class PacienteMedicamentoTabla{
     private final SimpleStringProperty via;
     private final SimpleStringProperty dosis;
     private final SimpleStringProperty dosisDisponibles;
+    private final SimpleStringProperty medidaDosis;
 
     //Constructor con parámetros del la clase
-    public PacienteMedicamentoTabla(String medicamento, String tomaManana, String tomaMedio, String tomaTarde, String via,String dosis,String dosisDisp) {
+    public PacienteMedicamentoTabla(int idMedicamento,String medicamento, String tomaManana, String tomaMedio, String tomaTarde, String via,String dosis,String dosisDisp,String medidaDosis) {
         super();
+        this.idMedicamento = idMedicamento;
         this.medicamento = new SimpleStringProperty(medicamento);
         this.tomaManana = new SimpleStringProperty(tomaManana);
         this.tomaMedio = new SimpleStringProperty(tomaMedio);
@@ -30,11 +38,13 @@ public class PacienteMedicamentoTabla{
         this.via = new SimpleStringProperty(via);
         this.dosis = new SimpleStringProperty(dosis);
         this.dosisDisponibles = new SimpleStringProperty(dosisDisp);
+        this.medidaDosis = new SimpleStringProperty(medidaDosis);
     }
 
     //Constructor por default de la clase
     public PacienteMedicamentoTabla() {
         super();
+        this.idMedicamento = 0;
         this.medicamento = new SimpleStringProperty() ;
         this.tomaManana = new SimpleStringProperty();
         this.tomaMedio = new SimpleStringProperty();
@@ -42,6 +52,7 @@ public class PacienteMedicamentoTabla{
         this.via = new SimpleStringProperty();
         this.dosis = new SimpleStringProperty();
         this.dosisDisponibles = new SimpleStringProperty();
+        this.medidaDosis = new SimpleStringProperty();
     }
 
     //Este contructor convierte directamente un objeto de la clase Paciente medicamento a un objeto compatible
@@ -59,6 +70,7 @@ public class PacienteMedicamentoTabla{
         }catch (Exception e) {
             System.out.println("No se pudo convertir correctamente el objeto medicamento a medicamentoTabla");
         }
+        this.idMedicamento = pacienteMedicamento.getIdMedicamento();
         this.medicamento = new SimpleStringProperty(medicamento.getNombreGenerico());//Obtiene el nombre genérico
         this.tomaManana = new SimpleStringProperty(toString(pacienteMedicamento.isTomaManana()));
         this.tomaMedio = new SimpleStringProperty(toString(pacienteMedicamento.isTomaMedio()));
@@ -66,6 +78,8 @@ public class PacienteMedicamentoTabla{
         this.via = new SimpleStringProperty(medicamento.getMedidaDosis());
         this.dosis= new SimpleStringProperty(Integer.toString(pacienteMedicamento.dosis));
         this.dosisDisponibles = new SimpleStringProperty("Prueba");
+        this.medidaDosis = new SimpleStringProperty(medicamento.getMedidaDosis());
+        this.inicioReceta = pacienteMedicamento.getFechaInicio();
     }
 
     //Método para convertir los atributos booleanos de la clase Paciente medicamento a tipo String
@@ -78,6 +92,27 @@ public class PacienteMedicamentoTabla{
             return "No";
         }
 
+    }
+    public void setDosisDisponibles(int pacienteId){
+        int dosisRestantes = 0;
+        EnvaseMedicina[] envaseMedicinas = null;
+        EnvaseMedicinaModel envaseMedicinaModel = new EnvaseMedicinaModel();
+        try {
+            envaseMedicinas=envaseMedicinaModel.selectEnvaseMedicinasPorPacienteMedicamento(pacienteId, idMedicamento);
+        }catch (Exception e) {
+            System.out.println("Error al cargar los envases de medicina");
+        }
+        Date actual = new Date();
+        int diferenciaDias = (int)((actual.getTime() - inicioReceta.getTime())/86400000);
+        System.out.println(diferenciaDias);
+        for(int i=0; i<envaseMedicinas.length;i++)
+            dosisRestantes += envaseMedicinas[0].getCantidad();
+        int resta=0;
+        if(tomaManana.get().equals("Si"))resta+=1;
+        if(tomaMedio.get().equals("Si"))resta+=1;
+        if(tomaTarde.get().equals("Si"))resta+=1;
+        dosisRestantes-=diferenciaDias*Integer.parseInt(dosis.get())*resta;
+        this.dosisDisponibles.set(Integer.toString(dosisRestantes));
     }
 
     //Gets de los atributos de la clase
@@ -97,5 +132,8 @@ public class PacienteMedicamentoTabla{
     public String getDosis(){return dosis.get();}
     public String getDosisDisponibles() {
         return dosisDisponibles.get();
+    }
+    public String getMedidaDosis() {
+        return medidaDosis.get();
     }
 }
