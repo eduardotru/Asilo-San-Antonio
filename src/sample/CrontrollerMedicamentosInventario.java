@@ -124,9 +124,10 @@ public class CrontrollerMedicamentosInventario extends ControllerBase{
 
     @FXML
     public void pressButtonVencer() {
-        if (campoBusquedaPacientes.getText() == "") {
-            showAlertDialog(Alert.AlertType.INFORMATION, "Favor de especificar el usuario.");
+        if (listaPacientes.getItems().size() == 0) {
+            showAlertDialog(Alert.AlertType.INFORMATION, "No hay pacientes que mostrar.");
         }
+
         if (dateFrom.getValue() == null) {
             showAlertDialog(Alert.AlertType.INFORMATION, "Favor de especificar la fecha.");
         }
@@ -140,6 +141,8 @@ public class CrontrollerMedicamentosInventario extends ControllerBase{
         cal.add(Calendar.DATE, leftDays);
 
         Date dateToEnvase = cal.getTime();
+
+        ObservableList<PacienteMedicamentoTabla> data = FXCollections.observableArrayList();
 
         int indice = listaPacientes.getSelectionModel().getSelectedIndex();
         EnvaseMedicinaModel envaseMedicinaModel = new EnvaseMedicinaModel();
