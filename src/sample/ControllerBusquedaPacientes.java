@@ -110,7 +110,6 @@ public class ControllerBusquedaPacientes extends ControllerBase{
                 pacienteBuscado = temp;
             }
         }
-
     }
 
     /**
