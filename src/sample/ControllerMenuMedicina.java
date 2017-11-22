@@ -26,7 +26,8 @@ public class ControllerMenuMedicina extends ControllerBase {
     }
 
     public void pshBotonMedicamentosInventario(Event event) throws  IOException{
-        cargaPantalla(event,"medicamentosInventario.fxml",btnMedicamentosInventario);
+        cargaPantalla(event,"medicamentosInventario.fxml",
+                btnMedicamentosInventario);
     }
 
 }

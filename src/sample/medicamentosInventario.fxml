@@ -54,12 +54,13 @@
           <TableColumn fx:id="columnaDosisDisp" prefWidth="110.0" text="Dosis disponibles" />
         </columns>
       </TableView>
-      <JFXButton fx:id="btnBuscar" layoutX="473.0" layoutY="131.0" onAction="#pshBtnHome" prefHeight="17.0" prefWidth="53.0" style="-fx-background-color: #303f9f;" text="Buscar" textFill="WHITE" />
-      <DatePicker layoutX="223.0" layoutY="170.0" />
+      <JFXButton fx:id="btnBuscar" layoutX="473.0" layoutY="131.0" onAction="#pshBtnHome" prefHeight="25.0" prefWidth="96.0" style="-fx-background-color: #303f9f;" text="Inventario" textFill="WHITE" />
+      <DatePicker fx:id="dateFrom" layoutX="223.0" layoutY="170.0" />
       <Label layoutX="19.0" layoutY="173.0" text="Fecha Consulta de Existencias:">
          <font>
             <Font name="Roboto Medium" size="14.0" />
          </font>
       </Label>
+      <JFXButton fx:id="btnVencer" layoutX="472.0" layoutY="170.0" onAction="#pressButtonVencer" prefHeight="25.0" prefWidth="96.0" style="-fx-background-color: #303f9f;" text="Por Vencer" textFill="WHITE" />
    </children>
 </AnchorPane>

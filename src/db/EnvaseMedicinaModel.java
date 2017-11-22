@@ -296,7 +296,6 @@ public class EnvaseMedicinaModel extends InterfazDB
         else {
             return false;
         }
-
     }
 
     private EnvaseMedicina[] crearListaEnvaseMedicinas(ResultSet result) throws SQLException

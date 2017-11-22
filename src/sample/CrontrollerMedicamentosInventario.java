@@ -1,5 +1,6 @@
 package sample;
 
+import db.EnvaseMedicinaModel;
 import db.PacienteMedicamentoModel;
 import db.PacienteModel;
 import javafx.collections.FXCollections;
@@ -10,11 +11,16 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
+import objetos.EnvaseMedicina;
 import objetos.Paciente;
 import objetos.PacienteMedicamento;
 import objetos.PacienteMedicamentoTabla;
 
 import java.io.IOException;
+import java.sql.SQLException;
+import java.time.ZoneId;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 public class CrontrollerMedicamentosInventario extends ControllerBase{
@@ -37,6 +43,8 @@ public class CrontrollerMedicamentosInventario extends ControllerBase{
     private TableColumn<PacienteMedicamentoTabla, String> columnaNombG;
     @FXML
     private TableColumn<PacienteMedicamentoTabla, String> columnaDosisDisp;
+
+    @FXML DatePicker dateFrom;
 
     @FXML
     private void initTable(int idPaciente){
@@ -98,5 +106,35 @@ public class CrontrollerMedicamentosInventario extends ControllerBase{
             System.out.println("No se pudieron cargar los medicamentos");
         }
         return data;
+    }
+
+    @FXML
+    public void pressButtonVencer() {
+        if (campoBusquedaPacientes.getText() == "") {
+            showAlertDialog(Alert.AlertType.INFORMATION, "Favor de especificar el usuario.");
+        }
+        if (dateFrom.getValue() == null) {
+            showAlertDialog(Alert.AlertType.INFORMATION, "Favor de especificar la fecha.");
+        }
+
+        Date dateFromEnvase = Date.from(dateFrom.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant());
+
+        Calendar cal  = Calendar.getInstance();
+        cal.setTime(dateFromEnvase);
+        int currentDay = cal.get(Calendar.DAY_OF_WEEK);
+        int leftDays= Calendar.SATURDAY - currentDay;
+        cal.add(Calendar.DATE, leftDays);
+
+        Date dateToEnvase = cal.getTime();
+
+        int indice = listaPacientes.getSelectionModel().getSelectedIndex();
+        EnvaseMedicinaModel envaseMedicinaModel = new EnvaseMedicinaModel();
+        try {
+            EnvaseMedicina[] envasesPorVencer = envaseMedicinaModel.selectEnvasesPorTerminarEntreParaPaciente(
+                dateFromEnvase, dateToEnvase, pacientes[indice].getId()
+            );
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }
