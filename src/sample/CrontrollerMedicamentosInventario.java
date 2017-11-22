@@ -221,6 +221,11 @@ public class CrontrollerMedicamentosInventario extends ControllerBase{
     @FXML
     public void preparaSurtido() {
         PacienteMedicamentoTabla pacienteMedi = tablaResumenMedicamentos.getSelectionModel().getSelectedItem();
+
+        if (tablaResumenMedicamentos.getSelectionModel().getSelectedIndex() == -1) {
+            return;
+        }
+
         lblMedicamento.setText(pacienteMedi.getMedicamento());
         lblNombre.setText(listaPacientes.getSelectionModel().getSelectedItem());
 
