@@ -48,6 +48,7 @@ public class CrontrollerMedicamentosInventario extends ControllerBase{
     private Button btnHome;
     @FXML
     private Button btnMenu;
+    @FXML Button btnSurtir;
     @FXML
     private TextField campoBusquedaPacientes;
     @FXML
@@ -205,18 +206,24 @@ public class CrontrollerMedicamentosInventario extends ControllerBase{
     }
 
     @FXML
-    public void surteMedicamento(){
+    public void surteMedicamento() {
         EnvaseMedicinaModel envaseMedicinaModel = new EnvaseMedicinaModel();
         int cantASurtir = Integer.parseInt(campoSurtir.getText());
         int idMedi = tablaResumenMedicamentos.getSelectionModel().getSelectedItem().getIdMedicamento();
         int idPaci = tablaResumenMedicamentos.getSelectionModel().getSelectedItem().getIdPaciente();
         try {
-            EnvaseMedicina envaseNuevo = envaseMedicinaModel.selectEnvaseMedicina(idPaci,idMedi);
-            envaseNuevo.setDosisDisponibles(cantASurtir);
-            envaseNuevo.setFechaSurtimiento(new Date());
-            envaseMedicinaModel.addEnvaseMedicina(envaseNuevo);
-        }catch (Exception e) {
+            EnvaseMedicina[] envaseNuevo = envaseMedicinaModel.selectEnvaseMedicinasPorPacienteMedicamento(idPaci, idMedi);
+            envaseNuevo[0].setCantidad(cantASurtir);
+            envaseNuevo[0].setFechaSurtimiento(new Date());
+            envaseMedicinaModel.addEnvaseMedicina(envaseNuevo[0]);
+        } catch (Exception e) {
+            System.out.println("NO se pudo agregar el envase");
+        }
 
+        try{
+            rellenaTablaMedicamentoPaciente(pacienteModel.selectPaciente(idPaci));
+        }catch (Exception e){
+            System.out.println("Error al cargar paciente  al momento de actualizar tabl");
         }
     }
 }
