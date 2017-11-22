@@ -1,6 +1,6 @@
 create database Asilo;
 
-create table Paciente (
+create table Asilo.Paciente (
     id int unsigned AUTO_INCREMENT,
     nombre varchar(200),
     fechaNacimiento date,
@@ -14,7 +14,7 @@ create table Paciente (
     PRIMARY KEY(id)
 );
 
-create table Padecimientos(
+create table Asilo.Padecimientos(
     id int unsigned AUTO_INCREMENT,
     idPaciente int unsigned,
     padecimiento varchar(100),
@@ -22,14 +22,14 @@ create table Padecimientos(
     FOREIGN KEY(idPaciente) REFERENCES Paciente(id)
 );
 
-create table Seguro(
+create table Asilo.Seguro(
     id int unsigned AUTO_INCREMENT,
     nombre varchar(100),
     numPoliza varchar(100),
     PRIMARY KEY(id)
 );
 
-create table ServicioEmergencia(
+create table Asilo.ServicioEmergencia(
     id int unsigned AUTO_INCREMENT,
     nombre varchar(200),
     telefono varchar(20),
@@ -37,13 +37,13 @@ create table ServicioEmergencia(
     PRIMARY KEY(id)
 );
 
-alter table Paciente 
+alter table Asilo.Paciente
 add FOREIGN KEY(idSeguro) references Seguro(id);
 
-alter table Paciente
+alter table Asilo.Paciente
 add FOREIGN KEY(idServicioEmergencia) references ServicioEmergencia(id);
 
-create table FamiliarResponsable(
+create table Asilo.FamiliarResponsable(
     id int unsigned AUTO_INCREMENT,
     nombre varchar(100),
     relacion varchar(30),
@@ -53,13 +53,13 @@ create table FamiliarResponsable(
     FOREIGN KEY(idPaciente) references Paciente(id)
 );
 
-create table Enfermero(
+create table Asilo.Enfermero(
     id int unsigned AUTO_INCREMENT,
     nombre varchar(100),
     PRIMARY KEY(id)
 );
 
-create table Evento(
+create table Asilo.Evento(
     id int unsigned AUTO_INCREMENT,
     asunto varchar(200),
     descripcion varchar(2000),
@@ -74,14 +74,14 @@ create table Evento(
     FOREIGN KEY(idEnfermero) references Enfermero(id)
 );
 
-create table Medicamento(
+create table Asilo.Medicamento(
     id int unsigned AUTO_INCREMENT,
     medidaDosis varchar(10),
     nombreGenerico varchar(200),
     PRIMARY KEY(id)
 );
 
-create table PacienteMedicamento(
+create table Asilo.PacienteMedicamento(
     idPaciente int unsigned,
     idMedicamento int unsigned,
     dosis int,
@@ -95,7 +95,7 @@ create table PacienteMedicamento(
     FOREIGN KEY(idMedicamento) references Medicamento(id)
 );
 
-create table EnvaseMedicina(
+create table Asilo.EnvaseMedicina(
     id int unsigned AUTO_INCREMENT,
     nombreComercial varchar(200),
     fechaSurtimiento date,
@@ -103,6 +103,7 @@ create table EnvaseMedicina(
     cantidad int,
     idMedicamento int unsigned,
     idPaciente int unsigned,
+    avisoFamiliar varchar(1),
     PRIMARY KEY(id),
     FOREIGN KEY(idMedicamento) references Medicamento(id),
     FOREIGN KEY(idPaciente) references Paciente(id)
