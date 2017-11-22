@@ -16,9 +16,10 @@ public class EnvaseMedicina {
     private Paciente paciente;
     private int dosisDisponibles = 0;
     private int diasDisponibles = 0;
+    private boolean avisoFamiliar = false;
 
     public EnvaseMedicina(int id, String nombreComercial, java.util.Date fechaSurtimiento,
-                          String presentacion, int cantidad, int idMedicamento, int idPaciente)
+                          String presentacion, int cantidad, int idMedicamento, int idPaciente, boolean avisoFamiliar)
     {
         this.id = id;
         this.nombreComercial = nombreComercial;
@@ -27,6 +28,7 @@ public class EnvaseMedicina {
         this.cantidad = cantidad;
         this.idMedicamento = idMedicamento;
         this.idPaciente = idPaciente;
+        this.avisoFamiliar = avisoFamiliar;
     }
 
     public int getId() {
@@ -127,5 +129,13 @@ public class EnvaseMedicina {
 
     public void setDosisDisponibles(int dosisDisponibles) {
         this.dosisDisponibles = dosisDisponibles;
+    }
+
+    public boolean isAvisoFamiliar() {
+        return avisoFamiliar;
+    }
+
+    public void setAvisoFamiliar(boolean avisoFamiliar) {
+        this.avisoFamiliar = avisoFamiliar;
     }
 }

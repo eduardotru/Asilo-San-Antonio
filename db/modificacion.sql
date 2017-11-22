@@ -16,3 +16,6 @@ ADD dosis int;
 
 ALTER TABLE Asilo.Medicamento
 DROP COLUMN dosis;
+
+ALTER TABLE Asilo.EnvaseMedicina
+ADD avisoFamiliar varchar(1);
