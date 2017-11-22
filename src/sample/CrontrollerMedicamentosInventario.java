@@ -188,4 +188,19 @@ public class CrontrollerMedicamentosInventario extends ControllerBase{
         lblNombre.setText(listaPacientes.getSelectionModel().getSelectedItem());
     }
 
+    @FXML
+    public void surteMedicamento(){
+        EnvaseMedicinaModel envaseMedicinaModel = new EnvaseMedicinaModel();
+        int cantASurtir = Integer.parseInt(campoSurtir.getText());
+        int idMedi = tablaResumenMedicamentos.getSelectionModel().getSelectedItem().getIdMedicamento();
+        int idPaci = tablaResumenMedicamentos.getSelectionModel().getSelectedItem().getIdPaciente();
+        try {
+            EnvaseMedicina envaseNuevo = envaseMedicinaModel.selectEnvaseMedicina(idPaci,idMedi);
+            envaseNuevo.setDosisDisponibles(cantASurtir);
+            envaseNuevo.setFechaSurtimiento(new Date());
+            envaseMedicinaModel.addEnvaseMedicina(envaseNuevo);
+        }catch (Exception e) {
+
+        }
+    }
 }

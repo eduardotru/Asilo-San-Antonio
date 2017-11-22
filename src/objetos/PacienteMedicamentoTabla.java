@@ -18,6 +18,7 @@ public class PacienteMedicamentoTabla{
     //ser utilizados por los TableView
     private int idMedicamento;
     private Date inicioReceta;
+    private int idPaciente;
     private final SimpleStringProperty medicamento;
     private final SimpleStringProperty tomaManana;
     private final SimpleStringProperty tomaMedio;
@@ -70,6 +71,7 @@ public class PacienteMedicamentoTabla{
         }catch (Exception e) {
             System.out.println("No se pudo convertir correctamente el objeto medicamento a medicamentoTabla");
         }
+        this.idPaciente = pacienteMedicamento.getIdPaciente();
         this.idMedicamento = pacienteMedicamento.getIdMedicamento();
         this.medicamento = new SimpleStringProperty(medicamento.getNombreGenerico());//Obtiene el nombre genérico
         this.tomaManana = new SimpleStringProperty(toString(pacienteMedicamento.isTomaManana()));
@@ -135,5 +137,11 @@ public class PacienteMedicamentoTabla{
     }
     public String getMedidaDosis() {
         return medidaDosis.get();
+    }
+    public int getIdMedicamento() {
+        return idMedicamento;
+    }
+    public int getIdPaciente() {
+        return idPaciente;
     }
 }
