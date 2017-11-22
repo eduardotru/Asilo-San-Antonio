@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXListView?>
 <?import com.jfoenix.controls.JFXTextField?>
@@ -10,7 +16,7 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #e1e2e1;" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.CrontrollerMedicamentosInventario">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="448.0" prefWidth="600.0" style="-fx-background-color: #e1e2e1;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.CrontrollerMedicamentosInventario">
    <children>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#303f9f" height="68.0" stroke="TRANSPARENT" strokeType="INSIDE" strokeWidth="0.0" width="600.0" />
       <Label layoutX="14.0" layoutY="14.0" prefHeight="38.0" prefWidth="367.0" text="Asilo Luis Elizondo" textFill="WHITE">
@@ -28,26 +34,32 @@
             <Font name="Roboto" size="12.0" />
          </font>
       </Label>
-      <Label layoutX="14.0" layoutY="96.0" text="Inventario de Medicamentos">
+      <Label layoutX="18.0" layoutY="106.0" text="Inventario de Medicamentos">
          <font>
             <Font name="Roboto Medium" size="14.0" />
          </font>
       </Label>
       <JFXButton fx:id="btnHome" layoutX="47.0" layoutY="76.0" onAction="#pshBtnHome" prefHeight="17.0" prefWidth="53.0" style="-fx-background-color: #303f9f;" text="Home" textFill="WHITE" />
       <JFXButton fx:id="btnMenu" layoutX="114.0" layoutY="76.0" onAction="#pshBtnMenu" onDragDetected="#pshBtnMenu" prefHeight="17.0" prefWidth="88.0" style="-fx-background-color: #303f9f;" text="Medicamentos" textFill="WHITE" />
-      <Label layoutX="15.0" layoutY="123.0" text="Busca paciente:">
+      <Label layoutX="19.0" layoutY="137.0" text="Busca paciente:">
          <font>
             <Font name="Roboto Medium" size="14.0" />
          </font>
       </Label>
-      <JFXTextField fx:id="campoBusquedaPacientes" layoutX="120.0" layoutY="121.0" prefHeight="24.0" prefWidth="331.0" />
-      <JFXListView fx:id="listaPacientes" layoutX="14.0" layoutY="167.0" onMouseClicked="#initTable" prefHeight="200.0" prefWidth="147.0" />
-      <TableView fx:id="tablaResumenMedicamentos" layoutX="174.0" layoutY="167.0" prefHeight="200.0" prefWidth="399.0">
+      <JFXTextField fx:id="campoBusquedaPacientes" layoutX="128.0" layoutY="131.0" prefHeight="24.0" prefWidth="331.0" />
+      <JFXListView fx:id="listaPacientes" layoutX="14.0" layoutY="211.0" onMouseClicked="#initTable" prefHeight="200.0" prefWidth="147.0" />
+      <TableView fx:id="tablaResumenMedicamentos" layoutX="174.0" layoutY="211.0" prefHeight="200.0" prefWidth="399.0">
         <columns>
           <TableColumn fx:id="columnaNombG" prefWidth="114.0" text="Nombre genérico" />
           <TableColumn fx:id="columnaDosisDisp" prefWidth="110.0" text="Dosis disponibles" />
         </columns>
       </TableView>
-      <JFXButton fx:id="btnBuscar" layoutX="467.0" layoutY="121.0" onAction="#pshBtnHome" prefHeight="17.0" prefWidth="53.0" style="-fx-background-color: #303f9f;" text="Buscar" textFill="WHITE" />
+      <JFXButton fx:id="btnBuscar" layoutX="473.0" layoutY="131.0" onAction="#pshBtnHome" prefHeight="17.0" prefWidth="53.0" style="-fx-background-color: #303f9f;" text="Buscar" textFill="WHITE" />
+      <DatePicker layoutX="223.0" layoutY="170.0" />
+      <Label layoutX="19.0" layoutY="173.0" text="Fecha Consulta de Existencias:">
+         <font>
+            <Font name="Roboto Medium" size="14.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>
