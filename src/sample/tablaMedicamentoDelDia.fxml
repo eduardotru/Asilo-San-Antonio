@@ -11,10 +11,10 @@
         <columns>
           <TableColumn fx:id="tableColumn" prefWidth="113.0" text="Medicamento" />
             <TableColumn fx:id="tableColumnVia" prefWidth="89.0" text="Via" />
-            <TableColumn fx:id="tableColumnDosis" prefWidth="89.0" text="Presentacion" />
-          <TableColumn fx:id="tableColumn2" prefWidth="89.0" text="Mañana" />
+            <TableColumn fx:id="tableColumnDosis" prefWidth="97.0" text="Dosis por toma" />
+          <TableColumn fx:id="tableColumn2" prefWidth="81.0" text="Mañana" />
             <TableColumn fx:id="tableColumn3" prefWidth="89.0" text="Tarde" />
-            <TableColumn fx:id="tableColumn4" prefWidth="89.0" text="Noche" />
+            <TableColumn fx:id="tableColumn4" prefWidth="95.0" text="Noche" />
         </columns>
       </TableView>
       <Label fx:id="lblNombrePaciente" layoutX="14.0" layoutY="6.0" text="Label" />

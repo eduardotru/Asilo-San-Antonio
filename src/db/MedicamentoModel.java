@@ -85,6 +85,35 @@ public class MedicamentoModel extends InterfazDB
         return medicamento;
     }
 
+    public Medicamento[] selectMedicamentos(String nombreGenerico) throws Exception
+    {
+        Medicamento[] medicamentos;
+        Medicamento medicamento;
+        try {
+            InterfazDB.crearConexion();
+        } catch (Exception e){
+            System.err.println("Error al obtener los medicamentos: "
+                    + e.getClass().getName() + ": " + e.getMessage());
+        }
+        try {
+            PreparedStatement  prepeparedStatement = c.prepareStatement(
+                    "SELECT * FROM Asilo.Medicamento WHERE nombreGenerico = ?");
+            prepeparedStatement.setString(1, nombreGenerico);
+            ResultSet result = prepeparedStatement.executeQuery();
+            medicamentos = crearListaMedicamentos(result);
+            if(medicamentos.length < 1) {
+                return  null;
+            }
+        }
+        catch (Exception e) {
+            throw e;
+        }
+        finally {
+            cerrarConexion();
+        }
+        return medicamentos;
+    }
+
     public Medicamento[] selectMedicamentos() throws Exception
     {
         Medicamento[] medicamentos;
