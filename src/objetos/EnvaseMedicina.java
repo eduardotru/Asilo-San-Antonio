@@ -14,6 +14,8 @@ public class EnvaseMedicina {
     private Medicamento medicamento;
     private int idPaciente = -1;
     private Paciente paciente;
+    private int dosisDisponibles = 0;
+    private int diasDisponibles = 0;
 
     public EnvaseMedicina(int id, String nombreComercial, java.util.Date fechaSurtimiento,
                           String presentacion, int cantidad, int idMedicamento, int idPaciente)
@@ -109,5 +111,21 @@ public class EnvaseMedicina {
             }
         }
         return paciente;
+    }
+
+    public int getDiasDisponibles() {
+        return diasDisponibles;
+    }
+
+    public void setDiasDisponibles(int diasDisponibles) {
+        this.diasDisponibles = diasDisponibles;
+    }
+
+    public int getDosisDisponibles() {
+        return dosisDisponibles;
+    }
+
+    public void setDosisDisponibles(int dosisDisponibles) {
+        this.dosisDisponibles = dosisDisponibles;
     }
 }

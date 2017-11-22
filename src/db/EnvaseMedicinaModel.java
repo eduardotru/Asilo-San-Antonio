@@ -7,6 +7,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.Duration;
+import java.time.temporal.Temporal;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -229,13 +231,22 @@ public class EnvaseMedicinaModel extends InterfazDB
             dosisDiarias++;
         }
         int diasDisponibles = envase.getCantidad()/(pacienteMedicamento.getDosis()*dosisDiarias);
-        if(diasDisponibles <= pacienteMedicamento.getDuracion()) {
+        if(diasDisponibles >= pacienteMedicamento.getDuracion()) {
             return false;
         }
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(envase.getFechaSurtimiento());
         calendar.add(Calendar.DAY_OF_MONTH, diasDisponibles);
-        return calendar.after(fechaInicio) && calendar.before(fechaFin);
+        if(calendar.after(fechaInicio) && calendar.before(fechaFin)) {
+            int diferenciaDias = calendar.get(Calendar.DATE) - fechaInicio.getDate();
+            envase.setDiasDisponibles(diferenciaDias);
+            int dosisDisponibles = envase.getCantidad() - dosisDiarias*(diasDisponibles-diferenciaDias);
+            envase.setDosisDisponibles(dosisDisponibles);
+            return true;
+        }
+        else {
+            return false;
+        }
 
     }
 
