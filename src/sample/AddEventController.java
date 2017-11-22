@@ -5,6 +5,7 @@ import db.EventoModel;
 import db.InterfazDB;
 import db.PacienteModel;
 import javafx.beans.InvalidationListener;
+import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.Event;
@@ -123,4 +124,35 @@ public class AddEventController extends ControllerBase{
     public void pshBtnHome(Event event) throws IOException{
         cargaPantalla(event,"home.fxml",btnHome);
      }
+
+    @FXML
+    public void pressButtonEnfermero(ActionEvent event) {
+        Stage stage = null;
+        Parent root = null;
+
+        try {
+            root = FXMLLoader.load(getClass().getResource("registroEnfermero.fxml"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        stage = new Stage();
+        stage.setTitle("Asilo San Antonio - Agregar Familiar");
+        stage.setScene(new Scene(root, 580, 500));
+        stage.showAndWait();
+
+        EnfermeroModel enfermeroModel = new EnfermeroModel();
+        Enfermero[] enfermeros;
+        ObservableList<String> lst = FXCollections.observableArrayList();
+        try {
+            enfermeros = enfermeroModel.selectEnfermeros();
+            System.out.println(enfermeros.length);
+            for (int i = 0; i < enfermeros.length; i++) {
+                System.out.println(enfermeros[i].getNombre());
+                lst.add(enfermeros[i].getNombre());
+            }
+        } catch (Exception e) {
+            System.out.println(e.getClass()+e.getMessage());
+        }
+        nombreEnfermero.setItems(lst);
+    }
 }

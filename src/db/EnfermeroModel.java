@@ -2,6 +2,7 @@ package db;
 
 import objetos.Enfermero;
 
+import javax.swing.plaf.nimbus.State;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -32,7 +33,8 @@ public class EnfermeroModel extends InterfazDB
         }
         try {
             PreparedStatement prepStatement = c.prepareStatement(
-                    "INSERT INTO Asilo.Enfermero(id, nombre) VALUES (default, ?)");
+                    "INSERT INTO Asilo.Enfermero(id, nombre) VALUES (default, ?)",
+                    Statement.RETURN_GENERATED_KEYS);
             prepStatement.setString(1, nombre);
             prepStatement.executeUpdate();
 

@@ -46,6 +46,18 @@ public class ControllerBase {
         stage.show();
     }
 
+    // Igual al método anterior pero con espera.
+    public void cargaPantallaEspera(Event event, String nombrePantalla, Button button) throws IOException {
+        Stage stage = null;
+        Parent root = null;
+        System.out.println(event.getSource().toString());
+        stage =(Stage) button.getScene().getWindow();
+        root = FXMLLoader.load(getClass().getResource(nombrePantalla));
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.showAndWait();
+    }
+
     //Obtiene la fecha actual y lo escribe en un Label
     //Entrada: El label que será modificado.
     //Salida: Ninguna
