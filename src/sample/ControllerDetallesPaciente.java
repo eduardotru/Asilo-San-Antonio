@@ -400,10 +400,17 @@ public class ControllerDetallesPaciente extends  ControllerBase{
 
     private void actualizarFamiliares() throws Exception {
         prevFamiliarIndex = listaFamiliares.getSelectionModel().getSelectedIndex();
+
+        if (prevFamiliarIndex == -1) {
+            prevFamiliarIndex = 0;
+        }
+
         FamiliarResponsable familiarSeleccionado = familiares.get(prevFamiliarIndex);
-        campoNombreFamiliar.setText(familiarSeleccionado.getNombre());
-        campoParentesco.setText(familiarSeleccionado.getRelacion());
-        campoTelefonoPariente.setText(familiarSeleccionado.getTelefono());
+        familiarSeleccionado.setNombre(campoNombreFamiliar.getText());
+        familiarSeleccionado.setRelacion(campoParentesco.getText());
+        familiarSeleccionado.setTelefono(campoTelefonoPariente.getText());
+
+        familiarResponsableModel.updateFamiliarResponsable(familiarSeleccionado);
 
         FamiliarResponsableModel familiarResponsableModel = new FamiliarResponsableModel();
         for (FamiliarResponsable familliar : familiares) {

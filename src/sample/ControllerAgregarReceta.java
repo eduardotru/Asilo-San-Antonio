@@ -124,7 +124,7 @@ public class ControllerAgregarReceta {
                         nuevoMedicamentoID = medicamentoModel.addMedicamento(textMedida.getText(),textNombre.getText());
                         medicamentoGuardar = new Medicamento(nuevoMedicamentoID,textDosis.getText(),textNombre.getText());
                         pacienteMedicamentoModel.addPacienteMedicamento(pacienteID, nuevoMedicamentoID, Integer.parseInt(textDosis.getText()),
-                                chkTomaMañana.isSelected(), chkTomaMedio.isSelected(), chkTomaTarde.isSelected(), new Date(), 14);
+                                chkTomaMañana.isSelected(), chkTomaMedio.isSelected(), chkTomaTarde.isSelected(), new Date(), 14, false);
                         agregaEnvase(pacienteID,medicamentoGuardar.getId(),medicamentoGuardar.getNombreGenerico());
                     }catch (Exception e) {
                         System.out.println("Error al agregar medicamento nuevo");
