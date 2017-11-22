@@ -110,7 +110,7 @@ public class PacienteMedicamentoTabla{
         int diferenciaDias = (int)((fechaConsulta.getTime() - inicioReceta.getTime())/86400000);
         System.out.println(diferenciaDias);
         for(int i=0; i<envaseMedicinas.length;i++)
-            dosisRestantes += envaseMedicinas[0].getCantidad();
+            dosisRestantes += envaseMedicinas[i].getCantidad();
         int resta=0;
         if(tomaManana.get().equals("Si"))resta+=1;
         if(tomaMedio.get().equals("Si"))resta+=1;
