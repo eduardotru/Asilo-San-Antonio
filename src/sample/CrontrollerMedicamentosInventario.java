@@ -8,9 +8,13 @@ import javafx.collections.ObservableList;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
 import objetos.EnvaseMedicina;
 import objetos.Paciente;
 import objetos.PacienteMedicamento;
@@ -29,6 +33,13 @@ public class CrontrollerMedicamentosInventario extends ControllerBase{
 
     private Paciente[] pacientes = null;
 
+    @FXML Label lblNombre;
+    @FXML Label lblMedicamento;
+    @FXML TableColumn<PacienteMedicamentoTabla, String> columnaMedida;
+    @FXML
+    public TextField campoSurtir;
+    @FXML
+    public Button btnAgregarReceta;
     @FXML
     private TableView<PacienteMedicamentoTabla> tablaResumenMedicamentos;
     @FXML
@@ -48,13 +59,15 @@ public class CrontrollerMedicamentosInventario extends ControllerBase{
 
     private void initTable(int idPaciente){
         columnaNombG.setCellValueFactory(new PropertyValueFactory<PacienteMedicamentoTabla,String>("medicamento"));
-        columnaDosisDisp.setCellValueFactory(new PropertyValueFactory<PacienteMedicamentoTabla,String>("dosis"));
+        columnaMedida.setCellValueFactory(new PropertyValueFactory<PacienteMedicamentoTabla,String>("medidaDosis"));
+        columnaDosisDisp.setCellValueFactory(new PropertyValueFactory<PacienteMedicamentoTabla,String>("dosisDisponibles"));
         tablaResumenMedicamentos.setItems(getMedicamentos(idPaciente));
     }
 
     @FXML
     private void initialize()
     {
+        btnAgregarReceta.setDisable(true);
         ObservableList<String> list = FXCollections.observableArrayList();
         //Obtener la lista de Pacientes
         try {
@@ -85,6 +98,7 @@ public class CrontrollerMedicamentosInventario extends ControllerBase{
     public void muestraPacienteSeleccionado(){
         int indice = listaPacientes.getSelectionModel().getSelectedIndex();
         rellenaTablaMedicamentoPaciente(pacientes[indice]);
+        pacienteClicked();
     }
 
 
@@ -100,6 +114,7 @@ public class CrontrollerMedicamentosInventario extends ControllerBase{
             pacienteMedicamentos = model.selectPacienteMedicamento(idPaciente);
             for(int i=0; i<pacienteMedicamentos.length; i++) {
                 data.add(new PacienteMedicamentoTabla(pacienteMedicamentos[i]));
+                data.get(i).setDosisDisponibles(idPaciente);
             }
         }catch (Exception e) {
             System.out.println("No se pudieron cargar los medicamentos");
@@ -136,4 +151,41 @@ public class CrontrollerMedicamentosInventario extends ControllerBase{
             e.printStackTrace();
         }
     }
+
+    public int idPacienteSeleccionado;
+    @FXML
+    public void pacienteClicked(){
+        try{
+            idPacienteSeleccionado = pacienteModel.selectIdPaciente(listaPacientes.getSelectionModel().getSelectedItem());
+        }catch (Exception e) {
+
+        }
+        System.out.println(idPacienteSeleccionado);
+        btnAgregarReceta.setDisable(false);
+    }
+
+
+    @FXML public void pshBtnAgregarReceta() throws IOException{
+        Stage stage = null;
+        Parent root = null;
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("agregarReceta.fxml"));
+        root = loader.load();
+
+        ControllerAgregarReceta controller = loader.getController();
+        controller.init(idPacienteSeleccionado);
+        stage = new Stage();
+        stage.setTitle("Asilo San Antonio - Agregar Seguro Médico");
+        stage.setScene(new Scene(root));
+        stage.showAndWait();
+        muestraPacienteSeleccionado();
+    }
+
+    @FXML
+    public void preparaSurtido(){
+        PacienteMedicamentoTabla pacienteMedi = tablaResumenMedicamentos.getSelectionModel().getSelectedItem();
+        lblMedicamento.setText(pacienteMedi.getMedicamento());
+        lblNombre.setText(listaPacientes.getSelectionModel().getSelectedItem());
+    }
+
 }

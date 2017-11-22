@@ -34,7 +34,7 @@ public class MedicamentoModel extends InterfazDB
         try {
             PreparedStatement prepStatement = c.prepareStatement(
                     "INSERT INTO Asilo.Medicamento(id, medidaDosis, nombreGenerico) " +
-                            "VALUES (default, ?, ?)");
+                            "VALUES (default, ?, ?)",Statement.RETURN_GENERATED_KEYS);
             prepStatement.setString(1, medidaDosis);
             prepStatement.setString(2, nombreGenerico);
             prepStatement.executeUpdate();
@@ -67,6 +67,38 @@ public class MedicamentoModel extends InterfazDB
             PreparedStatement  prepeparedStatement = c.prepareStatement(
                     "SELECT * FROM Asilo.Medicamento WHERE id = ?");
             prepeparedStatement.setInt(1, id);
+            ResultSet result = prepeparedStatement.executeQuery();
+            Medicamento[] medicamentos = crearListaMedicamentos(result);
+            if(medicamentos.length == 1) {
+                medicamento = medicamentos[0];
+            }
+            else {
+                medicamento = null;
+            }
+        }
+        catch (Exception e) {
+            throw e;
+        }
+        finally {
+            cerrarConexion();
+        }
+        return medicamento;
+    }
+
+    public Medicamento selectMedicamento(String nombreGenerico,String medidaDosis) throws Exception
+    {
+        Medicamento medicamento;
+        try {
+            InterfazDB.crearConexion();
+        } catch (Exception e){
+            System.err.println("Error al obtener los medicamentos: "
+                    + e.getClass().getName() + ": " + e.getMessage());
+        }
+        try {
+            PreparedStatement  prepeparedStatement = c.prepareStatement(
+                    "SELECT * FROM Asilo.Medicamento WHERE medidaDosis = ? AND nombreGenerico = ?");
+            prepeparedStatement.setString(1, medidaDosis);
+            prepeparedStatement.setString(2,nombreGenerico);
             ResultSet result = prepeparedStatement.executeQuery();
             Medicamento[] medicamentos = crearListaMedicamentos(result);
             if(medicamentos.length == 1) {
