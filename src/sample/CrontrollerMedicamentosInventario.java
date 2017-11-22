@@ -123,16 +123,14 @@ public class CrontrollerMedicamentosInventario extends ControllerBase{
         int cantASurtir = Integer.parseInt(campoSurtir.getText());
         int idMedi = tablaResumenMedicamentos.getSelectionModel().getSelectedItem().getIdMedicamento();
         int idPaci = tablaResumenMedicamentos.getSelectionModel().getSelectedItem().getIdPaciente();
-        EnvaseMedicina[] envaseNuevo;
+        EnvaseMedicina envase;
         try {
-            envaseNuevo = envaseMedicinaModel.selectEnvaseMedicinasPorPacienteMedicamento(idPaci, idMedi);
-            envaseNuevo[0].setCantidad(cantASurtir);
-            envaseNuevo[0].setFechaSurtimiento(new Date());
+            envase = envaseMedicinaModel.selectEnvaseMedicina(idPaci, idMedi);
+            lblMarco.setText(envase.isAvisoFamiliar() ? "Se avisó a familiar." : "No se ha avisado a familiar.");
         } catch (Exception e) {
             System.out.println("NO se pudo agregar el envase");
         }
 
-        lblMarco.setText(envaseNuevo[0]);
         try {
             ObservableList<String> familiaresTexto = FXCollections.observableArrayList();
             familiares = familiarResponsableModel.selectFamiliarResponsablesPorPaciente(pacientes[indice].getId());
