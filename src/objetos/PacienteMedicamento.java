@@ -13,10 +13,11 @@ public class PacienteMedicamento {
     private boolean tomaTarde;
     private java.util.Date fechaInicio;
     private int duracion;
+    private boolean avisoFamiliar = false;
 
     public PacienteMedicamento(int idPaciente, int idMedicamento, int dosis, boolean tomaManana,
                                boolean tomaMedio, boolean tomaTarde,
-                               java.util.Date fechaInicio, int duracion) {
+                               java.util.Date fechaInicio, int duracion, boolean avisoFamiliar) {
         this.idPaciente = idPaciente;
         this.idMedicamento = idMedicamento;
         this.dosis = dosis;
@@ -25,6 +26,7 @@ public class PacienteMedicamento {
         this.tomaTarde = tomaTarde;
         this.fechaInicio = fechaInicio;
         this.duracion = duracion;
+        this.avisoFamiliar = avisoFamiliar;
     }
 
     public int getIdPaciente() {
@@ -93,5 +95,13 @@ public class PacienteMedicamento {
 
     public void setDuracion(int duracion) {
         this.duracion = duracion;
+    }
+
+    public boolean isAvisoFamiliar() {
+        return avisoFamiliar;
+    }
+
+    public void setAvisoFamiliar(boolean avisoFamiliar) {
+        this.avisoFamiliar = avisoFamiliar;
     }
 }

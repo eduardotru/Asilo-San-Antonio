@@ -22,7 +22,7 @@ public class EnvaseMedicinaModel extends InterfazDB
             int id = addEnvaseMedicina(envaseMedicina.getNombreComercial(),
                     envaseMedicina.getFechaSurtimiento(), envaseMedicina.getPresentacion(),
                     envaseMedicina.getCantidad(), envaseMedicina.getIdMedicamento(),
-                    envaseMedicina.getIdPaciente(), envaseMedicina.isAvisoFamiliar());
+                    envaseMedicina.getIdPaciente());
             envaseMedicina.setId(id);
         }
         catch (Exception e) {
@@ -32,7 +32,7 @@ public class EnvaseMedicinaModel extends InterfazDB
 
     public int addEnvaseMedicina(String nombreComercial, java.util.Date fechaSurtimiento,
                                  String presentacion, int cantidad, int idMedicamento,
-                                 int idPaciente, boolean avisoFamiliar) throws Exception
+                                 int idPaciente) throws Exception
     {
         int id = -1;
         try {
@@ -44,8 +44,8 @@ public class EnvaseMedicinaModel extends InterfazDB
         try {
             PreparedStatement prepStatement = c.prepareStatement(
                     "INSERT INTO Asilo.EnvaseMedicina(id, nombreComercial, fechaSurtimiento, " +
-                            "presentacion, cantidad, idMedicamento, idPaciente, avisoFamiliar) " +
-                            "VALUES (default, ?, ?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
+                            "presentacion, cantidad, idMedicamento, idPaciente) " +
+                            "VALUES (default, ?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
 
             prepStatement.setString(1, nombreComercial);
             java.sql.Date fecha = new java.sql.Date(fechaSurtimiento.getTime());
@@ -54,8 +54,6 @@ public class EnvaseMedicinaModel extends InterfazDB
             prepStatement.setInt(4, cantidad);
             prepStatement.setInt(5, idMedicamento);
             prepStatement.setInt(6, idPaciente);
-            String aviso = avisoFamiliar ? "S" : "N";
-            prepStatement.setString(7, aviso);
             prepStatement.executeUpdate();
 
             ResultSet result = prepStatement.getGeneratedKeys();
@@ -341,9 +339,8 @@ public class EnvaseMedicinaModel extends InterfazDB
             int cantidad = result.getInt("cantidad");
             int idMedicamento = result.getInt("idMedicamento");
             int idPaciente = result.getInt("idPaciente");
-            boolean avisoFamiliar = result.getString("avisoFamiliar").equals("S");
             listaEnvaseMedicinas.add(new EnvaseMedicina(id, nombreComercial, fechaSurtimiento,
-                    presentacion, cantidad, idMedicamento, idPaciente, avisoFamiliar));
+                    presentacion, cantidad, idMedicamento, idPaciente));
         }
         EnvaseMedicina[] arrEnvaseMedicinas = new EnvaseMedicina[listaEnvaseMedicinas.size()];
         listaEnvaseMedicinas.toArray(arrEnvaseMedicinas);
@@ -363,7 +360,7 @@ public class EnvaseMedicinaModel extends InterfazDB
                     "UPDATE Asilo.EnvaseMedicina " +
                             "SET nombreComercial = ?, fechaSurtimiento = ?, " +
                             "presentacion = ?, cantidad = ?, " +
-                            "idMedicamento = ?, idPaciente = ?, avisoFamiliar = ? " +
+                            "idMedicamento = ?, idPaciente = ? " +
                             "WHERE id = ?");
             prepStatement.setString(1, envaseMedicina.getNombreComercial());
             java.sql.Date fecha = new java.sql.Date(envaseMedicina.getFechaSurtimiento().getTime());
@@ -372,9 +369,7 @@ public class EnvaseMedicinaModel extends InterfazDB
             prepStatement.setInt(4, envaseMedicina.getCantidad());
             prepStatement.setInt(5, envaseMedicina.getIdMedicamento());
             prepStatement.setInt(6, envaseMedicina.getIdPaciente());
-            String aviso = envaseMedicina.isAvisoFamiliar() ? "S": "N";
-            prepStatement.setString(7, aviso);
-            prepStatement.setInt(8, envaseMedicina.getId());
+            prepStatement.setInt(7, envaseMedicina.getId());
 
             prepStatement.executeUpdate();
         }

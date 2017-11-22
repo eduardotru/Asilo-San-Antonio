@@ -16,7 +16,7 @@ public class PacienteMedicamentoModel extends InterfazDB {
                     pacienteMedicamento.getDosis(),
                     pacienteMedicamento.isTomaManana(), pacienteMedicamento.isTomaMedio(),
                     pacienteMedicamento.isTomaTarde(), pacienteMedicamento.getFechaInicio(),
-                    pacienteMedicamento.getDuracion());
+                    pacienteMedicamento.getDuracion(), false);
         }
         catch (Exception e) {
             throw e;
@@ -33,7 +33,7 @@ public class PacienteMedicamentoModel extends InterfazDB {
 
     public void addPacienteMedicamento(int idPaciente, int idMedicamento, int dosis, boolean tomaManana,
                                        boolean tomaMedio, boolean tomaTarde, java.util.Date fechaInicio,
-                                       int duracion) throws Exception
+                                       int duracion, boolean avisoFamiliar) throws Exception
     {
         try {
             InterfazDB.crearConexion();
@@ -44,8 +44,8 @@ public class PacienteMedicamentoModel extends InterfazDB {
         try {
             PreparedStatement prepStatement = c.prepareStatement(
                     "INSERT INTO Asilo.PacienteMedicamento(idPaciente, idMedicamento, tomaManana, tomaMedio, " +
-                            "tomaTarde, fechaInicio, duracion, dosis) " +
-                            "VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+                            "tomaTarde, fechaInicio, duracion, dosis, avisoFamiliar) " +
+                            "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
             prepStatement.setInt(1, idPaciente);
             prepStatement.setInt(2, idMedicamento);
             prepStatement.setString(3, booleanToStr(tomaManana));
@@ -55,6 +55,7 @@ public class PacienteMedicamentoModel extends InterfazDB {
             prepStatement.setDate(6, fecha);
             prepStatement.setInt(7, duracion);
             prepStatement.setInt(8, dosis);
+            prepStatement.setString(9, avisoFamiliar ? "S" : "N");
             prepStatement.executeUpdate();
         }
         catch (Exception e) {
@@ -160,8 +161,10 @@ public class PacienteMedicamentoModel extends InterfazDB {
             java.util.Date fechaInicio = result.getDate("fechaInicio");
             int duracion = result.getInt("duracion");
             int dosis = result.getInt("dosis");
+            String sAvisoFamiliar = result.getString("avisoFamiliar");
+            boolean avisoFamiliar = sAvisoFamiliar.equals("S") ? true : false;
             listaPacienteMedicamentos.add(new PacienteMedicamento(idPaciente, idMedicamento, dosis, tomaManana,
-                    tomaMedio, tomaTarde, fechaInicio, duracion));
+                    tomaMedio, tomaTarde, fechaInicio, duracion, avisoFamiliar));
         }
         PacienteMedicamento[] arrPacienteMedicamentos = new PacienteMedicamento[listaPacienteMedicamentos.size()];
         listaPacienteMedicamentos.toArray(arrPacienteMedicamentos);
@@ -180,7 +183,7 @@ public class PacienteMedicamentoModel extends InterfazDB {
             PreparedStatement prepStatement = c.prepareStatement(
                     "UPDATE Asilo.PacienteMedicamento " +
                             "SET tomaManana = ?, tomaMedio = ?, tomaTarde = ?, fechaInicio = ?, " +
-                            "duracion = ?, dosis = ? " +
+                            "duracion = ?, dosis = ?, avisoFamiliar = ? " +
                             "WHERE idPaciente = ? AND idMedicamento = ?");
             prepStatement.setString(1, booleanToStr(pacienteMedicamento.isTomaManana()));
             prepStatement.setString(2, booleanToStr(pacienteMedicamento.isTomaMedio()));
@@ -188,9 +191,10 @@ public class PacienteMedicamentoModel extends InterfazDB {
             java.sql.Date fecha = new java.sql.Date(pacienteMedicamento.getFechaInicio().getTime());
             prepStatement.setDate(4, fecha);
             prepStatement.setInt(5, pacienteMedicamento.getDuracion());
-            prepStatement.setInt(6, pacienteMedicamento.getIdPaciente());
-            prepStatement.setInt(7, pacienteMedicamento.getDosis());
-            prepStatement.setInt(8, pacienteMedicamento.getIdMedicamento());
+            prepStatement.setInt(6, pacienteMedicamento.getDosis());
+            prepStatement.setString(7, pacienteMedicamento.isAvisoFamiliar() ? "S" : "N");
+            prepStatement.setInt(8, pacienteMedicamento.getIdPaciente());
+            prepStatement.setInt(9, pacienteMedicamento.getIdMedicamento());
 
             prepStatement.executeUpdate();
         }

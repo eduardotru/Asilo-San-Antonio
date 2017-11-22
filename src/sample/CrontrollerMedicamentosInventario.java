@@ -224,13 +224,13 @@ public class CrontrollerMedicamentosInventario extends ControllerBase{
         lblMedicamento.setText(pacienteMedi.getMedicamento());
         lblNombre.setText(listaPacientes.getSelectionModel().getSelectedItem());
 
-        EnvaseMedicinaModel envaseMedicinaModel = new EnvaseMedicinaModel();
+        PacienteMedicamentoModel pacienteMedicamentoModel = new PacienteMedicamentoModel();
         int idMedi = tablaResumenMedicamentos.getSelectionModel().getSelectedItem().getIdMedicamento();
         int idPaci = tablaResumenMedicamentos.getSelectionModel().getSelectedItem().getIdPaciente();
-        EnvaseMedicina envase;
+        PacienteMedicamento pacienteMedicamento;
         try {
-            envase = envaseMedicinaModel.selectEnvaseMedicina(idPaci, idMedi);
-            lblMarco.setText(envase.isAvisoFamiliar() ? "Se avisó a familiar." : "No se ha avisado.");
+            pacienteMedicamento = pacienteMedicamentoModel.selectPacienteMedicamento(idPaci, idMedi);
+            lblMarco.setText(pacienteMedicamento.isAvisoFamiliar() ? "Se avisó a familiar." : "No se ha avisado.");
         } catch (Exception e) {
             System.out.println("NO se pudo agregar el envase");
         }
@@ -247,6 +247,10 @@ public class CrontrollerMedicamentosInventario extends ControllerBase{
             envaseNuevo[0].setCantidad(cantASurtir);
             envaseNuevo[0].setFechaSurtimiento(new Date());
             envaseMedicinaModel.addEnvaseMedicina(envaseNuevo[0]);
+            PacienteMedicamento pacienteMedicamento = pacienteMedicamentoModel.selectPacienteMedicamento(idPaci, idMedi);
+            pacienteMedicamento.setAvisoFamiliar(false);
+            lblMarco.setText("No se ha avisado.");
+            pacienteMedicamentoModel.updatePacienteMedicamento(pacienteMedicamento);
         } catch (Exception e) {
             System.out.println("NO se pudo agregar el envase");
         }
@@ -260,14 +264,14 @@ public class CrontrollerMedicamentosInventario extends ControllerBase{
 
     @FXML
     public void pressedButtonMarcar() {
-        EnvaseMedicinaModel envaseMedicinaModel = new EnvaseMedicinaModel();
+        PacienteMedicamentoModel pacienteMedicamentoModel = new PacienteMedicamentoModel();
         int idMedi = tablaResumenMedicamentos.getSelectionModel().getSelectedItem().getIdMedicamento();
         int idPaci = tablaResumenMedicamentos.getSelectionModel().getSelectedItem().getIdPaciente();
-        EnvaseMedicina envase;
+        PacienteMedicamento pacienteMedicamento;
         try {
-            envase = envaseMedicinaModel.selectEnvaseMedicina(idPaci, idMedi);
-            envase.setAvisoFamiliar(true);
-            envaseMedicinaModel.updateEnvaseMedicina(envase);
+            pacienteMedicamento = pacienteMedicamentoModel.selectPacienteMedicamento(idPaci, idMedi);
+            pacienteMedicamento.setAvisoFamiliar(true);
+            pacienteMedicamentoModel.updatePacienteMedicamento(pacienteMedicamento);
             lblMarco.setText("Se avisó a familiar.");
             showAlertDialog(Alert.AlertType.INFORMATION, "Se ha marcado al familiar.");
         } catch (Exception e) {

@@ -112,7 +112,7 @@ public class ControllerAgregarReceta {
                     System.out.println("Accediendo a medicamento existente");
                     try {
                         pacienteMedicamentoModel.addPacienteMedicamento(pacienteID, medicamentoGuardar.getId(), Integer.parseInt(textDosis.getText()),
-                                chkTomaMañana.isSelected(), chkTomaMedio.isSelected(), chkTomaTarde.isSelected(), new Date(), 14);
+                                chkTomaMañana.isSelected(), chkTomaMedio.isSelected(), chkTomaTarde.isSelected(), new Date(), 14, false);
                         agregaEnvase(pacienteID,medicamentoGuardar.getId(),medicamentoGuardar.getNombreGenerico());
                     }catch (Exception e) {
                         System.out.println("Error al agregar receta");
@@ -137,7 +137,7 @@ public class ControllerAgregarReceta {
                     nuevoMedicamentoID = medicamentoModel.addMedicamento(textMedida.getText(),textNombre.getText());
                     medicamentoGuardar = new Medicamento(nuevoMedicamentoID,textDosis.getText(),textNombre.getText());
                     pacienteMedicamentoModel.addPacienteMedicamento(pacienteID, nuevoMedicamentoID, Integer.parseInt(textDosis.getText()),
-                            chkTomaMañana.isSelected(), chkTomaMedio.isSelected(), chkTomaTarde.isSelected(), new Date(), 14);
+                            chkTomaMañana.isSelected(), chkTomaMedio.isSelected(), chkTomaTarde.isSelected(), new Date(), 14, false);
                     agregaEnvase(pacienteID,medicamentoGuardar.getId(),medicamentoGuardar.getNombreGenerico());
                 }catch (Exception e) {
                     System.out.println("Error al agregar medicamento nuevo");
@@ -156,7 +156,7 @@ public class ControllerAgregarReceta {
 
     public void agregaEnvase(int idPac,int idMedi,String nombreMedi){
         try{
-            envaseMedicinaModel.addEnvaseMedicina(nombreMedi,new Date(),"presentacionBase",0,idMedi,idPac, false);
+            envaseMedicinaModel.addEnvaseMedicina(nombreMedi,new Date(),"presentacionBase",0,idMedi,idPac);
         }catch (Exception e){
             System.out.println("Error al agregar el envase");
         }
