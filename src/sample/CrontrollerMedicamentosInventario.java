@@ -46,7 +46,6 @@ public class CrontrollerMedicamentosInventario extends ControllerBase{
 
     @FXML DatePicker dateFrom;
 
-    @FXML
     private void initTable(int idPaciente){
         columnaNombG.setCellValueFactory(new PropertyValueFactory<PacienteMedicamentoTabla,String>("medicamento"));
         columnaDosisDisp.setCellValueFactory(new PropertyValueFactory<PacienteMedicamentoTabla,String>("dosis"));
