@@ -85,5 +85,6 @@
           <TableColumn fx:id="columnaDosisDisp" prefWidth="107.0" text="Dosis disponibles" />
         </columns>
       </TableView>
+      <JFXButton fx:id="btnSurtir" layoutX="673.0" layoutY="277.0" onAction="#surteMedicamento" prefHeight="25.0" prefWidth="96.0" style="-fx-background-color: #303f9f;" text="Surtir" textFill="WHITE" />
    </children>
 </AnchorPane>

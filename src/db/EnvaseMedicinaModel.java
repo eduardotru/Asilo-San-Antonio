@@ -45,7 +45,8 @@ public class EnvaseMedicinaModel extends InterfazDB
             PreparedStatement prepStatement = c.prepareStatement(
                     "INSERT INTO Asilo.EnvaseMedicina(id, nombreComercial, fechaSurtimiento, " +
                             "presentacion, cantidad, idMedicamento, idPaciente, avisoFamiliar) " +
-                            "VALUES (default, ?, ?, ?, ?, ?, ?, ?)");
+                            "VALUES (default, ?, ?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
+
             prepStatement.setString(1, nombreComercial);
             java.sql.Date fecha = new java.sql.Date(fechaSurtimiento.getTime());
             prepStatement.setDate(2, fecha);
