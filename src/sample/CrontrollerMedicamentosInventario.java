@@ -1,6 +1,7 @@
 package sample;
 
 import db.EnvaseMedicinaModel;
+import db.FamiliarResponsableModel;
 import db.PacienteMedicamentoModel;
 import db.PacienteModel;
 import javafx.collections.FXCollections;
@@ -15,10 +16,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import objetos.EnvaseMedicina;
-import objetos.Paciente;
-import objetos.PacienteMedicamento;
-import objetos.PacienteMedicamentoTabla;
+import objetos.*;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -59,6 +57,12 @@ public class CrontrollerMedicamentosInventario extends ControllerBase{
     private TableColumn<PacienteMedicamentoTabla, String> columnaDosisDisp;
 
     @FXML DatePicker dateFrom;
+
+    @FXML ListView listaFamiliares;
+
+    @FXML Label lblMarco;
+
+    private FamiliarResponsable[] familiares;
 
     private void initTable(int idPaciente){
         columnaNombG.setCellValueFactory(new PropertyValueFactory<PacienteMedicamentoTabla,String>("medicamento"));
@@ -112,7 +116,46 @@ public class CrontrollerMedicamentosInventario extends ControllerBase{
     public void muestraPacienteSeleccionado(){
         int indice = listaPacientes.getSelectionModel().getSelectedIndex();
         rellenaTablaMedicamentoPaciente(pacientes[indice]);
+
+        FamiliarResponsableModel familiarResponsableModel = new FamiliarResponsableModel();
+
+        EnvaseMedicinaModel envaseMedicinaModel = new EnvaseMedicinaModel();
+        int cantASurtir = Integer.parseInt(campoSurtir.getText());
+        int idMedi = tablaResumenMedicamentos.getSelectionModel().getSelectedItem().getIdMedicamento();
+        int idPaci = tablaResumenMedicamentos.getSelectionModel().getSelectedItem().getIdPaciente();
+        EnvaseMedicina[] envaseNuevo;
+        try {
+            envaseNuevo = envaseMedicinaModel.selectEnvaseMedicinasPorPacienteMedicamento(idPaci, idMedi);
+            envaseNuevo[0].setCantidad(cantASurtir);
+            envaseNuevo[0].setFechaSurtimiento(new Date());
+        } catch (Exception e) {
+            System.out.println("NO se pudo agregar el envase");
+        }
+
+        lblMarco.setText(envaseNuevo[0]);
+        try {
+            ObservableList<String> familiaresTexto = FXCollections.observableArrayList();
+            familiares = familiarResponsableModel.selectFamiliarResponsablesPorPaciente(pacientes[indice].getId());
+            for (FamiliarResponsable familiar:
+                 familiares) {
+                familiaresTexto.add(familiar.getNombre() + ": " + familiar.getRelacion() + "\n" +
+                        familiar.getTelefono());
+            }
+            listaFamiliares.setItems(familiaresTexto);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         pacienteClicked();
+    }
+
+    @FXML
+    public void muestraFamiliarSeleccionado() {
+        int indice = listaFamiliares.getSelectionModel().getSelectedIndex();
+
+        /*FamiliarResponsable familiarSeleccionado = familiares[indice];
+        string sMarcoText = familiarSeleccionado.get
+        lblMarco.setText()*/
     }
 
 
@@ -212,5 +255,10 @@ public class CrontrollerMedicamentosInventario extends ControllerBase{
         }catch (Exception e){
             System.out.println("Error al cargar paciente  al momento de actualizar tabl");
         }
+    }
+
+    @FXML
+    public void pressedButtonMarcar() {
+
     }
 }
