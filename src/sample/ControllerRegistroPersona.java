@@ -277,7 +277,7 @@ public class ControllerRegistroPersona  extends ControllerBase {
      * @return valor booleano. Regresa verdadero si la transacción en SQL fue exitosa. De lo contrario, regresa
      * un valor falso.
      */
-    private boolean registrarPaciente(PacienteModel pacienteModel,
+    private int registrarPaciente(PacienteModel pacienteModel,
                                    String nombre, java.sql.Date fechaNacimiento, char sexo, String estado,
                                    int numCuarto, int numCama,
                                    int idSeguro, int idServicioEmergencia, String numeroReferencia) {
@@ -290,10 +290,10 @@ public class ControllerRegistroPersona  extends ControllerBase {
                 familiar.setIdPaciente(nuevoPacienteId);
                 familiarResponsableModel.updateFamiliarResponsable(familiar);
             }
-            return true;
+            return nuevoPacienteId;
         } catch (Exception e) {
             e.printStackTrace();
-            return false;
+            return -1;
         }
     }
 
@@ -331,11 +331,11 @@ public class ControllerRegistroPersona  extends ControllerBase {
         int idServicioEmergencia = servicio.getId();
         String numeroReferencia = txtNumeroReferencia.getText();
 
-        boolean registroExitoso =
+        int idPacienteRegistrado =
                 registrarPaciente(pacienteModel, nombre, fechaNacimiento, sexo, estado, numCuarto, numCama,
                 idSeguro, idServicioEmergencia, numeroReferencia);
 
-        if (registroExitoso) {
+        if (idPacienteRegistrado >= 0) {
             showAlertDialog(Alert.AlertType.INFORMATION,"Se ha guardado el nuevo paciente de forma exitosa.");
 
             cargaPantalla(event, "busquedapacientes.fxml", btnRegistrar);

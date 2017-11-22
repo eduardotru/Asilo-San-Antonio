@@ -119,18 +119,6 @@ public class CrontrollerMedicamentosInventario extends ControllerBase{
 
         FamiliarResponsableModel familiarResponsableModel = new FamiliarResponsableModel();
 
-        EnvaseMedicinaModel envaseMedicinaModel = new EnvaseMedicinaModel();
-        int cantASurtir = Integer.parseInt(campoSurtir.getText());
-        int idMedi = tablaResumenMedicamentos.getSelectionModel().getSelectedItem().getIdMedicamento();
-        int idPaci = tablaResumenMedicamentos.getSelectionModel().getSelectedItem().getIdPaciente();
-        EnvaseMedicina envase;
-        try {
-            envase = envaseMedicinaModel.selectEnvaseMedicina(idPaci, idMedi);
-            lblMarco.setText(envase.isAvisoFamiliar() ? "Se avisó a familiar." : "No se ha avisado a familiar.");
-        } catch (Exception e) {
-            System.out.println("NO se pudo agregar el envase");
-        }
-
         try {
             ObservableList<String> familiaresTexto = FXCollections.observableArrayList();
             familiares = familiarResponsableModel.selectFamiliarResponsablesPorPaciente(pacientes[indice].getId());
@@ -231,6 +219,17 @@ public class CrontrollerMedicamentosInventario extends ControllerBase{
         PacienteMedicamentoTabla pacienteMedi = tablaResumenMedicamentos.getSelectionModel().getSelectedItem();
         lblMedicamento.setText(pacienteMedi.getMedicamento());
         lblNombre.setText(listaPacientes.getSelectionModel().getSelectedItem());
+
+        EnvaseMedicinaModel envaseMedicinaModel = new EnvaseMedicinaModel();
+        int idMedi = tablaResumenMedicamentos.getSelectionModel().getSelectedItem().getIdMedicamento();
+        int idPaci = tablaResumenMedicamentos.getSelectionModel().getSelectedItem().getIdPaciente();
+        EnvaseMedicina envase;
+        try {
+            envase = envaseMedicinaModel.selectEnvaseMedicina(idPaci, idMedi);
+            lblMarco.setText(envase.isAvisoFamiliar() ? "Se avisó a familiar." : "No se ha avisado.");
+        } catch (Exception e) {
+            System.out.println("NO se pudo agregar el envase");
+        }
     }
 
     @FXML
@@ -257,6 +256,18 @@ public class CrontrollerMedicamentosInventario extends ControllerBase{
 
     @FXML
     public void pressedButtonMarcar() {
-
+        EnvaseMedicinaModel envaseMedicinaModel = new EnvaseMedicinaModel();
+        int idMedi = tablaResumenMedicamentos.getSelectionModel().getSelectedItem().getIdMedicamento();
+        int idPaci = tablaResumenMedicamentos.getSelectionModel().getSelectedItem().getIdPaciente();
+        EnvaseMedicina envase;
+        try {
+            envase = envaseMedicinaModel.selectEnvaseMedicina(idPaci, idMedi);
+            envase.setAvisoFamiliar(true);
+            envaseMedicinaModel.updateEnvaseMedicina(envase);
+            lblMarco.setText("Se avisó a familiar.");
+            showAlertDialog(Alert.AlertType.INFORMATION, "Se ha marcado al familiar.");
+        } catch (Exception e) {
+            showAlertDialog(Alert.AlertType.INFORMATION, "No se pudo marcar al familiar. Intenta de nuevo.");
+        }
     }
 }
