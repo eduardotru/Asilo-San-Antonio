@@ -95,17 +95,19 @@ public class PacienteMedicamentoTabla{
         }
 
     }
-    public void setDosisDisponibles(int pacienteId){
+
+    public int getDosisDisponiblesParaFecha(Date fechaConsulta){
         int dosisRestantes = 0;
         EnvaseMedicina[] envaseMedicinas = null;
         EnvaseMedicinaModel envaseMedicinaModel = new EnvaseMedicinaModel();
         try {
-            envaseMedicinas=envaseMedicinaModel.selectEnvaseMedicinasPorPacienteMedicamento(pacienteId, idMedicamento);
+            envaseMedicinas=envaseMedicinaModel.selectEnvaseMedicinasPorPacienteMedicamento(idPaciente, idMedicamento);
         }catch (Exception e) {
             System.out.println("Error al cargar los envases de medicina");
+            return -1;
         }
-        Date actual = new Date();
-        int diferenciaDias = (int)((actual.getTime() - inicioReceta.getTime())/86400000);
+
+        int diferenciaDias = (int)((fechaConsulta.getTime() - inicioReceta.getTime())/86400000);
         System.out.println(diferenciaDias);
         for(int i=0; i<envaseMedicinas.length;i++)
             dosisRestantes += envaseMedicinas[0].getCantidad();
@@ -114,7 +116,12 @@ public class PacienteMedicamentoTabla{
         if(tomaMedio.get().equals("Si"))resta+=1;
         if(tomaTarde.get().equals("Si"))resta+=1;
         dosisRestantes-=diferenciaDias*Integer.parseInt(dosis.get())*resta;
-        this.dosisDisponibles.set(Integer.toString(dosisRestantes));
+
+        return dosisRestantes;
+    }
+
+    public void setDosisDisponibles(int dosisDisponibles) {
+        this.dosisDisponibles.set(Integer.toString(dosisDisponibles));
     }
 
     //Gets de los atributos de la clase
