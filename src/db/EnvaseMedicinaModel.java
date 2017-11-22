@@ -317,7 +317,7 @@ public class EnvaseMedicinaModel extends InterfazDB
         if(calendar.after(fechaInicio) && calendar.before(fechaFin)) {
             int diferenciaDias = calendar.get(Calendar.DATE) - fechaInicio.getDate();
             envase.setDiasDisponibles(diferenciaDias);
-            int dosisDisponibles = envase.getCantidad() - dosisDiarias*(diasDisponibles-diferenciaDias);
+            int dosisDisponibles = envase.getCantidad() - dosisDiarias*(diasDisponibles-diferenciaDias)*pacienteMedicamento.getDosis();
             envase.setDosisDisponibles(dosisDisponibles);
             return true;
         }

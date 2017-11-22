@@ -33,6 +33,8 @@ public class CrontrollerMedicamentosInventario extends ControllerBase{
 
     private Paciente[] pacientes = null;
 
+    private Date fechaConsulta;
+
     @FXML Label lblNombre;
     @FXML Label lblMedicamento;
     @FXML TableColumn<PacienteMedicamentoTabla, String> columnaMedida;
@@ -68,6 +70,7 @@ public class CrontrollerMedicamentosInventario extends ControllerBase{
     @FXML
     private void initialize()
     {
+        fechaConsulta = Calendar.getInstance().getTime();
         btnAgregarReceta.setDisable(true);
         ObservableList<String> list = FXCollections.observableArrayList();
         //Obtener la lista de Pacientes
@@ -124,8 +127,11 @@ public class CrontrollerMedicamentosInventario extends ControllerBase{
         try {
             pacienteMedicamentos = model.selectPacienteMedicamento(idPaciente);
             for(int i=0; i<pacienteMedicamentos.length; i++) {
-                data.add(new PacienteMedicamentoTabla(pacienteMedicamentos[i]));
-                data.get(i).setDosisDisponibles(idPaciente);
+                PacienteMedicamento pacienteMedicamento = pacienteMedicamentos[i];
+                PacienteMedicamentoTabla pacienteMedicamentoTabla = new PacienteMedicamentoTabla(pacienteMedicamento);
+                int dosisRestanteFecha = pacienteMedicamentoTabla.getDosisDisponiblesParaFecha(fechaConsulta);
+                pacienteMedicamentoTabla.setDosisDisponibles(dosisRestanteFecha);
+                data.add(pacienteMedicamentoTabla);
             }
         }catch (Exception e) {
             System.out.println("No se pudieron cargar los medicamentos");
@@ -143,30 +149,11 @@ public class CrontrollerMedicamentosInventario extends ControllerBase{
             showAlertDialog(Alert.AlertType.INFORMATION, "Favor de especificar la fecha.");
         }
 
+        fechaConsulta = Date.from(dateFrom.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant());
+
         int indice = listaPacientes.getSelectionModel().getSelectedIndex();
         rellenaTablaMedicamentoPaciente(pacientes[indice]);
         pacienteClicked();
-        /*Date dateFromEnvase = Date.from(dateFrom.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant());
-
-        Calendar cal  = Calendar.getInstance();
-        cal.setTime(dateFromEnvase);
-        int currentDay = cal.get(Calendar.DAY_OF_WEEK);
-        int leftDays= Calendar.SATURDAY - currentDay;
-        cal.add(Calendar.DATE, leftDays);
-
-        Date dateToEnvase = cal.getTime();
-
-        ObservableList<PacienteMedicamentoTabla> data = FXCollections.observableArrayList();
-
-        int indice = listaPacientes.getSelectionModel().getSelectedIndex();
-        EnvaseMedicinaModel envaseMedicinaModel = new EnvaseMedicinaModel();
-        try {
-            EnvaseMedicina[] envasesPorVencer = envaseMedicinaModel.selectEnvasesPorTerminarEntreParaPaciente(
-                dateFromEnvase, dateToEnvase, pacientes[indice].getId()
-            );
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }*/
     }
 
     public int idPacienteSeleccionado;
@@ -199,7 +186,7 @@ public class CrontrollerMedicamentosInventario extends ControllerBase{
     }
 
     @FXML
-    public void preparaSurtido(){
+    public void preparaSurtido() {
         PacienteMedicamentoTabla pacienteMedi = tablaResumenMedicamentos.getSelectionModel().getSelectedItem();
         lblMedicamento.setText(pacienteMedi.getMedicamento());
         lblNombre.setText(listaPacientes.getSelectionModel().getSelectedItem());
