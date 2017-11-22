@@ -153,27 +153,6 @@ public class CrontrollerMedicamentosInventario extends ControllerBase{
         int indice = listaPacientes.getSelectionModel().getSelectedIndex();
         rellenaTablaMedicamentoPaciente(pacientes[indice]);
         pacienteClicked();
-        /*Date dateFromEnvase = Date.from(dateFrom.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant());
-
-        Calendar cal  = Calendar.getInstance();
-        cal.setTime(dateFromEnvase);
-        int currentDay = cal.get(Calendar.DAY_OF_WEEK);
-        int leftDays= Calendar.SATURDAY - currentDay;
-        cal.add(Calendar.DATE, leftDays);
-
-        Date dateToEnvase = cal.getTime();
-
-        ObservableList<PacienteMedicamentoTabla> data = FXCollections.observableArrayList();
-
-        int indice = listaPacientes.getSelectionModel().getSelectedIndex();
-        EnvaseMedicinaModel envaseMedicinaModel = new EnvaseMedicinaModel();
-        try {
-            EnvaseMedicina[] envasesPorVencer = envaseMedicinaModel.selectEnvasesPorTerminarEntreParaPaciente(
-                dateFromEnvase, dateToEnvase, pacientes[indice].getId()
-            );
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }*/
     }
 
     public int idPacienteSeleccionado;
