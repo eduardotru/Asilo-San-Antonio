@@ -77,8 +77,9 @@ public class PacienteMedicamentoModel extends InterfazDB {
         }
         try {
             PreparedStatement  prepeparedStatement = c.prepareStatement(
-                    "SELECT * FROM Asilo.PacienteMedicamento WHERE idPaciente = ?");
+                    "SELECT * FROM Asilo.PacienteMedicamento WHERE idPaciente = ? AND idMedicamento = ?");
             prepeparedStatement.setInt(1, idPaciente);
+            prepeparedStatement.setInt(2, idMedicamento);
             ResultSet result = prepeparedStatement.executeQuery();
             PacienteMedicamento[] pacienteMedicamentos = crearListaPacienteMedicamentos(result);
             if(pacienteMedicamentos.length == 1) {
