@@ -61,11 +61,11 @@
       </Label>
       <JFXButton fx:id="btnHome" layoutX="47.0" layoutY="76.0" onAction="#pressButton" prefHeight="17.0" prefWidth="53.0" style="-fx-background-color: #303f9f;" text="Home" textFill="WHITE" />
       <JFXButton fx:id="btnMenuReporte" layoutX="114.0" layoutY="76.0" onAction="#pressButton" prefHeight="17.0" prefWidth="88.0" style="-fx-background-color: #303f9f;" text="Reportes" textFill="WHITE" />
-      <TableView fx:id="tableEventoDelDia" layoutX="84.0" layoutY="129.0" onMouseClicked="#filaClickeada" prefHeight="136.0" prefWidth="432.0">
+      <TableView fx:id="tableEventoDelDia" layoutX="84.0" layoutY="129.0" onMouseClicked="#filaClickeada" prefHeight="129.0" prefWidth="432.0">
         <columns>
-          <TableColumn fx:id="columnaPaciente" prefWidth="75.0" text="Paciente" />
-          <TableColumn fx:id="columnaEvento" prefWidth="75.0" text="Evento" />
-            <TableColumn fx:id="columnaEnfermero" prefWidth="75.0" text="Enfermero" />
+          <TableColumn fx:id="columnaPaciente" prefWidth="140.0" text="Paciente" />
+          <TableColumn fx:id="columnaEvento" prefWidth="141.0" text="Evento" />
+            <TableColumn fx:id="columnaEnfermero" minWidth="0.0" prefWidth="151.0" text="Enfermero" />
         </columns>
       </TableView>
    </children>
