@@ -40,6 +40,7 @@ public class ControllerReporteConsulta extends  ControllerBase{
     @FXML private DatePicker dateTo;
     @FXML private ComboBox cbPaciente;
     @FXML private TableColumn<EventoTabla,String> columnaEnfermero;
+    @FXML private TableColumn<EventoTabla,String> columnaFecha;
 
     @FXML
     private TextField campoPaciente;
@@ -145,6 +146,8 @@ public class ControllerReporteConsulta extends  ControllerBase{
         columnaPaciente.setCellValueFactory(new PropertyValueFactory<EventoTabla,String>("paciente"));
         columnaEvento.setCellValueFactory(new PropertyValueFactory<EventoTabla,String>("asunto"));
         columnaEnfermero.setCellValueFactory(new PropertyValueFactory<EventoTabla,String>("enfermero"));
+        columnaFecha.setCellValueFactory(new PropertyValueFactory<EventoTabla,String>("fecha"));
+
         tableEventoDelDia.setItems(getEvento(eventos));
     }
 

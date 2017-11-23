@@ -10,7 +10,7 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #e1e2e1;" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.ControllerReporteDelDia">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="427.0" prefWidth="600.0" style="-fx-background-color: #e1e2e1;" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.ControllerReporteDelDia">
    <children>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#303f9f" height="68.0" stroke="TRANSPARENT" strokeType="INSIDE" strokeWidth="0.0" width="600.0" />
       <Label layoutX="14.0" layoutY="14.0" prefHeight="38.0" prefWidth="367.0" text="Asilo Luis Elizondo" textFill="WHITE">
@@ -28,30 +28,30 @@
             <Font name="Roboto" size="12.0" />
          </font>
       </Label>
-      <Pane layoutX="84.0" layoutY="265.0" prefHeight="114.0" prefWidth="432.0" style="-fx-background-color: white;">
+      <Pane layoutX="84.0" layoutY="263.0" prefHeight="151.0" prefWidth="432.0" style="-fx-background-color: white;">
          <children>
-            <Label layoutX="14.0" layoutY="6.0" prefHeight="17.0" prefWidth="53.0" text="Paciente:">
+            <Label layoutX="14.0" layoutY="20.0" prefHeight="17.0" prefWidth="53.0" text="Paciente:">
                <font>
                   <Font name="Roboto Black" size="12.0" />
                </font>
             </Label>
-            <Label fx:id="asunto" layoutX="14.0" layoutY="30.0" text="Asunto:">
+            <Label fx:id="asunto" layoutX="14.0" layoutY="52.0" text="Asunto:">
                <font>
                   <Font name="Roboto Black" size="12.0" />
                </font>
             </Label>
-            <Label layoutX="12.0" layoutY="52.0" text="Enfermero:" />
-            <Label layoutX="228.0" layoutY="32.0" text="En Hospitalito" />
-            <Label layoutX="227.0" layoutY="5.0" prefHeight="17.0" prefWidth="104.0" text="Familiar Notificado" />
-            <Label layoutX="229.0" layoutY="54.0" text="Requirió consulta" />
-            <JFXTextField fx:id="campoPaciente" layoutX="69.0" layoutY="-9.0" />
-            <JFXTextField fx:id="campoAsunto" layoutX="68.0" layoutY="20.0" />
-            <JFXTextField fx:id="campoEnfermero" layoutX="82.0" layoutY="43.0" />
-            <JFXTextField fx:id="campoHospitalito" layoutX="331.0" layoutY="20.0" prefHeight="16.0" prefWidth="31.0" />
-            <JFXTextField fx:id="campoConsulta" layoutX="331.0" layoutY="43.0" prefHeight="16.0" prefWidth="31.0" />
-            <JFXTextField fx:id="campoNotificado" layoutX="331.0" layoutY="-7.0" prefHeight="16.0" prefWidth="31.0" />
-            <Label layoutX="14.0" layoutY="83.0" text="Descripcion:" />
-            <JFXTextField fx:id="campoDescripcion" layoutX="86.0" layoutY="72.0" />
+            <Label layoutX="14.0" layoutY="88.0" text="Enfermero:" />
+            <Label layoutX="277.0" layoutY="54.0" text="En Hospitalito" />
+            <Label layoutX="273.0" layoutY="19.0" prefHeight="17.0" prefWidth="104.0" text="Familiar Notificado" />
+            <Label layoutX="279.0" layoutY="89.0" text="Requirió consulta" />
+            <JFXTextField fx:id="campoPaciente" layoutX="69.0" layoutY="5.0" />
+            <JFXTextField fx:id="campoAsunto" layoutX="68.0" layoutY="42.0" />
+            <JFXTextField fx:id="campoEnfermero" layoutX="82.0" layoutY="79.0" />
+            <JFXTextField fx:id="campoHospitalito" layoutX="380.0" layoutY="43.0" prefHeight="16.0" prefWidth="31.0" />
+            <JFXTextField fx:id="campoConsulta" layoutX="381.0" layoutY="78.0" prefHeight="16.0" prefWidth="31.0" />
+            <JFXTextField fx:id="campoNotificado" layoutX="377.0" layoutY="7.0" prefHeight="16.0" prefWidth="31.0" />
+            <Label layoutX="14.0" layoutY="125.0" text="Descripcion:" />
+            <JFXTextField fx:id="campoDescripcion" layoutX="86.0" layoutY="114.0" prefHeight="24.0" prefWidth="329.0" />
          </children>
       </Pane>
       <Label layoutX="14.0" layoutY="96.0" text="Reporte del diá">

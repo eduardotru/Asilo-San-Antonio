@@ -22,7 +22,7 @@ public class ControllerMenuMedicina extends ControllerBase {
     }
 
     public void pshBtnHome(Event event) throws IOException{
-        cargaPantalla(event,"Home.fxml",btnHome);
+        cargaPantalla(event,"home.fxml",btnHome);
     }
 
     public void pshBotonMedicamentosInventario(Event event) throws  IOException{

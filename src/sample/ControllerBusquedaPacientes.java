@@ -61,7 +61,7 @@ public class ControllerBusquedaPacientes extends ControllerBase{
     @FXML
     public void initialize() throws Exception {
         ObservableList<String> list = FXCollections.observableArrayList();
-
+        btnMasDetalles.setDisable(true);
         //El usuario solo podra seleccionar un solo elemento de la lista a la vez
         listaPacientes.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
 

@@ -92,4 +92,8 @@ public class EventoTabla {
     public String getRequirioConsulta() {
         return requirioConsulta.get();
     }
+
+    public String getFecha() {
+        return fecha.get();
+    }
 }

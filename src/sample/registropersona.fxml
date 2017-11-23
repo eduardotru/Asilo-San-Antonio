@@ -83,13 +83,13 @@
                   <JFXButton fx:id="bAgregarFamiliar" layoutX="37.0" layoutY="288.0" onAction="#pressButtonAgregarFamiliar" prefHeight="38.0" prefWidth="130.0" style="-fx-background-color: #303f9f;" text="Agregar Familiar Responsable" textFill="WHITE" />
                   <JFXButton fx:id="bAgregarServicioEmergencia" layoutX="180.0" layoutY="288.0" onAction="#pressButtonAgregarServicio" prefHeight="38.0" prefWidth="140.0" style="-fx-background-color: #303f9f;" text="Agregar Servicio Emergencia" textFill="WHITE" />
                   <JFXButton fx:id="bAgregarSeguro" layoutX="339.0" layoutY="288.0" onAction="#pressButtonAgregarSeguro" prefHeight="38.0" prefWidth="121.0" style="-fx-background-color: #303f9f;" text="Agregar Seguro" textFill="WHITE" />
-                  <JFXTextArea fx:id="txtFamiliares" layoutX="35.0" layoutY="353.0" prefHeight="100.0" prefWidth="130.0" />
-                  <JFXTextArea fx:id="txtServicios" layoutX="182.0" layoutY="342.0" prefHeight="113.0" prefWidth="130.0" />
-                  <JFXTextArea fx:id="txtSeguros" layoutX="330.0" layoutY="342.0" prefHeight="113.0" prefWidth="130.0" />
+                  <JFXTextArea fx:id="txtFamiliares" editable="false" layoutX="35.0" layoutY="353.0" prefHeight="100.0" prefWidth="130.0" />
+                  <JFXTextArea fx:id="txtServicios" editable="false" layoutX="182.0" layoutY="342.0" prefHeight="113.0" prefWidth="130.0" />
+                  <JFXTextArea fx:id="txtSeguros" editable="false" layoutX="330.0" layoutY="342.0" prefHeight="113.0" prefWidth="130.0" />
                   <JFXTextField fx:id="txtCuarto" layoutX="35.0" layoutY="240.0" prefHeight="24.0" prefWidth="121.0" />
                   <JFXTextField fx:id="txtCama" layoutX="176.0" layoutY="238.0" prefHeight="24.0" prefWidth="121.0" />
                   <JFXTextField fx:id="txtNumeroReferencia" layoutX="39.0" layoutY="503.0" prefHeight="25.0" prefWidth="235.0" />
-                  <Label layoutX="39.0" layoutY="477.0" text="Número de referencia:">
+                  <Label layoutX="39.0" layoutY="477.0" text="No. servicio de Emergencia:">
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>
