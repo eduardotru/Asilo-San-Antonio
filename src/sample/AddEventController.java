@@ -7,6 +7,7 @@ import db.PacienteModel;
 import javafx.beans.InvalidationListener;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -35,12 +36,12 @@ public class AddEventController extends ControllerBase{
     @FXML    public CheckBox bConsulta;
     @FXML    public DatePicker fechaEventualidad;
     @FXML    public TextArea textComentarios;
-
+    @FXML    public Button btnHome;
 
     @FXML
     private void initialize() {
         initializeDate(lblDate);
-        ruta.setText("Home > Registrar Eventualidad");
+
         PacienteModel pacienteModel = new PacienteModel();
         Paciente[] pacientes;
         try {
@@ -117,4 +118,9 @@ public class AddEventController extends ControllerBase{
         stage.setScene(scene);
         stage.show();
     }
+
+     @FXML
+    public void pshBtnHome(Event event) throws IOException{
+        cargaPantalla(event,"home.fxml",btnHome);
+     }
 }
