@@ -118,8 +118,17 @@ public class ControllerAgregarReceta {
                         System.out.println("Error al agregar receta");
                     }
                 }else{
-                    System.out.println("Accediendo a medicamento existente con medida nueva");
-                    //Escribir codigo aqui para agregar medicamento con mismo nombre pero diferente tamanio de dosis
+                    int nuevoMedicamentoID =0;
+                    System.out.println("Agregar medicamento completamente nuevo");
+                    try{
+                        nuevoMedicamentoID = medicamentoModel.addMedicamento(textMedida.getText(),textNombre.getText());
+                        medicamentoGuardar = new Medicamento(nuevoMedicamentoID,textDosis.getText(),textNombre.getText());
+                        pacienteMedicamentoModel.addPacienteMedicamento(pacienteID, nuevoMedicamentoID, Integer.parseInt(textDosis.getText()),
+                                chkTomaMañana.isSelected(), chkTomaMedio.isSelected(), chkTomaTarde.isSelected(), new Date(), 14);
+                        agregaEnvase(pacienteID,medicamentoGuardar.getId(),medicamentoGuardar.getNombreGenerico());
+                    }catch (Exception e) {
+                        System.out.println("Error al agregar medicamento nuevo");
+                    }
                 }
             }else {
                 int nuevoMedicamentoID =0;

@@ -4,7 +4,10 @@ import db.FamiliarResponsableModel;
 import db.PacienteModel;
 import db.SeguroModel;
 import db.ServicioEmergenciaModel;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -14,10 +17,7 @@ import javafx.scene.control.*;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
-import objetos.FamiliarResponsable;
-import objetos.Paciente;
-import objetos.Seguro;
-import objetos.ServicioEmergencia;
+import objetos.*;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -37,9 +37,14 @@ public class ControllerRegistroPersona  extends ControllerBase {
     @FXML private TextArea txtFamiliares;
     @FXML private TextArea txtServicios;
     @FXML private TextArea txtSeguros;
-    @FXML private TextArea txtPadecimientos;
+
     @FXML private TextField txtNumeroReferencia;
     @FXML public Button btnRegistrar;
+    @FXML public Button btnHome;
+    @FXML public Button btnPacientesMenu;
+    @FXML public ListView<String> listaPadecimientos;
+    @FXML public TextField txtPadecimientos;
+    @FXML public Button bAgregarPadecimiento;
 
     @FXML
     public Label date;
@@ -66,7 +71,7 @@ public class ControllerRegistroPersona  extends ControllerBase {
      */
     private void initialize() {
         initializeDate(date);
-        ruta.setText("Home > Registrar Persona");
+
 
         //
         cbEstado.getItems().add("Estable");
@@ -343,5 +348,25 @@ public class ControllerRegistroPersona  extends ControllerBase {
             showAlertDialog(Alert.AlertType.ERROR,
                     "Hubo un error al guardar al nuevo paciente. Favor de intentarlo más tarde.");
         }
+
+        
     }
+
+    @FXML
+    public void pushedBtnHome(Event event) throws IOException{
+        cargaPantalla(event,"home.fxml",btnHome);
+    }
+
+    @FXML
+    public void pushedMenuPaci(Event event) throws IOException{
+        cargaPantalla(event,"busquedapacientes.fxml",btnPacientesMenu);
+    }
+
+    ObservableList<String> oLPadiciemients = FXCollections.observableArrayList();
+    @FXML
+    public void pshAgregarPadecimiento(){
+        oLPadiciemients.add(txtPadecimientos.getText());
+        listaPadecimientos.setItems(oLPadiciemients);
+    }
+
 }
