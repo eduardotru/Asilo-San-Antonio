@@ -156,7 +156,7 @@ public class ControllerAgregarReceta {
 
     public void agregaEnvase(int idPac,int idMedi,String nombreMedi){
         try{
-            envaseMedicinaModel.addEnvaseMedicina(nombreMedi,new Date(),"presentacionBase",0,idMedi,idPac);
+            envaseMedicinaModel.addEnvaseMedicina(nombreMedi,new Date(),"presentacionBase",0,idMedi,idPac, false);
         }catch (Exception e){
             System.out.println("Error al agregar el envase");
         }
