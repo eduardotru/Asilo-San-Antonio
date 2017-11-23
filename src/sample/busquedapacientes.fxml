@@ -45,7 +45,7 @@
             <Font size="14.0" />
          </font>
       </Label>
-      <JFXListView fx:id="listaPacientes" layoutX="14.0" layoutY="209.0" onMouseClicked="#muestraPacienteSeleccionado" prefHeight="157.0" prefWidth="133.0" />
+      <JFXListView fx:id="listaPacientes" editable="true" layoutX="14.0" layoutY="209.0" onMouseClicked="#muestraPacienteSeleccionado" prefHeight="157.0" prefWidth="133.0" />
       <JFXButton fx:id="btnMasDetalles" disable="true" layoutX="462.0" layoutY="340.0" onAction="#pushedBtnMasDetalles" style="-fx-background-color: white;" text="Ver más detalles" />
       <JFXButton fx:id="btnHome" layoutX="55.0" layoutY="82.0" onAction="#pushedBtnHome" style="-fx-background-color: #303f9f;" text="Home" textFill="WHITE" />
       <Label layoutX="24.0" layoutY="24.0" prefHeight="38.0" prefWidth="367.0" text="Asilo Luis Elizondo " textFill="WHITE">

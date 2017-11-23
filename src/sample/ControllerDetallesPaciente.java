@@ -22,6 +22,7 @@ import org.omg.Messaging.SYNC_WITH_TRANSPORT;
 
 import javax.naming.Name;
 import java.awt.*;
+import java.awt.TextArea;
 import java.io.IOException;
 import java.security.spec.ECField;
 import java.sql.SQLException;
@@ -82,11 +83,12 @@ public class ControllerDetallesPaciente extends  ControllerBase{
     @FXML
     private ListView<Pane> listaTabla;
     @FXML
-    private ListView<String> listaPadecimientos;
-
+    private TextField campoPadecimiento;
+    @FXML ListView<String> listaPadecimientos;
     @FXML private Button bAgregarFamiliar;
     @FXML private Button bAgregarServicioEmergencia;
     @FXML private Button bAgregarSeguro;
+    @FXML private Button btnAgregaPadecimiento;
 
     private int prevFamiliarIndex = 0;
 
@@ -104,9 +106,10 @@ public class ControllerDetallesPaciente extends  ControllerBase{
         listaFamiliares.setItems(olstfamiliares);
     }
 
+    public  Paciente pacienteEnCuestion;
     public void initData(Paciente paciente) {
         listaFamiliares.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
-
+        pacienteEnCuestion = paciente;
         //Rellena los campos con los datos del paciente
         campoNombrePaciente.setText(paciente.getNombre());
         campoFechaNac.setValue(Instant.ofEpochMilli(paciente.getFechaNacimiento().getTime()).atZone((ZoneId.systemDefault())).toLocalDate());
@@ -448,5 +451,22 @@ public class ControllerDetallesPaciente extends  ControllerBase{
         }
 
         cargaListaFamiliares();
+    }
+
+    @FXML
+    public void pshAgregaPadecimiento(){
+
+        ObservableList<String> lista = FXCollections.observableArrayList();
+        Padecimiento[] padecimientos = null;
+        try {
+            padecimientoModel.addPadecimiento(pacienteEnCuestion.getId(),campoPadecimiento.getText());
+            padecimientos = padecimientoModel.selectPadecimientosPorPaciente(pacienteEnCuestion.getId());
+            for (int i = 0; i < padecimientos.length; i++){
+                lista.add(padecimientos[i].getPadecimiento());
+            }
+            listaPadecimientos.setItems(lista);
+        }catch (Exception e){
+            System.out.println("Error al cargar padecimientos");
+        }
     }
 }

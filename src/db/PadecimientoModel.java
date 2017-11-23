@@ -32,8 +32,8 @@ public class PadecimientoModel extends InterfazDB
         }
         try {
             PreparedStatement prepStatement = c.prepareStatement(
-                    "INSERT INTO Asilo.Padecimiento(id, idPaciente, padecimiento) " +
-                            "VALUES (default, ?, ?)");
+                    "INSERT INTO Asilo.Padecimientos(id, idPaciente, padecimiento) " +
+                            "VALUES (default, ?, ?)",Statement.RETURN_GENERATED_KEYS);
             prepStatement.setInt(1, idPaciente);
             prepStatement.setString(2, padecimiento);
             prepStatement.executeUpdate();

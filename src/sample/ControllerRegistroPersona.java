@@ -1,9 +1,6 @@
 package sample;
 
-import db.FamiliarResponsableModel;
-import db.PacienteModel;
-import db.SeguroModel;
-import db.ServicioEmergenciaModel;
+import db.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -349,7 +346,21 @@ public class ControllerRegistroPersona  extends ControllerBase {
                     "Hubo un error al guardar al nuevo paciente. Favor de intentarlo más tarde.");
         }
 
+        //Agregar Padecmientos al paciente
+        for(int j=0; j<oLPadiciemients.size();j++){
+            agregaPadecimiento(idPacienteRegistrado,oLPadiciemients.get(j));
+        }
+
         
+    }
+
+    PadecimientoModel padecimientoModel = new PadecimientoModel();
+    private void agregaPadecimiento(int idPaciente, String padecimiento) {
+        try {
+            padecimientoModel.addPadecimiento(idPaciente,padecimiento);
+        } catch (Exception e){
+            System.out.println("No se pudo agregar el padecimiento");
+        }
     }
 
     @FXML

@@ -88,9 +88,9 @@
             <JFXTextField fx:id="campoTelefonoPariente" layoutX="71.0" layoutY="84.0" prefHeight="24.0" prefWidth="158.0" />
          </children>
       </Pane>
-      <Pane layoutX="321.0" layoutY="343.0" prefHeight="132.0" prefWidth="241.0" style="-fx-background-color: #e1e2e1;">
+      <Pane layoutX="321.0" layoutY="343.0" prefHeight="132.0" prefWidth="506.0" style="-fx-background-color: #e1e2e1;">
          <children>
-            <JFXListView fx:id="listaTabla" layoutX="15.0" layoutY="11.0" prefHeight="114.0" prefWidth="211.0" />
+            <JFXListView fx:id="listaTabla" layoutX="7.0" layoutY="4.0" prefHeight="121.0" prefWidth="493.0" />
          </children></Pane>
       <Pane layoutX="33.0" layoutY="341.0" prefHeight="132.0" prefWidth="261.0" style="-fx-background-color: #e1e2e1;">
          <children>
@@ -152,7 +152,7 @@
       </Label>
       <Pane layoutX="321.0" layoutY="514.0" prefHeight="132.0" prefWidth="232.0" style="-fx-background-color: #e1e2e1;">
          <children>
-            <JFXListView fx:id="listaPadecimientos" layoutX="3.0" layoutY="5.0" prefHeight="125.0" prefWidth="224.0" />
+            <JFXListView fx:id="listaPadecimientos" layoutX="-2.0" prefHeight="132.0" prefWidth="232.0" />
          </children>
       </Pane>
       <JFXButton layoutX="494.0" layoutY="101.0" onAction="#pushedActualizar" text="Actualizar" />
@@ -169,5 +169,7 @@
       <JFXButton fx:id="bAgregarSeguro" layoutX="235.0" layoutY="487.0" onAction="#pressButtonAgregarSeguro" style="-fx-background-color: #303f9f;" text="Agregar" textFill="WHITE" />
       <JFXButton fx:id="bAgregarServicioEmergencia" layoutX="235.0" layoutY="310.0" onAction="#pressButtonAgregarServicio" style="-fx-background-color: #303f9f;" text="Agregar" textFill="WHITE" />
       <JFXListView fx:id="listaFamiliares" layoutX="586.0" layoutY="163.0" onMouseClicked="#clickFamiliar" prefHeight="132.0" prefWidth="241.0" />
+      <JFXTextField fx:id="campoPadecimiento" layoutX="605.0" layoutY="568.0" prefHeight="24.0" prefWidth="203.0" />
+      <JFXButton fx:id="btnAgregaPadecimiento" layoutX="685.0" layoutY="629.0" onAction="#pshAgregaPadecimiento" style="-fx-background-color: #303f9f;" text="Agregar" textFill="WHITE" />
    </children>
 </AnchorPane>

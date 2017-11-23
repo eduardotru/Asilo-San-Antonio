@@ -93,7 +93,11 @@ public class CrontrollerMedicamentosInventario extends ControllerBase{
     }
 
     @FXML
-    public void pshBtnHome(Event event) throws IOException {
+    public void pshBtnHome(Event event) throws IOException{
+        cargaPantalla(event,"home.fxml",btnHome);
+    }
+    @FXML
+    public void pshBtnBuscar(Event event) throws IOException {
         PacienteModel pacienteModel = new PacienteModel();
         try {
             Paciente pacienteBuscado =  pacienteModel.
