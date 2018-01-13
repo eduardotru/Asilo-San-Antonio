@@ -6,13 +6,18 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="500.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.ControllerMenuReportes">
+<AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="500.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.ControllerMenuMedicina">
    <children>
-      <JFXButton fx:id="btnReporte" buttonType="RAISED" layoutX="112.0" layoutY="188.0" onAction="#pressButton" prefHeight="68.0" prefWidth="160.0" style="-fx-background-color: #303f9f;" text="Ver Reporte del Dia" textFill="WHITE">
-         <font>
-            <Font name="Roboto" size="14.0" />
-         </font></JFXButton>
-      <JFXButton fx:id="btnHistorialRps" buttonType="RAISED" layoutX="321.0" layoutY="188.0" onAction="#pressButton" prefHeight="68.0" prefWidth="160.0" style="-fx-background-color: #303f9f;" text="Historias del Reportes" textFill="WHITE" AnchorPane.rightAnchor="119.0">
+      <AnchorPane layoutX="97.0" layoutY="177.0">
+         <children>
+            <JFXButton fx:id="btnMedDia" buttonType="RAISED" layoutX="15.0" layoutY="11.0" onAction="#pshBotonMedicamentosDelDia" prefHeight="68.0" prefWidth="160.0" style="-fx-background-color: #303f9f;" text="Para el día de hoy" textFill="WHITE">
+               <font>
+                  <Font name="Roboto" size="14.0" />
+               </font>
+            </JFXButton>
+         </children>
+      </AnchorPane>
+      <JFXButton fx:id="btnMedicamentosInventario" buttonType="RAISED" layoutX="321.0" layoutY="188.0" onAction="#pshBotonMedicamentosInventario" prefHeight="68.0" prefWidth="160.0" style="-fx-background-color: #303f9f;" text="Listado de medicamentos" textFill="WHITE" AnchorPane.rightAnchor="119.0">
          <font>
             <Font name="Roboto" size="14.0" />
          </font>
@@ -33,7 +38,7 @@
             <Font name="Roboto" size="12.0" />
          </font>
       </Label>
-      <JFXButton fx:id="btnHome" buttonType="RAISED" layoutX="49.0" layoutY="71.0" onAction="#pressButton" prefHeight="30.0" prefWidth="71.0" style="-fx-background-color: #303f9f;" text="Home" textAlignment="CENTER" textFill="WHITE">
+      <JFXButton fx:id="btnHome" buttonType="RAISED" layoutX="49.0" layoutY="71.0" onAction="#pshBtnHome" prefHeight="30.0" prefWidth="71.0" style="-fx-background-color: #303f9f;" text="Home" textAlignment="CENTER" textFill="WHITE">
          <font>
             <Font name="Roboto" size="14.0" />
          </font>

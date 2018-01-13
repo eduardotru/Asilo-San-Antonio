@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="module_asilo-san-antonio" default="compile.module.asilo-san-antonio">
+  <dirname property="module.asilo-san-antonio.basedir" file="${ant.file.module_asilo-san-antonio}"/>
+  
+  <property name="module.jdk.home.asilo-san-antonio" value="${project.jdk.home}"/>
+  <property name="module.jdk.bin.asilo-san-antonio" value="${project.jdk.bin}"/>
+  <property name="module.jdk.classpath.asilo-san-antonio" value="${project.jdk.classpath}"/>
+  
+  <property name="compiler.args.asilo-san-antonio" value="-encoding UTF-8 -source 9 -target 9 ${compiler.args}"/>
+  
+  <property name="asilo-san-antonio.output.dir" value="${module.asilo-san-antonio.basedir}/../out/production/Asilo-San-Antonio"/>
+  <property name="asilo-san-antonio.testoutput.dir" value="${module.asilo-san-antonio.basedir}/../out/test/Asilo-San-Antonio"/>
+  
+  <path id="asilo-san-antonio.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="asilo-san-antonio.module.production.classpath">
+    <path refid="${module.jdk.classpath.asilo-san-antonio}"/>
+    <path refid="library.mysql-connector-java-5.1.44-bin.classpath"/>
+    <path refid="library.jfoenix.classpath"/>
+  </path>
+  
+  <path id="asilo-san-antonio.runtime.production.module.classpath">
+    <pathelement location="${asilo-san-antonio.output.dir}"/>
+    <path refid="library.mysql-connector-java-5.1.44-bin.classpath"/>
+    <path refid="library.jfoenix.classpath"/>
+  </path>
+  
+  <path id="asilo-san-antonio.module.classpath">
+    <path refid="${module.jdk.classpath.asilo-san-antonio}"/>
+    <pathelement location="${asilo-san-antonio.output.dir}"/>
+    <path refid="library.mysql-connector-java-5.1.44-bin.classpath"/>
+    <path refid="library.jfoenix.classpath"/>
+  </path>
+  
+  <path id="asilo-san-antonio.runtime.module.classpath">
+    <pathelement location="${asilo-san-antonio.testoutput.dir}"/>
+    <pathelement location="${asilo-san-antonio.output.dir}"/>
+    <path refid="library.mysql-connector-java-5.1.44-bin.classpath"/>
+    <path refid="library.jfoenix.classpath"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.asilo-san-antonio">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.asilo-san-antonio">
+    <patternset refid="excluded.from.module.asilo-san-antonio"/>
+  </patternset>
+  
+  <path id="asilo-san-antonio.module.sourcepath">
+    <dirset dir="${module.asilo-san-antonio.basedir}/../../Asilo-San-Antonio">
+      <include name="src"/>
+    </dirset>
+  </path>
+  
+  
+  <target name="compile.module.asilo-san-antonio" depends="compile.module.asilo-san-antonio.production,compile.module.asilo-san-antonio.tests" description="Compile module Asilo-San-Antonio"/>
+  
+  <target name="compile.module.asilo-san-antonio.production" depends="register.custom.compilers" description="Compile module Asilo-San-Antonio; production classes">
+    <mkdir dir="${asilo-san-antonio.output.dir}"/>
+    <javac2 destdir="${asilo-san-antonio.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.asilo-san-antonio}/javac">
+      <compilerarg line="${compiler.args.asilo-san-antonio}"/>
+      <bootclasspath refid="asilo-san-antonio.module.bootclasspath"/>
+      <classpath refid="asilo-san-antonio.module.production.classpath"/>
+      <src refid="asilo-san-antonio.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.asilo-san-antonio"/>
+    </javac2>
+    
+    <copy todir="${asilo-san-antonio.output.dir}">
+      <fileset dir="${module.asilo-san-antonio.basedir}/../src">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="compile.module.asilo-san-antonio.tests" depends="register.custom.compilers,compile.module.asilo-san-antonio.production" description="compile module Asilo-San-Antonio; test classes" unless="skip.tests"/>
+  
+  <target name="clean.module.asilo-san-antonio" description="cleanup module">
+    <delete dir="${asilo-san-antonio.output.dir}"/>
+    <delete dir="${asilo-san-antonio.testoutput.dir}"/>
+  </target>
+</project>

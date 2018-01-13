@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXListView?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.ControllerBusquedaPacientes">
+   <children>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#303f9f" height="75.0" stroke="TRANSPARENT" strokeType="INSIDE" strokeWidth="0.0" width="606.0" />
+      <Label fx:id="date" layoutX="463.0" layoutY="86.0" prefHeight="15.0" prefWidth="133.0" text="Fecha" textAlignment="RIGHT">
+         <font>
+            <Font name="Roboto" size="12.0" />
+         </font>
+      </Label>
+      <Label fx:id="ruta" layoutX="24.0" layoutY="86.0" prefHeight="15.0" prefWidth="96.0" text="Ruta">
+         <font>
+            <Font name="Roboto" size="12.0" />
+         </font>
+      </Label>
+      <Label layoutX="134.0" layoutY="-61.0" prefHeight="38.0" prefWidth="367.0" text="Asilo San Antonio " textFill="WHITE">
+         <font>
+            <Font name="Roboto Medium" size="30.0" />
+         </font>
+      </Label>
+      <Pane layoutX="164.0" layoutY="208.0" prefHeight="157.0" prefWidth="277.0" style="-fx-background-color: #e1e2e1;">
+         <children>
+            <Label fx:id="lblNombre" layoutX="14.0" layoutY="14.0" text="Nombre:" />
+            <Label fx:id="lblEdad" layoutX="14.0" layoutY="31.0" text="Edad:" />
+            <Label fx:id="lblEstado" layoutX="14.0" layoutY="48.0" text="Estado:" />
+            <Label fx:id="lblSexo" layoutX="14.0" layoutY="65.0" text="Sexo:" />
+            <Label fx:id="lblCuarto" layoutX="14.0" layoutY="82.0" text="Cuarto" />
+            <JFXTextField layoutX="14.0" layoutY="99.0" />
+         </children>
+      </Pane>
+      <JFXButton fx:id="btnBuscar" layoutX="519.0" layoutY="147.0" onAction="#pushedBuscaPaciente" style="-fx-background-color: #303f9f;" text="Buscar" textFill="WHITE" />
+      <JFXTextField fx:id="campoBusquedaPaciente" layoutX="51.0" layoutY="144.0" onKeyPressed="#enterPresionado" prefHeight="0.0" prefWidth="450.0" />
+      <JFXButton fx:id="btnAddPatient" layoutX="456.0" layoutY="209.0" onAction="#pressAddPatient" prefHeight="32.0" prefWidth="114.0" style="-fx-background-color: #303f9f;" text="Agregar Paciente" textFill="WHITE" />
+      <Label layoutX="24.0" layoutY="109.0" text="Búsqueda Pacientes">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <JFXListView fx:id="listaPacientes" editable="true" layoutX="14.0" layoutY="209.0" onMouseClicked="#muestraPacienteSeleccionado" prefHeight="157.0" prefWidth="133.0" />
+      <JFXButton fx:id="btnHome" layoutX="55.0" layoutY="82.0" onAction="#pushedBtnHome" style="-fx-background-color: #303f9f;" text="Home" textFill="WHITE" />
+      <Label layoutX="24.0" layoutY="24.0" prefHeight="38.0" prefWidth="367.0" text="Asilo Luis Elizondo " textFill="WHITE">
+         <font>
+            <Font name="Roboto Medium" size="30.0" />
+         </font>
+      </Label>
+      <JFXButton fx:id="btnMasDetalles" layoutX="456.0" layoutY="334.0" onAction="#pushedBtnMasDetalles" prefHeight="32.0" prefWidth="114.0" style="-fx-background-color: #303f9f;" text="Ver más detalles" textFill="WHITE" />
+   </children>
+</AnchorPane>
